@@ -14,9 +14,8 @@ public class Nodo {
 		private String descripcion;
 		private Float cantidad;
 		private String um;
-		
-		//l
-		//ii
+
+		//i000
 
 		public Nodo(Float p)
 		{
