@@ -9,7 +9,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import persistencia.Conexion;
-import ui.EliminiaRelacionUI;
+import ui.EliminaRelacionUI;
+import ui.*;
 
 public class EliminaRelacion {
 	
@@ -63,7 +64,7 @@ public class EliminaRelacion {
 
 		
 		
-		EliminiaRelacionUI elim = new EliminiaRelacionUI(modeloPadre);
+		EliminaRelacionUI elim= new EliminaRelacionUI(modeloPadre);
 		elim.setVisible(true);
 
 	}

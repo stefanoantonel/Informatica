@@ -20,7 +20,7 @@ import modelo.Nodo;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EliminiaRelacionUI extends JFrame {
+public class EliminaRelacionUI extends JFrame {
 
 	private JPanel contentPane;
 	JList listHijo = new JList();
@@ -47,7 +47,7 @@ public class EliminiaRelacionUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EliminiaRelacionUI(DefaultListModel<String> padre) {
+	public EliminaRelacionUI(DefaultListModel<String> padre) {
 		
 		modeloPadre=padre;
 		
@@ -65,7 +65,8 @@ public class EliminiaRelacionUI extends JFrame {
 			public void valueChanged(ListSelectionEvent e) {
 				EliminaRelacion elim=new EliminaRelacion();
 				Arbol arbol=new Arbol();
-				String descripcion =listPadre.getSelectedValue().toString();
+			
+			String descripcion =listPadre.getSelectedValue().toString();
 				//obtengo el valor del nodo padre y lo pongo en nodo
 				Nodo nodo=(arbol.getNodoByDescripcion(descripcion));
 				System.out.println("valor del padre seleciiondo"+nodo.GetValor());

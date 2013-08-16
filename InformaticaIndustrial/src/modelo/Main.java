@@ -3,7 +3,7 @@ package modelo;
 import java.sql.ResultSet;
 
 import persistencia.Conexion;
-import ui.EliminiaRelacionUI;
+import ui.*;
 
 //import sql.Conexion;
 

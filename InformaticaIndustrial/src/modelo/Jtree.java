@@ -12,7 +12,7 @@ import java.util.Iterator;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import ui.ExplosionUI;
+import ui.*;
 
 	public class Jtree {
 	    

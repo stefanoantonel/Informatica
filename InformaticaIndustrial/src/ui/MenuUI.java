@@ -27,7 +27,7 @@ import modelo.Jtree;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Menu extends JFrame {
+public class MenuUI extends JFrame {
 
 	private JPanel contentPane;
 
@@ -38,7 +38,7 @@ public class Menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
+					MenuUI frame = new MenuUI();
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -51,7 +51,7 @@ public class Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {
+	public MenuUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 605, 435);
 		
@@ -83,7 +83,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EliminaRelacion elim=new EliminaRelacion();
 				elim.InicializarPadre();
-				Menu.this.setVisible(false);
+				MenuUI.this.setVisible(false);
 			}
 		});
 		btnNewButton_1.setBounds(52, 240, 141, 67);
@@ -94,7 +94,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AgregaRelacion ag=new AgregaRelacion();
 				ag.InicilizarUI();
-				Menu.this.setVisible(false);
+				MenuUI.this.setVisible(false);
 			}
 		});
 		btnNewButton_2.setBounds(339, 240, 143, 67);
