@@ -20,7 +20,7 @@ public class AgregaRelacion {
 
 	public AgregaRelacion() {
 
-//++++
+//++++desde internet
 
 	}
 
