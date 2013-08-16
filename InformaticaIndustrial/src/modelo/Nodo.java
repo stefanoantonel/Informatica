@@ -15,7 +15,7 @@ public class Nodo {
 		private Float cantidad;
 		private String um;
 		
-		
+		//lo
 		//ii
 
 		public Nodo(Float p)
