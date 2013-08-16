@@ -24,7 +24,7 @@ import modelo.Arbol;
 public class ExplosionUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTree tree;
+	private JTree tree;//flor
 
 	public ExplosionUI(DefaultTreeModel modelo) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
