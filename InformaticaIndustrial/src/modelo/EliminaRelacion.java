@@ -80,7 +80,7 @@ public class EliminaRelacion {
 		return modeloHijo;
 	}
 
-	public void Eliminacion(String padreDesc, String hijoDesc){
+	public void Eliminacion(String padreDesc, String hijoDesc, EliminaRelacionUI ui){
 		Connection con;
 		ResultSet rs=null;
 		
@@ -128,6 +128,7 @@ public class EliminaRelacion {
 			stm.executeUpdate();	
 			JOptionPane.showMessageDialog(null, "Borrado con exito");
 			
+			ui.
 		}catch (Exception e) {
 			System.out.println("error pdate eliminar");
 			e.printStackTrace();

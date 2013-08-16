@@ -93,10 +93,12 @@ public class AgregaRelacion {
 			stm.setString(3, cantidad);
 			stm.setInt(4, umId);
 			stm.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Agregado Exitosamente");
 			
-		}catch (Exception e){e.printStackTrace(); System.out.println("error insertar");}
+		}catch (Exception e){e.printStackTrace(); System.out.println("error insertar");
+		JOptionPane.showMessageDialog(null, "ERROR: Relacion ya establecida");}
 		
-		JOptionPane.showMessageDialog(null, "Agregado Exitosamente");
+		
 	}
 
 	public void InicilizarUI() {

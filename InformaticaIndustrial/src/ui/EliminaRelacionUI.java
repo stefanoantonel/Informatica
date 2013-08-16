@@ -93,7 +93,7 @@ public class EliminaRelacionUI extends JFrame {
 		btnEliminaRelacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				EliminaRelacion eli=new EliminaRelacion();
-				eli.Eliminacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString());
+				eli.Eliminacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),EliminaRelacionUI.this);
 			}
 		});
 		btnEliminaRelacion.setBounds(193, 232, 143, 23);
