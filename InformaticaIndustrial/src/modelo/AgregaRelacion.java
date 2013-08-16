@@ -19,10 +19,14 @@ public class AgregaRelacion {
 	int umId;
 
 	public AgregaRelacion() {
+<<<<<<< HEAD
 
 //++++
 
 
+=======
+
+>>>>>>> e9723f2a7da6c161655a3f8dd6c4d3f5b95c665b
 	}
 
 	public void InsertarRelacion(String padreDesc, String hijoDesc,String cantidad, String un ) {
