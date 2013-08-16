@@ -16,6 +16,12 @@ public class EliminaRelacion {
 	
 	int padreId;
 	int hijoId;
+	EliminaRelacionUI elim;
+
+public EliminaRelacion()
+{
+	elim= new EliminaRelacionUI();
+}
 	
 	public void InicializarPadre() {
 		Connection con;
@@ -64,7 +70,8 @@ public class EliminaRelacion {
 
 		
 		
-		EliminaRelacionUI elim= new EliminaRelacionUI(modeloPadre);
+		//EliminaRelacionUI elim= new EliminaRelacionUI(modeloPadre);
+		elim.SetPadre(modeloPadre);
 		elim.setVisible(true);
 
 	}
@@ -127,8 +134,7 @@ public class EliminaRelacion {
 			stm = con.prepareStatement(sb.toString());	
 			stm.executeUpdate();	
 			JOptionPane.showMessageDialog(null, "Borrado con exito");
-			
-			ui.
+			this.InicializarPadre();
 		}catch (Exception e) {
 			System.out.println("error pdate eliminar");
 			e.printStackTrace();
