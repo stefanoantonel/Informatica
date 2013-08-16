@@ -19,7 +19,10 @@ public class AgregaRelacion {
 	int umId;
 
 	public AgregaRelacion() {
+
 //esto en 11
+//esto en internet
+
 	}
 
 	public void InsertarRelacion(String padreDesc, String hijoDesc,String cantidad, String un ) {
