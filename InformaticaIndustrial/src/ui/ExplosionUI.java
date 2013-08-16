@@ -25,8 +25,8 @@ public class ExplosionUI extends JFrame {
 
 	private JPanel contentPane;
 
-	private JTree tree;//stefanostyefano
-
+	private JTree tree;//stefano
+//dkckjdljc
 
 	public ExplosionUI(DefaultTreeModel modelo) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
