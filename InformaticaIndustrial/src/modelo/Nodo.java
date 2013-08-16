@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Nodo {
 
-
+/////
 		private Integer valor;
 		private Nodo padre;
 		private  ArrayList<Nodo> hijo;
