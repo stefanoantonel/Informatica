@@ -38,16 +38,23 @@ public class ExplosionUI extends JFrame {
 		tree_1.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				
-				int eleccion=JOptionPane.showConfirmDialog(null, "Desea explosionar?");
+				int eleccion=JOptionPane.showConfirmDialog(null, "Desea Implosionar?");
 				if(eleccion==0){
 					Arbol ar=new Arbol();
 					String descrip=(arg0.getPath().getLastPathComponent().toString());
-					System.out.println();
+//					System.out.println();
 					StringTokenizer st=new StringTokenizer(descrip, "-");
 					descrip=st.nextToken().trim();
-					System.out.println("descrip"+descrip);
+//					System.out.println("descrip"+descrip);
+					ArrayList<StringBuilder> listaSB =new ArrayList<>();
 					
-					ar.ArmaListaPadre(ar.getNodoByDescripcion(descrip));
+					listaSB=ar.ArmaListaPadre(ar.getNodoByDescripcion(descrip));
+					StringBuilder sb=new StringBuilder();
+					for (int i=0;i<listaSB.size();i++){
+						sb.append(listaSB.get(i));
+						sb.append("\n");
+					}
+					JOptionPane.showMessageDialog(null,sb);
 				}
 			}
 		});

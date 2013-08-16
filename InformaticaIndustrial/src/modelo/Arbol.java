@@ -242,7 +242,8 @@ public class Arbol {
 			if(buscaNodo!=null)
 			{
 				listaPadre.add(new StringBuilder());
-				StringBuilder stringB= new  StringBuilder(ArmaLista(buscaNodo, listaPadre.get(listaPadre.size()-1),0));
+				StringBuilder stringB= new  StringBuilder();
+				stringB.append(ArmaLista(buscaNodo, listaPadre.get(listaPadre.size()-1),0));
 				stringB = new StringBuilder(stringB.substring(0, stringB.length()-2));
 				listaPadre.set(listaPadre.size()-1,stringB);
 				System.out.println(listaPadre.get(listaPadre.size()-1));
@@ -276,7 +277,7 @@ public class Arbol {
 	private StringBuilder ArmaLista (Nodo nodo, StringBuilder sb, int primeraVezCero)
 	{
 		if(primeraVezCero==0)
-			sb.append("El Articulo "+nodo.getDescripcion()+" Compone a:");
+			sb.append("El Articulo "+nodo.getDescripcion()+" Compone a: ");
 		while (nodo.getPadre()!=null)
 		{
 			sb.append(nodo.getPadre().getDescripcion().toString()+", ");
