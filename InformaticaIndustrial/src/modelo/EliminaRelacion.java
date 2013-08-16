@@ -19,7 +19,7 @@ public class EliminaRelacion {
 	public void InicializarPadre() {
 		Connection con;
 		ResultSet rs;
-		//arregladoooo
+		//dejo el integer
 		DefaultListModel<String> modeloPadre = new DefaultListModel<>();
 		DefaultListModel<String> modelo2 = new DefaultListModel<>();
 //		ArrayList<String> um = new ArrayList<>();
