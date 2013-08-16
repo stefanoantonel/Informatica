@@ -20,7 +20,7 @@ public class Arbol {
 	Nodo buscaNodo= null; //exclusivo para la funcion busar nodo porla recursiviad que me perdia el contexto 
 	ArrayList<Nodo> padresPrincipales = new ArrayList<>();
 	
-	//1
+	//4
 	public Arbol(){
 
 //Obtener descripcion de Articulos
