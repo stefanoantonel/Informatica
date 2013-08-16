@@ -13,7 +13,7 @@ public class Nodo {
 		private Integer cuentaHijo=0;
 		private String descripcion;
 		private Float cantidad;
-		private String um;
+		private String um;//
 
 
 		public Nodo(Float p)
