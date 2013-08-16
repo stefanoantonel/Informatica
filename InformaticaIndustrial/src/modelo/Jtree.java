@@ -21,7 +21,8 @@ import ui.*;
 		private JTree tree;
 		
 		public Jtree(ArrayList<Nodo> ListaNodo){
-
+			//para los padres principales
+			
 			//Defino el primer padre de TODO para crear el modelo con ese padre
 			DefaultMutableTreeNode articulo = new DefaultMutableTreeNode("Articulos");			
 			modelo =new DefaultTreeModel(articulo);
@@ -73,20 +74,20 @@ import ui.*;
 				String a= nodoH.getDescripcion();
 				Integer b= padre.GetValor();
 				
-				System.out.println("NODO PADRE: "+ padre.GetValor());
-				System.out.println("NODOH: "+ nodoH.GetValor());
-				System.out.println("nodoH   A: "+a);
+//				System.out.println("NODO PADRE: "+ padre.GetValor());
+//				System.out.println("NODOH: "+ nodoH.GetValor());
+//				System.out.println("nodoH   A: "+a);
 				String aa=a+" - Cant:"+nodoH.getCantidad()+" "+nodoH.getUm();
 				vector[j]=new DefaultMutableTreeNode(aa);
-				System.out.println("vector j: "+vector[0]);
+//				System.out.println("vector j: "+vector[0]);
 				DefaultMutableTreeNode x= new DefaultMutableTreeNode(b);
 				modelo.insertNodeInto(vector[j], articulo,j);
 
-				System.out.println("nodo: "+ a);
+//				System.out.println("nodo: "+ a);
 				ArmaJtree(vector[j],modelo,nodoH);
 				j++;
 				//m++;
-				System.out.println("m: "+j);
+//				System.out.println("m: "+j);
 			}
 			}	
 				
@@ -104,6 +105,7 @@ import ui.*;
 //	        v.pack();
 	        v.setVisible(true);
 	        v.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	        
 		}
 		
 	}

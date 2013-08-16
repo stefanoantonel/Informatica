@@ -22,79 +22,81 @@ public class Arbol {
 	
 
 	public Arbol(){
+		InicializarArbol();
+	}
+	
+	private void InicializarArbol(){
 
-//Obtener descripcion de Articulos
-		try {
-			StringBuilder sb=new StringBuilder();
-			ResultSet descripcion = cn.prepareStatement("select a.id,descripcion_str from Articulo a,Descripcion d where a.descripcion_id=d.id").executeQuery();
-			int f=0,c=0;
-			while (descripcion.next()) {
-		        	desc[f][c]=descripcion.getString("id");
-		        	c++;
-		        	desc[f][c]=descripcion.getString("descripcion_str");
-					System.out.println("id: "+desc[f][0]);
-					System.out.println("desc: "+desc[f][1]);
-		        	
-		        	f++;
-		        	c=0;
-		        }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-//OBTENER PADRES PRINCIPALES
-		try {
-			StringBuilder sb=new StringBuilder();
-			ResultSet padresP = cn.prepareStatement("Select distinct padre from BOM where padre not in (select hijo from BOM) and borrado=0").executeQuery();
-			while (padresP.next()) {
-		        	Nodo n =new Nodo (padresP.getInt("padre"));
-				    padresPrincipales.add(n);
-		        	for (int d=0; d<desc.length;d++)
-					 { 
-		        		if(desc[d][0]!=null && desc[d][0].equals((n.GetValor()).toString()))
-						{
-							n.setDescripcion(desc[d][1]);
-						}
-
-						
-					 }
-		        	
-		        }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-			
- //OBTENER TODA LA BOM
-			try {
-				ResultSet result= cn.prepareStatement("Select padre,hijo,cantidad,d.descripcion_str from BOM b,Descripcion d,[Unidad Medida]u where borrado=0 and b.um_id=u.id and u.descripcion_id=d.id").executeQuery();
-		        
-		        while (result.next()) {
-		        	bom[i][j] = (result.getObject("padre")).toString();
-		        	  j++;
-		        	bom[i][j] = (result.getObject("hijo")).toString();
-		        	 j++;
-		        	bom[i][j] = (result.getObject("cantidad").toString());
-		        	 j++;
-			        bom[i][j] = (result.getObject("descripcion_str")).toString();
-		        	  i++;
-		        	j=0;  
-		        }
-//Para cada padrePrincipal le arma el arbol		        
-		     for(Nodo a: padresPrincipales)
-		     {
-			     ArmaArbol(bom, a);
-		     }
-					} catch (Exception e) {
-						e.printStackTrace();
+		//Obtener descripcion de Articulos
+				try {
+					StringBuilder sb=new StringBuilder();
+					ResultSet descripcion = cn.prepareStatement("select a.id,descripcion_str from Articulo a,Descripcion d where a.descripcion_id=d.id").executeQuery();
+					int f=0,c=0;
+					while (descripcion.next()) {
+				        	desc[f][c]=descripcion.getString("id");
+				        	c++;
+				        	desc[f][c]=descripcion.getString("descripcion_str");
+							System.out.println("id: "+desc[f][0]);
+							System.out.println("desc: "+desc[f][1]);
+				        	
+				        	f++;
+				        	c=0;
+				        }
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-		MostrarArbol();	
-		//getNodoByDescripcion ("Pata madera ");
-		//ArmaListaPadre (padresPrincipales.get(0).GetHijos().get(2).GetHijos().get(0));
+				
+				
+		//OBTENER PADRES PRINCIPALES
+				try {
+					StringBuilder sb=new StringBuilder();
+					ResultSet padresP = cn.prepareStatement("Select distinct padre from BOM where padre not in (select hijo from BOM) and borrado=0").executeQuery();
+					while (padresP.next()) {
+				        	Nodo n =new Nodo (padresP.getInt("padre"));
+						    padresPrincipales.add(n);
+				        	for (int d=0; d<desc.length;d++)
+							 { 
+				        		if(desc[d][0]!=null && desc[d][0].equals((n.GetValor()).toString()))
+								{
+									n.setDescripcion(desc[d][1]);
+								}
+								
+							 }
+				        	
+				        }
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+		 //OBTENER TODA LA BOM
+					try {
+						ResultSet result= cn.prepareStatement("Select padre,hijo,cantidad,d.descripcion_str from BOM b,Descripcion d,[Unidad Medida]u where borrado=0 and b.um_id=u.id and u.descripcion_id=d.id").executeQuery();
+				        
+				        while (result.next()) {
+				        	bom[i][j] = (result.getObject("padre")).toString();
+				        	  j++;
+				        	bom[i][j] = (result.getObject("hijo")).toString();
+				        	 j++;
+				        	bom[i][j] = (result.getObject("cantidad").toString());
+				        	 j++;
+					        bom[i][j] = (result.getObject("descripcion_str")).toString();
+				        	  i++;
+				        	j=0;  
+				        }
+		//Para cada padrePrincipal le arma el arbol		        
+				     for(Nodo a: padresPrincipales)
+				     {
+					     ArmaArbol(bom, a);
+				     }
+							} catch (Exception e) {
+								e.printStackTrace();
+						}
+//				MostrarArbol();	
+				
+					
+					//getNodoByDescripcion ("Pata madera ");
+				//ArmaListaPadre (padresPrincipales.get(0).GetHijos().get(2).GetHijos().get(0));
+			
 	}
 	
 	//bom: lo que levanto de la tabla BOM transformado en un array
@@ -284,9 +286,6 @@ public class Arbol {
 		}
 		return sb;
 	}
-	
-	
-	
 	
 	public ArrayList<Nodo> getPadresPrincipales ()
 	{

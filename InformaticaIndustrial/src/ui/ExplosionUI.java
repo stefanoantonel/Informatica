@@ -55,7 +55,7 @@ public class ExplosionUI extends JFrame {
 		tree_1.setModel(modelo);
 		contentPane.add(tree_1);
 				
-		this.setVisible(true);
+//		this.setVisible(true);
 		
 	}
 }
