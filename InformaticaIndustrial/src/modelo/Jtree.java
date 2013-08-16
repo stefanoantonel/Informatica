@@ -25,7 +25,7 @@ import ui.ExplosionUI;
 			//Defino el primer padre de TODO para crear el modelo con ese padre
 			DefaultMutableTreeNode articulo = new DefaultMutableTreeNode("Articulos");			
 			modelo =new DefaultTreeModel(articulo);
-			int i=0;//
+			int i=0;///
 			//Llamo a la funcion por cada padre principal que haya mandado en ListaNodo
 			for(Nodo nodo: ListaNodo)
 		      {
