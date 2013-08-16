@@ -15,7 +15,7 @@ public class Nodo {
 		private String um;
 		
 		
-		
+		//ii
 
 		public Nodo(Float p)
 		{
