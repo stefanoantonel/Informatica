@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 public class Nodo {
 
+<<<<<<< HEAD
 /////
+=======
+>>>>>>> a90a6e6ad5c8e5ff3bde4d912ba71f89c55a2c03
 		private Integer valor;
 		private Nodo padre;
 		private  ArrayList<Nodo> hijo;
@@ -16,7 +19,7 @@ public class Nodo {
 		private String um;
 		
 		
-		
+		//ii
 
 		public Nodo(Float p)
 		{
