@@ -20,8 +20,6 @@ public class AgregaRelacion {
 
 	public AgregaRelacion() {
 
-//++++desde internet nada de bis ajj
-
 	}
 
 	public void InsertarRelacion(String padreDesc, String hijoDesc,String cantidad, String un ) {
