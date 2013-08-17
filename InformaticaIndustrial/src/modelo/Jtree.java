@@ -50,7 +50,7 @@ import ui.*;
 			DefaultMutableTreeNode articulo = new DefaultMutableTreeNode("Articulos");			
 			modelo =new DefaultTreeModel(articulo);
 
-				DefaultMutableTreeNode padre = new DefaultMutableTreeNode (nodo.GetValor().toString());
+				DefaultMutableTreeNode padre = new DefaultMutableTreeNode (nodo.getDescripcion().toString());
 				modelo.insertNodeInto(padre, articulo,0);
 				modelo= ArmaJtree(padre,modelo,nodo);
 		    
