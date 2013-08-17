@@ -1,24 +1,24 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
-import javax.swing.JSpinner;
-import javax.swing.JList;
-import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.xml.ws.handler.MessageContext.Scope;
 
 import modelo.Arbol;
 import modelo.EliminaRelacion;
 import modelo.Nodo;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class EliminaRelacionUI extends JFrame {
 
@@ -49,6 +49,7 @@ public class EliminaRelacionUI extends JFrame {
 	 * Create the frame.
 	 */
 public EliminaRelacionUI() {
+		getContentPane().setLayout(null);
 
 }
 	public EliminaRelacionUI(DefaultListModel<String> padre) {
@@ -79,16 +80,17 @@ public EliminaRelacionUI() {
 				
 			}
 		});
+		JScrollPane scrollPadre=new JScrollPane(listPadre);
 		listPadre.setBounds(10, 39, 203, 159);
-		contentPane.add(listPadre);
+		contentPane.add(scrollPadre);
 		
 		JLabel lblPadre = new JLabel("Padre");
 		lblPadre.setBounds(10, 14, 46, 14);
 		contentPane.add(lblPadre);
 		
-		
+		JScrollPane scrollHijo=new JScrollPane(listHijo);
 		listHijo.setBounds(273, 39, 203, 159);
-		contentPane.add(listHijo);
+		contentPane.add(scrollHijo);
 		
 		JLabel lblHijo = new JLabel("Hijo");
 		lblHijo.setBounds(273, 14, 46, 14);
