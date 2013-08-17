@@ -1,31 +1,27 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.SpringLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import modelo.AgregaRelacion;
 import modelo.Arbol;
+import modelo.Articulos;
 import modelo.EliminaRelacion;
-
-import modelo.Jtree;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import modelo.Nodo;
 
 public class MenuUI extends JFrame {
 
@@ -53,7 +49,7 @@ public class MenuUI extends JFrame {
 	 */
 	public MenuUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 605, 435);
+		setBounds(100, 100, 605, 467);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,16 +60,6 @@ public class MenuUI extends JFrame {
 		lblAdministracionDeBom.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblAdministracionDeBom.setBounds(191, 11, 213, 51);
 		contentPane.add(lblAdministracionDeBom);
-		
-		JButton explosionar = new JButton("Explosionar");
-		explosionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Arbol ar=new Arbol();
-				ar.MostrarArbol();
-			}
-		});
-		explosionar.setBounds(50, 100, 143, 67);
-		contentPane.add(explosionar);
 		
 		
 		
@@ -86,7 +72,7 @@ public class MenuUI extends JFrame {
 //				MenuUI.this.setVisible(false);
 			}
 		});
-		btnNewButton_1.setBounds(52, 240, 141, 67);
+		btnNewButton_1.setBounds(341, 318, 141, 67);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Agregar");
@@ -99,6 +85,43 @@ public class MenuUI extends JFrame {
 		});
 		btnNewButton_2.setBounds(339, 240, 143, 67);
 		contentPane.add(btnNewButton_2);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(30, 73, 254, 312);
+		contentPane.add(scrollPane);
+		
+		//CARGO LOS ARTICULOS
+		final JList<String> listArticulos = new JList<>();
+		listArticulos.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				System.out.println("evento de seleccion");
+				
+				Arbol a=new Arbol();
+				Nodo elecc=a.getNodoByDescripcion(listArticulos.getSelectedValue().toString());
+				//inicio la interfaz, seteo y luego muestro sino null
+				ArticuloUI artui=new ArticuloUI(elecc);
+//				artui.setArticuloSelecc(elecc);
+//				artui.InicializarCampos();
+				artui.setVisible(true);
+			}
+		});
+		
+		
+		Articulos arti=new Articulos();
+		ArrayList<String> articulos=arti.ObtenerArticulos();
+		int i=0;
+		DefaultListModel<String> modelo=new DefaultListModel<>();
+		for (String s:articulos){
+//			s=articulos.get(i);
+			modelo.addElement(s);
+			i++;
+		}
+		listArticulos.setModel(modelo);
+		scrollPane.setViewportView(listArticulos);
+		
+		JLabel lblArticulos = new JLabel("Articulos");
+		lblArticulos.setBounds(30, 57, 69, 14);
+		contentPane.add(lblArticulos);
 		setLocationRelativeTo(null);
 	}
 }
