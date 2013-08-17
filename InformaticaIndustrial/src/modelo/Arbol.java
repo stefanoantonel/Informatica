@@ -18,6 +18,7 @@ public class Arbol {
 	String[][] desc = new String[100][100];
 	int i,j=0;
 	Nodo buscaNodo= null; //exclusivo para la funcion busar nodo porla recursiviad que me perdia el contexto 
+	Nodo aDesc= null ; //Exclusivo para getnodoByDesc
 	ArrayList<Nodo> padresPrincipales = new ArrayList<>();
 	
 
@@ -94,7 +95,7 @@ public class Arbol {
 //				MostrarArbol();	
 				
 					
-					//getNodoByDescripcion ("Pata madera ");
+					getNodoByDescripcion ("Madera cuadrada para pata");
 				//ArmaListaPadre (padresPrincipales.get(0).GetHijos().get(2).GetHijos().get(0));
 			
 	}
@@ -198,12 +199,13 @@ public class Arbol {
 	public Nodo getNodoByDescripcion (String desc)
 	{
 		Nodo a= null;
+		aDesc=null;
 		for(Nodo padre: padresPrincipales)
 		{
 			a=IterarDesc(padre,desc);
-			if(a!=null)
-			  {System.out.println(a.getDescripcion()+"Nodo:"+ a.GetValor());
-			  	return a;
+			if(aDesc!=null)
+			  {System.out.println(aDesc.getDescripcion()+"Nodo:"+ aDesc.GetValor());
+			  	return aDesc;
 			  }
 		}
 			
@@ -223,10 +225,13 @@ public class Arbol {
 			{
 				a= ListaHijos.next();
 				if (a.getDescripcion().equals(desc))
-				{return a; }
+				{
+					aDesc=a;
+					return a; }
 				else
 					IterarDesc(a,desc);
 			}
+			
 		}	
 		return null;
 	 

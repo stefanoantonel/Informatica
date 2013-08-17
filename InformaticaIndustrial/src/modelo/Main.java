@@ -15,11 +15,12 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-//		Arbol ma = new Arbol();
-		EliminaRelacion elimina=new EliminaRelacion();
-		elimina.InicializarPadre();
-		AgregaRelacion ag=new AgregaRelacion();
-		ag.InicilizarUI();
+		Arbol ma = new Arbol();
+		ma.getNodoByDescripcion ("Madera cuadrada para pata");
+//		EliminaRelacion elimina=new EliminaRelacion();
+//		elimina.InicializarPadre();
+//		AgregaRelacion ag=new AgregaRelacion();
+//		ag.InicilizarUI();
 		
 	}
 	
