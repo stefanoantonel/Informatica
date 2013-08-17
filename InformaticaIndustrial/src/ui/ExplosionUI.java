@@ -48,21 +48,7 @@ public class ExplosionUI extends JFrame {
 				
 				int eleccion=JOptionPane.showConfirmDialog(null, "Desea Implosionar?");
 				if(eleccion==0){
-					Arbol ar=new Arbol();
-					String descrip=(arg0.getPath().getLastPathComponent().toString());
-//					System.out.println();
-					StringTokenizer st=new StringTokenizer(descrip, "-");
-					descrip=st.nextToken().trim();
-//					System.out.println("descrip"+descrip);
-					ArrayList<StringBuilder> listaSB =new ArrayList<>();
 					
-					listaSB=ar.ArmaListaPadre(ar.getNodoByDescripcion(descrip));
-					StringBuilder sb=new StringBuilder();
-					for (int i=0;i<listaSB.size();i++){
-						sb.append(listaSB.get(i));
-						sb.append("\n");
-					}
-					JOptionPane.showMessageDialog(null,sb);
 				}
 			}
 		});

@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JScrollPane;
 
 public class AgregaRelacionUI extends JFrame {
 
@@ -56,14 +57,6 @@ public class AgregaRelacionUI extends JFrame {
 		});
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		//DECLARO LAS LISTAS
-		final JList listPadre = new JList();
-		listPadre.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-//				JOptionPane.showMessageDialog(null, "f");
-			}
-		});
-		final JList listHijo = new JList();
 //		final List list_2 = new List();
 		final JComboBox<Object> comboBox = new JComboBox<Object>(um);
 		
@@ -74,10 +67,29 @@ public class AgregaRelacionUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		listHijo.setBounds(281, 35, 229, 155);
-		contentPane.add(listHijo);
-		listPadre.setBounds(10, 35, 229, 155);
-		contentPane.add(listPadre);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(281, 35, 229, 155);
+		contentPane.add(scrollPane_1);
+		final JList listHijo = new JList();
+		scrollPane_1.setViewportView(listHijo);
+		listHijo.setModel(modelo2);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 35, 229, 155);
+		contentPane.add(scrollPane);
+		//DECLARO LAS LISTAS
+		final JList listPadre = new JList();
+		scrollPane.setViewportView(listPadre);
+		listPadre.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+//				JOptionPane.showMessageDialog(null, "f");
+			}
+		});
+		
+		
+		
+		//APLICO EL MODELO
+		listPadre.setModel(modelo1);
 		setLocationRelativeTo(null);
 	
 		JLabel lblPadre = new JLabel("Padre");
@@ -87,12 +99,6 @@ public class AgregaRelacionUI extends JFrame {
 		JLabel lblHijo = new JLabel("Hijo");
 		lblHijo.setBounds(281, 11, 46, 14);
 		contentPane.add(lblHijo);
-		
-		
-		
-		//APLICO EL MODELO
-		listPadre.setModel(modelo1);
-		listHijo.setModel(modelo2);
 		
 		//LISTENER BOTON AGREGAR
 		JButton btnAgregarRelacion = new JButton("Agregar Relacion");
