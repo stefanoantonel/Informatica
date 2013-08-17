@@ -28,6 +28,7 @@ public class MenuUI extends JFrame {
 	private JPanel contentPane;
 
 	/**
+	 * FLOR
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
