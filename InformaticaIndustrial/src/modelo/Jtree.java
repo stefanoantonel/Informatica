@@ -63,6 +63,7 @@ import ui.*;
 		public DefaultTreeModel ArmaJtree(DefaultMutableTreeNode articulo, DefaultTreeModel modelo, Nodo padre, float cantidad)
 		{
 			int j=0;
+			String a=null;
 			DefaultMutableTreeNode vector[]= new DefaultMutableTreeNode[100];
 			//System.out.println("m:"+j);
 			if (padre.GetHijos()!= null)
@@ -71,13 +72,15 @@ import ui.*;
 			while (ListaHijos.hasNext())
 			{
 			    Nodo nodoH = (Nodo)ListaHijos.next();
-				String a= nodoH.getDescripcion();
+				
+			    if(nodoH.getTipo()==3)
+			    	 a= nodoH.getXdefectoDesc();
+			    else
+			         a= nodoH.getDescripcion();
 				Integer b= padre.GetValor();
 				
-//				System.out.println("NODO PADRE: "+ padre.GetValor());
-//				System.out.println("NODOH: "+ nodoH.GetValor());
-//				System.out.println("nodoH   A: "+a);
 				float cant = nodoH.getCantidad()*cantidad;
+				//String aa=a+" - Cant:"+cant+" "+nodoH.getUm()+"     tipo"+nodoH.getTipo();
 				String aa=a+" - Cant:"+cant+" "+nodoH.getUm();
 				vector[j]=new DefaultMutableTreeNode(aa);
 //				System.out.println("vector j: "+vector[0]);
