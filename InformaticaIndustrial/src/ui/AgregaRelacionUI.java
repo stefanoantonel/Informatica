@@ -21,11 +21,20 @@ import javax.swing.event.ListSelectionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JScrollPane;
+import javax.swing.JMenuBar;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenuItem;
 
 public class AgregaRelacionUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField cantidad;
+	final JList listPadre = new JList();
+	final JList listHijo = new JList();
+	DefaultListModel modeloHijo;
+	public DefaultListModel getModeloHijo() {
+		return modeloHijo;
+	}
 
 	/**
 	 * Launch the application.
@@ -44,6 +53,14 @@ public class AgregaRelacionUI extends JFrame {
 //		});
 //	}
 
+	public JList getListPadre() {
+		return listPadre;
+	}
+
+	public JList getListHijo() {
+		return listHijo;
+	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -55,7 +72,7 @@ public class AgregaRelacionUI extends JFrame {
 //				AgregaRelacionUI.this.dispose();
 			}
 		});
-		
+		this.modeloHijo=modelo2;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 //		final List list_2 = new List();
 		final JComboBox<Object> comboBox = new JComboBox<Object>(um);
@@ -70,7 +87,7 @@ public class AgregaRelacionUI extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(281, 35, 229, 155);
 		contentPane.add(scrollPane_1);
-		final JList listHijo = new JList();
+		
 		scrollPane_1.setViewportView(listHijo);
 		listHijo.setModel(modelo2);
 		
@@ -78,7 +95,7 @@ public class AgregaRelacionUI extends JFrame {
 		scrollPane.setBounds(10, 35, 229, 155);
 		contentPane.add(scrollPane);
 		//DECLARO LAS LISTAS
-		final JList listPadre = new JList();
+		
 		scrollPane.setViewportView(listPadre);
 		listPadre.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -128,10 +145,6 @@ public class AgregaRelacionUI extends JFrame {
 		lblCantidadDelHijo.setBounds(544, 11, 113, 14);
 		contentPane.add(lblCantidadDelHijo);
 		
-		JButton btnAtras = new JButton("Atras");
-		btnAtras.setBounds(581, 247, 89, 23);
-		contentPane.add(btnAtras);
-		
 		//---------------------------------------------INICIALIZO EL COMBO
 		
 		comboBox.setBounds(544, 80, 113, 20);
@@ -141,6 +154,16 @@ public class AgregaRelacionUI extends JFrame {
 		JLabel lblUnidadDeMedida = new JLabel("Unidad de medida");
 		lblUnidadDeMedida.setBounds(544, 64, 86, 14);
 		contentPane.add(lblUnidadDeMedida);
+		
+		JButton btnAgregeAlternativos = new JButton("Agrege Alternativos");
+		btnAgregeAlternativos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarAlternativoUI alterna=new AgregarAlternativoUI(AgregaRelacionUI.this);
+				alterna.setVisible(true);
+			}
+		});
+		btnAgregeAlternativos.setBounds(526, 203, 144, 50);
+		contentPane.add(btnAgregeAlternativos);
 		
 		
 	}

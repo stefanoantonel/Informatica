@@ -46,10 +46,10 @@ public class ExplosionUI extends JFrame {
 		tree_1.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				
-				int eleccion=JOptionPane.showConfirmDialog(null, "Desea Implosionar?");
-				if(eleccion==0){
-					
-				}
+//				int eleccion=JOptionPane.showConfirmDialog(null, "Desea Implosionar?");
+//				if(eleccion==0){
+//					
+//				}
 			}
 		});
 		tree_1.setModel(modelo);
