@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -22,6 +21,8 @@ import modelo.Arbol;
 import modelo.Articulos;
 import modelo.EliminaRelacion;
 import modelo.Nodo;
+
+import com.jgoodies.forms.factories.Borders.EmptyBorder;
 
 public class MenuUI extends JFrame {
 
@@ -52,7 +53,7 @@ public class MenuUI extends JFrame {
 		setBounds(100, 100, 605, 467);
 		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
