@@ -65,7 +65,7 @@ public class ArticuloUI extends JFrame {
 		btnExplosionTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Arbol arbol = new Arbol();
-				arbol.MostrarArbol(articuloSelecc);
+				arbol.MostrarArbol(articuloSelecc,1);
 			}
 		});
 		btnExplosionTotal.setBounds(424, 67, 143, 67);
@@ -89,8 +89,11 @@ public class ArticuloUI extends JFrame {
 		JButton calcularNecesarioProducir = new JButton("Calcular");
 		calcularNecesarioProducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				float cant =Float.parseFloat(cantidadParaProducir.getText());
+				
 				Arbol a = new Arbol();
-				a.MostrarArbol();
+				a.MostrarArbol(articuloSelecc,cant);
 			}
 		});
 		calcularNecesarioProducir.setBounds(127, 42, 89, 19);
