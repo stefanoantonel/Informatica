@@ -34,9 +34,9 @@ public class Nodo {
 			return valor;
 		}
 		
-		public void Explosiona(){
-			Jtree j=new Jtree(this);
-		}
+//		public void Explosiona(){
+//			Jtree j=new Jtree(this);
+//		}
 
 		public void setPadre (Nodo p)
 		{

@@ -165,8 +165,10 @@ public class Arbol {
 		Jtree j=new Jtree(padresPrincipales);
 	}
 	
-	public void MostrarArbol(Nodo a){
-		Jtree j=new Jtree(a);
+	public void MostrarArbol(Nodo a,float cant){
+		
+		
+		Jtree j=new Jtree(a,cant);
 	}
 	
 	

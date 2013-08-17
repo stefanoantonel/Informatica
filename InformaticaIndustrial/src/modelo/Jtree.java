@@ -34,7 +34,7 @@ import ui.*;
 				DefaultMutableTreeNode padre = new DefaultMutableTreeNode (nodo.GetValor().toString());
 				DefaultMutableTreeNode p = new DefaultMutableTreeNode (nodo.getDescripcion());
 				modelo.insertNodeInto(p, articulo,i);
-				modelo= ArmaJtree(p,modelo,nodo);
+				modelo= ArmaJtree(p,modelo,nodo,1);
 				i++;
 		      }
 		    
@@ -44,7 +44,7 @@ import ui.*;
 		
 		
 		//Otro constructor para explosionar un nodo especifico
-		public Jtree(Nodo nodo){
+		public Jtree(Nodo nodo, float cantidad){
 
 			//Defino el primer padre de TODO para crear el modelo con ese padre
 			DefaultMutableTreeNode articulo = new DefaultMutableTreeNode("Articulos");			
@@ -52,7 +52,7 @@ import ui.*;
 
 				DefaultMutableTreeNode padre = new DefaultMutableTreeNode (nodo.getDescripcion().toString());
 				modelo.insertNodeInto(padre, articulo,0);
-				modelo= ArmaJtree(padre,modelo,nodo);
+				modelo= ArmaJtree(padre,modelo,nodo, cantidad);
 		    
 		    this.tree = new JTree(modelo);
 			MostrarArbol();
@@ -60,7 +60,7 @@ import ui.*;
 		
 		
 		
-		public DefaultTreeModel ArmaJtree(DefaultMutableTreeNode articulo, DefaultTreeModel modelo, Nodo padre)
+		public DefaultTreeModel ArmaJtree(DefaultMutableTreeNode articulo, DefaultTreeModel modelo, Nodo padre, float cantidad)
 		{
 			int j=0;
 			DefaultMutableTreeNode vector[]= new DefaultMutableTreeNode[100];
@@ -77,14 +77,15 @@ import ui.*;
 //				System.out.println("NODO PADRE: "+ padre.GetValor());
 //				System.out.println("NODOH: "+ nodoH.GetValor());
 //				System.out.println("nodoH   A: "+a);
-				String aa=a+" - Cant:"+nodoH.getCantidad()+" "+nodoH.getUm();
+				float cant = nodoH.getCantidad()*cantidad;
+				String aa=a+" - Cant:"+cant+" "+nodoH.getUm();
 				vector[j]=new DefaultMutableTreeNode(aa);
 //				System.out.println("vector j: "+vector[0]);
 				DefaultMutableTreeNode x= new DefaultMutableTreeNode(b);
 				modelo.insertNodeInto(vector[j], articulo,j);
 
 //				System.out.println("nodo: "+ a);
-				ArmaJtree(vector[j],modelo,nodoH);
+				ArmaJtree(vector[j],modelo,nodoH,cantidad);
 				j++;
 				//m++;
 //				System.out.println("m: "+j);
