@@ -61,11 +61,11 @@ public class ArticuloUI extends JFrame {
 		lblNewLabel.setBounds(10, 127, 98, 14);
 		getContentPane().add(lblNewLabel);
 
-		JButton btnExplosionTotal = new JButton("Explosion Total");
+		JButton btnExplosionTotal = new JButton("Explosion");
 		btnExplosionTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Arbol arbol = new Arbol();
-				arbol.MostrarArbol();
+				arbol.MostrarArbol(articuloSelecc);
 			}
 		});
 		btnExplosionTotal.setBounds(424, 67, 143, 67);
