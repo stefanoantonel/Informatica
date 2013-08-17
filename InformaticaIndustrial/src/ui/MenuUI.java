@@ -61,9 +61,6 @@ public class MenuUI extends JFrame {
 		lblAdministracionDeBom.setBounds(191, 11, 213, 51);
 		contentPane.add(lblAdministracionDeBom);
 		
-		
-		
-		
 		JButton btnNewButton_1 = new JButton("Eliminar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

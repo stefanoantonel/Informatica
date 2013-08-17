@@ -58,7 +58,7 @@ public class ArticuloUI extends JFrame {
 		codigoArticulo.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(10, 127, 46, 14);
+		lblNewLabel.setBounds(10, 127, 98, 14);
 		getContentPane().add(lblNewLabel);
 
 		JButton btnExplosionTotal = new JButton("Explosion Total");
