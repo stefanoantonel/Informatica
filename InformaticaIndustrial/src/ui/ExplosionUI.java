@@ -37,7 +37,12 @@ public class ExplosionUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(90, 41, 318, 238);
+		contentPane.add(scrollPane);
+		
 		JTree tree_1 = new JTree();
+		scrollPane.setViewportView(tree_1);
 		tree_1.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				
@@ -61,9 +66,7 @@ public class ExplosionUI extends JFrame {
 				}
 			}
 		});
-		tree_1.setBounds(90, 41, 318, 238);
 		tree_1.setModel(modelo);
-		contentPane.add(tree_1);
 				
 //		this.setVisible(true);
 		
