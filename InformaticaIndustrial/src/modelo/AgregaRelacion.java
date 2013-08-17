@@ -86,7 +86,7 @@ public class AgregaRelacion {
 			StringBuilder sb1=new StringBuilder();
 			sb1.append(" IF EXISTS (SELECT * FROM BOM WHERE padre= "+padreId+" and hijo= "+hijoId+")");
 			sb1.append("BEGIN ");
-			sb1.append("UPDATE BOM SET borrado=0 WHERE padre=7 and hijo= 5 ");
+			sb1.append("UPDATE BOM SET borrado=0, cantidad="+cantidad+", um_id="+umId+" WHERE padre=7 and hijo= 5 ");
 			sb1.append("END ");
 			sb1.append("ELSE BEGIN INSERT INTO BOM (padre,hijo,cantidad,um_id,fecha_inicio,fecha_fin,user_id,descr_upd,lugar_upd) ");
 			sb1.append("VALUES ("+padreId+","+hijoId+","+cantidad+","+umId+",GETDATE(),null,2,'cargo bom','casa') ");

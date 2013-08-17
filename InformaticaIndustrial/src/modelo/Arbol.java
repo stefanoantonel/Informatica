@@ -14,7 +14,7 @@ public class Arbol {
 
 	Conexion c=new Conexion();
 	Connection cn= c.getConexion();
-	String [][] bom = new String[10][10];
+	String [][] bom = new String[100][100];
 	String[][] desc = new String[100][100];
 	int i,j=0;
 	Nodo buscaNodo= null; //exclusivo para la funcion busar nodo porla recursiviad que me perdia el contexto 
