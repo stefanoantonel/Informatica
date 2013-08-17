@@ -222,6 +222,7 @@ public class Arbol {
 		if (nodo.GetHijos()!= null)
 		{   Nodo a=nodo;
 			if(a.getDescripcion().equals(desc)){
+				aDesc=a;
 				return a;
 			}
 			Iterator<Nodo> ListaHijos = nodo.GetHijos().iterator();
