@@ -10,11 +10,15 @@ import javax.swing.JTextField;
 
 import modelo.Arbol;
 import modelo.Nodo;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.BevelBorder;
 
 public class ArticuloUI extends JFrame {
 	private JTextField nombreArticulo;
 	private JTextField codigoArticulo;
 	Nodo articuloSelecc;
+	private JTextField cantidadParaProducir;
 
 	public Nodo getArticuloSelecc() {
 		return articuloSelecc;
@@ -66,6 +70,25 @@ public class ArticuloUI extends JFrame {
 		});
 		btnExplosionTotal.setBounds(424, 67, 143, 67);
 		getContentPane().add(btnExplosionTotal);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(10, 277, 226, 71);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblCuantoEsNecesario = new JLabel("Cuanto es necesario para producir");
+		lblCuantoEsNecesario.setBounds(6, 11, 210, 19);
+		panel.add(lblCuantoEsNecesario);
+		
+		cantidadParaProducir = new JTextField();
+		cantidadParaProducir.setBounds(6, 41, 86, 20);
+		panel.add(cantidadParaProducir);
+		cantidadParaProducir.setColumns(10);
+		
+		JButton calcularNecesarioProducir = new JButton("Calcular");
+		calcularNecesarioProducir.setBounds(127, 42, 89, 19);
+		panel.add(calcularNecesarioProducir);
 
 		//pongo en variable
 		setArticuloSelecc(eleccion);
