@@ -91,9 +91,12 @@ public class AgregaRelacionUI extends JFrame {
 		btnAgregarRelacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(listPadre.getSelectedValue()!=null&& listHijo.getSelectedValue()!=null && cantidad.getText()!=null&& comboBox.getSelectedItem()!=null){
-					AgregaRelacion agre=new AgregaRelacion();
-//					Nodo nodo=new Nodo(p, h)
-					agre.InsertarRelacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),cantidad.getText().toString(), comboBox.getSelectedItem().toString());
+					if(!listPadre.getSelectedValue().equals(listHijo.getSelectedValue())){
+						AgregaRelacion agre=new AgregaRelacion();
+//						Nodo nodo=new Nodo(p, h)
+						agre.InsertarRelacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),cantidad.getText().toString(), comboBox.getSelectedItem().toString());
+					}
+					else{ JOptionPane.showMessageDialog(null, "seleccione articulos distintos");}
 				}
 				else { JOptionPane.showMessageDialog(null, "Complete todos los campos");}
 			}
