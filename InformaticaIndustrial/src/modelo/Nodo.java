@@ -8,11 +8,12 @@ public class Nodo {
 		private Integer valor;
 		private Nodo padre;
 		private  ArrayList<Nodo> hijo;
-		private Integer cont=0;
-		private Nodo proxPadre;
-		private Integer cuentaHijo=0;
 		private String descripcion;
 		private Float cantidad;
+		//1:Make, 2:Buy, 3:Generic
+		private int tipo;
+		private Integer valorXdefecto;
+		private String xDefectoDesc;
 
 		private String um;/**888*/
 
@@ -51,18 +52,7 @@ public class Nodo {
 		{
 			return hijo;
 		}
-		
-//		public Integer GetProxHijo()
-//		{
-//			cont++;
-//			return hijo[cont--];
-//		}
-		
-		public void SetProxPadre (Nodo proximo)
-		{
-			proxPadre=proximo;
-		}
-		
+
 		public void AgregarHijo(Nodo h)
 		{
 			if(hijo== null)
@@ -93,6 +83,31 @@ public class Nodo {
 		    um=unmed;
 		}
 		
+		public int getTipo() {
+			return tipo;
+		}
+		
+		public void setTipo(int t) {
+		    tipo=t;
+		}
+		
+		public Integer getXdefecto() {
+			    return valorXdefecto;
+		}
+		
+		public void setXdefecto(int defect) {
+
+			valorXdefecto=defect;
+		}
+		
+		public String getXdefectoDesc() {
+		    return xDefectoDesc;
+		}
+		
+		public void setXdefectoDesc(String defect) {
+	
+			xDefectoDesc=defect;
+		}
 		
 		
 }

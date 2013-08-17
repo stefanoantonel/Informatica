@@ -56,6 +56,9 @@ public class Arbol {
 					ResultSet padresP = cn.prepareStatement("Select distinct padre from BOM where padre not in (select hijo from BOM) and borrado=0").executeQuery();
 					while (padresP.next()) {
 				        	Nodo n =new Nodo (padresP.getInt("padre"));
+				        	//1:Make
+				        	int tipo= 1;
+				        	n.setTipo(tipo);
 						    padresPrincipales.add(n);
 				        	for (int d=0; d<desc.length;d++)
 							 { 
@@ -73,7 +76,14 @@ public class Arbol {
 				
 		 //OBTENER TODA LA BOM
 					try {
-						ResultSet result= cn.prepareStatement("Select padre,hijo,cantidad,d.descripcion_str from BOM b,Descripcion d,[Unidad Medida]u where borrado=0 and b.um_id=u.id and u.descripcion_id=d.id").executeQuery();
+						
+						StringBuilder select = new StringBuilder();
+						select.append("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id, p.porDefecto");
+						select.append(" from BOM b inner join Articulo a on a.id=b.hijo inner join [Unidad Medida]u on b.um_id=u.id inner join Descripcion d on u.descripcion_id=d.id ");
+						select.append("left outer join PorDefecto p on p.generico=b.hijo");
+						select.append(" where borrado=0");
+						//ResultSet result= cn.prepareStatement("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id from BOM b,Descripcion d,[Unidad Medida]u,Articulo a where borrado=0 and b.um_id=u.id and u.descripcion_id=d.id and a.id=b.hijo").executeQuery();
+						ResultSet result= cn.prepareStatement(select.toString()).executeQuery();
 				        
 				        while (result.next()) {
 				        	bom[i][j] = (result.getObject("padre")).toString();
@@ -83,6 +93,14 @@ public class Arbol {
 				        	bom[i][j] = (result.getObject("cantidad").toString());
 				        	 j++;
 					        bom[i][j] = (result.getObject("descripcion_str")).toString();
+					        j++;
+					        bom[i][j] = (result.getObject("tipo_id")).toString();
+					        j++;
+					        Object o = result.getObject("porDefecto");
+					        if(o!=null)
+					             bom[i][j] = (o).toString();
+					        else 
+					        	 bom[i][j]=null;
 				        	  i++;
 				        	j=0;  
 				        	
@@ -130,6 +148,9 @@ public class Arbol {
 							 
 							 h.setCantidad(Float.parseFloat(bom[k][2]));
 							 h.setUm(bom[k][3]);
+							 h.setTipo(Integer.parseInt(bom[k][4]));
+							 
+							 
 							 for (int d=0; d<desc.length;d++)
 							 { 
 								// System.out.println("desc: "+desc[d][0]+"-nodoV:"+h.GetValor() );
@@ -138,6 +159,17 @@ public class Arbol {
 									//System.out.println("entro");
 									h.setDescripcion(desc[d][1]);
 								}
+								if(bom[k][5]!=null)
+								 {
+									 h.setXdefecto(Integer.parseInt(bom[k][5]));
+								 
+								if(desc[d][0]!=null && desc[d][0].equals((h.getXdefecto()).toString()))
+								{
+									//System.out.println("entro");
+									h.setXdefectoDesc(desc[d][1]);
+								}
+								 }
+								
 							 }
 							 nodo.AgregarHijo(h);
 							 System.out.println("Valor:"+nodo.GetValor()+" cantidad:"+h.getCantidad()+" desc:"+h.getDescripcion());
