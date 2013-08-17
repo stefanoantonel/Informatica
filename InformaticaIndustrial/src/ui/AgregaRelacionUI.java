@@ -18,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 import modelo.AgregaRelacion;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AgregaRelacionUI extends JFrame {
 
@@ -46,8 +48,14 @@ public class AgregaRelacionUI extends JFrame {
 	 */
 
 	public AgregaRelacionUI(DefaultListModel modelo1, DefaultListModel modelo2, Object[] um) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+//				AgregaRelacionUI.this.dispose();
+			}
+		});
 		
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		//DECLARO LAS LISTAS
 		final JList listPadre = new JList();
 		listPadre.addListSelectionListener(new ListSelectionListener() {

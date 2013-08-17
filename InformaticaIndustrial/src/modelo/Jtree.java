@@ -104,7 +104,7 @@ import ui.*;
 //	        v.getContentPane().add(scroll);
 //	        v.pack();
 	        v.setVisible(true);
-	        v.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	        //v.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	        
 		}
 		
