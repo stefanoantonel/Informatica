@@ -99,7 +99,7 @@ public class Arbol {
 //				MostrarArbol();	
 				
 					
-					getNodoByDescripcion ("Madera cuadrada para pata");
+					//getNodoByDescripcion ("Madera cuadrada para pata");
 				//ArmaListaPadre (padresPrincipales.get(0).GetHijos().get(2).GetHijos().get(0));
 			
 	}

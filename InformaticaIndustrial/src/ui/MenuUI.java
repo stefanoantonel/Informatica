@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -22,6 +21,8 @@ import modelo.Arbol;
 import modelo.Articulos;
 import modelo.EliminaRelacion;
 import modelo.Nodo;
+
+import com.jgoodies.forms.factories.Borders.EmptyBorder;
 
 public class MenuUI extends JFrame {
 
@@ -49,7 +50,7 @@ public class MenuUI extends JFrame {
 		setBounds(100, 100, 605, 467);
 		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -95,20 +96,27 @@ public class MenuUI extends JFrame {
 		
 		//CARGO LOS ARTICULOS
 		final JList<String> listArticulos = new JList<>();
+		final ArticuloUI artui=new ArticuloUI();
 		listArticulos.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				System.out.println("evento de seleccion");
 				
 				Arbol a=new Arbol();
-				Nodo elecc =null;
+
+				Nodo elecc=null;
+
 				elecc=a.getNodoByDescripcion(listArticulos.getSelectedValue().toString());
 				//inicio la interfaz, seteo y luego muestro sino null
-				ArticuloUI artui=new ArticuloUI(elecc);
+			    artui.setArticuloSelecc(elecc);
+			    artui.InicializarCampos();
 //				artui.setArticuloSelecc(elecc);
 //				artui.InicializarCampos();
 				artui.setVisible(true);
 			}
 		});
+		
+
+		
 		
 		
 		Articulos arti=new Articulos();

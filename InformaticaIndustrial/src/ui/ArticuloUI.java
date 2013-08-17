@@ -28,7 +28,7 @@ public class ArticuloUI extends JFrame {
 		this.articuloSelecc = articuloSelecc;
 	}
 
-	public ArticuloUI(Nodo eleccion) {
+	public ArticuloUI() {
 		setBounds(100, 100, 657, 448);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -87,12 +87,18 @@ public class ArticuloUI extends JFrame {
 		cantidadParaProducir.setColumns(10);
 		
 		JButton calcularNecesarioProducir = new JButton("Calcular");
+		calcularNecesarioProducir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Arbol a = new Arbol();
+				a.MostrarArbol();
+			}
+		});
 		calcularNecesarioProducir.setBounds(127, 42, 89, 19);
 		panel.add(calcularNecesarioProducir);
 
 		//pongo en variable
-		setArticuloSelecc(eleccion);
-		InicializarCampos();
+		//setArticuloSelecc(eleccion);
+		//InicializarCampos();
 	}
 
 	public void InicializarCampos() {
