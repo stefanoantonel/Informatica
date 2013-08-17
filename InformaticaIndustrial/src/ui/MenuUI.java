@@ -83,7 +83,7 @@ public class MenuUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EliminaRelacion elim=new EliminaRelacion();
 				elim.InicializarPadre();
-				MenuUI.this.setVisible(false);
+//				MenuUI.this.setVisible(false);
 			}
 		});
 		btnNewButton_1.setBounds(52, 240, 141, 67);
@@ -94,7 +94,7 @@ public class MenuUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AgregaRelacion ag=new AgregaRelacion();
 				ag.InicilizarUI();
-				MenuUI.this.setVisible(false);
+//				MenuUI.this.setVisible(false);
 			}
 		});
 		btnNewButton_2.setBounds(339, 240, 143, 67);
