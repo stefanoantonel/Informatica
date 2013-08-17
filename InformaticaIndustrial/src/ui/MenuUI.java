@@ -94,11 +94,9 @@ public class MenuUI extends JFrame {
 				System.out.println("evento de seleccion");
 				
 				Arbol a=new Arbol();
-<<<<<<< HEAD
+
 				Nodo elecc=null;
-=======
-				Nodo elecc =null;
->>>>>>> 14ea87209564e7a1d0cec1424324af40b69e6313
+
 				elecc=a.getNodoByDescripcion(listArticulos.getSelectedValue().toString());
 				//inicio la interfaz, seteo y luego muestro sino null
 				ArticuloUI artui=new ArticuloUI(elecc);
