@@ -2,23 +2,32 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import modelo.Arbol;
 import modelo.Nodo;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.BevelBorder;
 
 public class ArticuloUI extends JFrame {
 	private JTextField nombreArticulo;
 	private JTextField codigoArticulo;
+
+	NumberFormat f = NumberFormat.getNumberInstance(); 
+	
+	
+	JFormattedTextField cantidadParaProducir = new JFormattedTextField(NumberFormat.getIntegerInstance());
+	
 	Nodo articuloSelecc;
-	private JTextField cantidadParaProducir;
 
 	public Nodo getArticuloSelecc() {
 		return articuloSelecc;
@@ -29,6 +38,7 @@ public class ArticuloUI extends JFrame {
 	}
 
 	public ArticuloUI() {
+		
 		setBounds(100, 100, 657, 448);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -81,11 +91,6 @@ public class ArticuloUI extends JFrame {
 		lblCuantoEsNecesario.setBounds(6, 11, 210, 19);
 		panel.add(lblCuantoEsNecesario);
 		
-		cantidadParaProducir = new JTextField();
-		cantidadParaProducir.setBounds(6, 41, 86, 20);
-		panel.add(cantidadParaProducir);
-		cantidadParaProducir.setColumns(10);
-		
 		JButton calcularNecesarioProducir = new JButton("Calcular");
 		calcularNecesarioProducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,6 +103,34 @@ public class ArticuloUI extends JFrame {
 		});
 		calcularNecesarioProducir.setBounds(127, 42, 89, 19);
 		panel.add(calcularNecesarioProducir);
+		
+		
+		cantidadParaProducir.setBounds(16, 41, 82, 19);
+//		cantidadParaProducir.
+		panel.add(cantidadParaProducir);
+		
+		JButton btnNewButton = new JButton("Implosion");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Arbol ar=new Arbol();
+				String descrip=articuloSelecc.getDescripcion();
+//				System.out.println();
+//				StringTokenizer st=new StringTokenizer(descrip, "-");
+//				descrip=st.nextToken().trim();
+//				System.out.println("descrip"+descrip);
+				ArrayList<StringBuilder> listaSB =new ArrayList<>();
+				
+				listaSB=ar.ArmaListaPadre(ar.getNodoByDescripcion(descrip));
+				StringBuilder sb=new StringBuilder();
+				for (int i=0;i<listaSB.size();i++){
+					sb.append(listaSB.get(i));
+					sb.append("\n");
+				}
+				JOptionPane.showMessageDialog(null,sb);
+			}
+		});
+		btnNewButton.setBounds(429, 161, 138, 67);
+		getContentPane().add(btnNewButton);
 
 		//pongo en variable
 		//setArticuloSelecc(eleccion);
