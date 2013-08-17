@@ -29,6 +29,7 @@ public class Articulos {
 			sb.append("SELECT a.id[Articulo ID], d.descripcion_str[Descripcion] ,a.tipo_id[Tipo ID] ");
 			sb.append("FROM Articulo a ");
 			sb.append("inner join Descripcion d on a.descripcion_id = d.id ");
+			sb.append("where a.id not in (select hijo from BOM where borrado=1)");
 			
 
 			PreparedStatement stm;

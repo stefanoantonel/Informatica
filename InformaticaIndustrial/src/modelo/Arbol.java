@@ -85,6 +85,8 @@ public class Arbol {
 					        bom[i][j] = (result.getObject("descripcion_str")).toString();
 				        	  i++;
 				        	j=0;  
+				        	
+				        	
 				        }
 		//Para cada padrePrincipal le arma el arbol		        
 				     for(Nodo a: padresPrincipales)
@@ -112,15 +114,17 @@ public class Arbol {
 				//	 una vez que lo encuentra setea al hijo segun la segunda columna de la bom
 				//	 y llama a la funcion con el hijo 
 				//	 cuando no tiene mas hijo, aumenta el k y pregunta de ahi para abajo (bom[k][0])= nodo.getPadre
-				//	 
+				//
+		
 					try{	
 						
 						for (int k=0; k<bom.length;k++)
 						{	
 							String padre= nodo.GetValor().toString(); 
-						while (bom[k][0]!=null &&(bom[k][0].equals(padre)) && k<10)
+						while (bom[k][0]!=null &&(bom[k][0].equals(padre)) && k<20)
 					        { 
 							 //System.out.println("Valor: "+nodo.GetValor().toString());
+							
 							System.out.println(bom[k][1]); 
 							Nodo h = new Nodo(Integer.parseInt(bom[k][1]));
 							 
@@ -146,11 +150,14 @@ public class Arbol {
 					        }
 						}
 						
-						 return;
+						
 					  }catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 					}
+
+					 return;
+					
 	}
 	
 	

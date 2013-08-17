@@ -44,9 +44,6 @@ public class MenuUI extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public MenuUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 605, 467);
@@ -60,6 +57,15 @@ public class MenuUI extends JFrame {
 		lblAdministracionDeBom.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblAdministracionDeBom.setBounds(191, 11, 213, 51);
 		contentPane.add(lblAdministracionDeBom);
+		
+		
+//		JButton btnExplosionTotal = new JButton("Explosion");
+//		btnExplosionTotal.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				Arbol arbol = new Arbol();
+//				arbol.MostrarArbol(articuloSelecc);
+//			}
+//		});
 		
 		JButton btnNewButton_1 = new JButton("Eliminar");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -120,6 +126,16 @@ public class MenuUI extends JFrame {
 		JLabel lblArticulos = new JLabel("Articulos");
 		lblArticulos.setBounds(30, 57, 69, 14);
 		contentPane.add(lblArticulos);
+		
+		JButton button = new JButton("Explosion");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Arbol arbol = new Arbol();
+				arbol.MostrarArbol();
+			}
+		});
+		button.setBounds(341, 162, 143, 67);
+		contentPane.add(button);
 		setLocationRelativeTo(null);
 	}
 }
