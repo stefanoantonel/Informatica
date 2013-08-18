@@ -290,6 +290,7 @@ public class Arbol {
 		for(Nodo padre: padresPrincipales)
 		{
 			//Encontre el nodo dentro del arbol, y llamo a una funcion con el nodo y un nuevo sb
+			buscaNodo=null;
 			Nodo a=BuscarNodo(padre,nodo.GetValor());
 			if(buscaNodo!=null)
 			{
@@ -315,14 +316,14 @@ public class Arbol {
 				a= ListaHijos.next();
 				if (a.GetValor().equals(valor))
 				{ buscaNodo=a;
-					return a; }
+					return null; }
 				else
 					BuscarNodo(a,valor);
 				//return a;
 			}
 			//return a;
 		}	
-		return a;
+		return null;
 		
 	}
 	//siempre llamar esta funcion con un 0 al final
