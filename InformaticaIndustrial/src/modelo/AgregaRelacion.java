@@ -82,30 +82,16 @@ public class AgregaRelacion {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			
-			//SI ESTA QUE NO LA AGREGUE
+			//Agrega siempre pero con otra fecha
+			//CONTROLAR Q NO AGREGUE DOS VECES LO MISMO
 			StringBuilder sb1=new StringBuilder();
-			sb1.append(" IF EXISTS (SELECT * FROM BOM WHERE padre= "+padreId+" and hijo= "+hijoId+")");
-			sb1.append("BEGIN ");
-			sb1.append("UPDATE BOM SET borrado=0, cantidad="+cantidad+", um_id="+umId+" WHERE padre=7 and hijo= 5 ");
-			sb1.append("END ");
-			sb1.append("ELSE BEGIN INSERT INTO BOM (padre,hijo,cantidad,um_id,fecha_inicio,fecha_fin,user_id,descr_upd,lugar_upd) ");
+			sb1.append("INSERT INTO BOM (padre,hijo,cantidad,um_id,fecha_inicio,fecha_fin,user_id,descr_upd,lugar_upd) ");
 			sb1.append("VALUES ("+padreId+","+hijoId+","+cantidad+","+umId+",GETDATE(),null,2,'cargo bom','casa') ");
 			sb1.append("END");
 			PreparedStatement ps=con.prepareStatement(sb1.toString());
+
 			ps.executeUpdate();
 			
-//				StringBuilder sb=new StringBuilder();
-//				sb.append("INSERT INTO BOM (padre,hijo,cantidad,um_id,fecha_inicio,fecha_fin,user_id,descr_upd,lugar_upd) ");
-//				sb.append("VALUES (?,?,?,?,GETDATE(),null,2,'cargo bom','casa')");	
-//				PreparedStatement stm2 = con.prepareStatement(sb.toString());
-//				//PONER VALORES
-//				stm2.setInt(1, padreId);
-//				stm2.setInt(2, hijoId);
-//				stm2.setString(3, cantidad);
-//				stm2.setInt(4, umId);
-//				stm2.executeUpdate();
-//			}
-		
 			JOptionPane.showMessageDialog(null, "Agregado Exitosamente");
 			
 		}catch (Exception e){e.printStackTrace(); System.out.println("error insertar");
