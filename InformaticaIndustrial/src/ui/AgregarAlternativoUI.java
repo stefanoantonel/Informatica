@@ -18,6 +18,7 @@ public class AgregarAlternativoUI extends JFrame {
 	private JPanel contentPane;
 	AgregaRelacionUI relacion;
 	JLabel nombreArticulo = new JLabel("");
+	JLabel articuloXdefecto = new JLabel("");
 	JList list = new JList();
 
 
@@ -45,7 +46,7 @@ public class AgregarAlternativoUI extends JFrame {
 	public AgregarAlternativoUI(AgregaRelacionUI rela) {
 		this.relacion=rela;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 387, 457);
+		setBounds(100, 100, 387, 515);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,31 +59,36 @@ public class AgregarAlternativoUI extends JFrame {
 		nombreArticulo.setBounds(19, 41, 255, 16);
 		contentPane.add(nombreArticulo);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(19, 80, 324, 262);
-		contentPane.add(scrollPane);
+
+		articuloXdefecto.setBounds(19, 73, 255, 16);
+		contentPane.add(articuloXdefecto);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 138, 324, 262);
+		contentPane.add(scrollPane);
 		scrollPane.setViewportView(list);
 		
 		JButton btnNewButton = new JButton("Agrega alternativos");
-		btnNewButton.setBounds(112, 367, 162, 26);
+		btnNewButton.setBounds(112, 424, 162, 26);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblpresioneCtrlY = new JLabel("(Presione CTRL y seleccione multiple)");
-		lblpresioneCtrlY.setBounds(63, 59, 255, 16);
+		lblpresioneCtrlY.setBounds(63, 111, 255, 16);
 		contentPane.add(lblpresioneCtrlY);
+
 		
 		Inicializar();
 	}
 	
 	public void Inicializar(){
-		if(relacion.getListPadre().getSelectedValue()!=null){
+		if(relacion.getListPadre().getSelectedValue()!=null && relacion.getListHijo().getSelectedValue()!=null){
 			nombreArticulo.setText(relacion.getListPadre().getSelectedValue().toString());
+			articuloXdefecto.setText("Articulo por defecto: "+relacion.getListHijo().getSelectedValue().toString());
 			list.setModel(relacion.getModeloHijo());
 			
 		}
 		else{
-			JOptionPane.showMessageDialog(null, "selecione un padre");
+			JOptionPane.showMessageDialog(null, "selecione una realcion");
 		}
 		
 	}
