@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import modelo.AgregaRelacion;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class AgregarAlternativoUI extends JFrame {
 
 	private JPanel contentPane;
@@ -69,6 +74,13 @@ public class AgregarAlternativoUI extends JFrame {
 		scrollPane.setViewportView(list);
 		
 		JButton btnNewButton = new JButton("Agrega alternativos");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregaRelacion agre=new AgregaRelacion();
+			//	agre.InsertarRelacion();
+				
+			}
+		});
 		btnNewButton.setBounds(112, 424, 162, 26);
 		contentPane.add(btnNewButton);
 		
@@ -81,15 +93,10 @@ public class AgregarAlternativoUI extends JFrame {
 	}
 	
 	public void Inicializar(){
-		if(relacion.getListPadre().getSelectedValue()!=null && relacion.getListHijo().getSelectedValue()!=null){
 			nombreArticulo.setText(relacion.getListPadre().getSelectedValue().toString());
 			articuloXdefecto.setText("Articulo por defecto: "+relacion.getListHijo().getSelectedValue().toString());
 			list.setModel(relacion.getModeloHijo());
-			
-		}
-		else{
-			JOptionPane.showMessageDialog(null, "selecione una realcion");
-		}
+
 		
 	}
 }

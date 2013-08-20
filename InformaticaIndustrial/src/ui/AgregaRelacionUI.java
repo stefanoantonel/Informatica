@@ -158,11 +158,21 @@ public class AgregaRelacionUI extends JFrame {
 		JButton btnAgregeAlternativos = new JButton("Agrege Alternativos");
 		btnAgregeAlternativos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				if(listPadre.getSelectedValue()!=null&& listHijo.getSelectedValue()!=null && cantidad.getText()!=null&& comboBox.getSelectedItem()!=null){
 					AgregarAlternativoUI alterna=new AgregarAlternativoUI(AgregaRelacionUI.this);
 					alterna.setVisible(true);
 				}
 				
+=======
+				if(listPadre.getSelectedValue()!=null && listHijo.getSelectedValue()!=null){
+					AgregarAlternativoUI alterna=new AgregarAlternativoUI(AgregaRelacionUI.this);
+					alterna.setVisible(true);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "seleccione una realcion");
+				}
+>>>>>>> 902af6fe4142e503761c63958095cae4f36b502a
 			}
 		});
 		btnAgregeAlternativos.setBounds(526, 203, 144, 50);
