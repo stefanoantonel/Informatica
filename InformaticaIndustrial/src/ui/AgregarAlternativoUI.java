@@ -1,17 +1,17 @@
+                                                                     
+                                                                     
+                                                                     
+                                             
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JButton;
+import javax.swing.border.EmptyBorder;
 
 public class AgregarAlternativoUI extends JFrame {
 
@@ -44,8 +44,7 @@ public class AgregarAlternativoUI extends JFrame {
 //	 */
 	public AgregarAlternativoUI(AgregaRelacionUI rela) {
 		this.relacion=rela;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 387, 457);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

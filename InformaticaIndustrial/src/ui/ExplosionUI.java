@@ -20,6 +20,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 
 import modelo.Arbol;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ExplosionUI extends JFrame {
 
