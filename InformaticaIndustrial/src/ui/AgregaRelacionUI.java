@@ -125,7 +125,7 @@ public class AgregaRelacionUI extends JFrame {
 					if(!listPadre.getSelectedValue().equals(listHijo.getSelectedValue())){
 						AgregaRelacion agre=new AgregaRelacion();
 //						Nodo nodo=new Nodo(p, h)
-						agre.InsertarRelacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),cantidad.getText().toString(), comboBox.getSelectedItem().toString());
+						agre.InsertarRelacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),cantidad.getText().toString(), comboBox.getSelectedItem().toString(),"fechaInicio","fechaFin");
 					}
 					else{ JOptionPane.showMessageDialog(null, "seleccione articulos distintos");}
 				}
@@ -159,8 +159,12 @@ public class AgregaRelacionUI extends JFrame {
 		btnAgregeAlternativos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(listPadre.getSelectedValue()!=null && listHijo.getSelectedValue()!=null){
-					AgregarAlternativoUI alterna=new AgregarAlternativoUI(AgregaRelacionUI.this);
-					alterna.setVisible(true);
+					AgregaRelacion a = new AgregaRelacion();
+					if(a.ControlAlternativos(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString())){
+						AgregarAlternativoUI alterna=new AgregarAlternativoUI(AgregaRelacionUI.this,listPadre.getSelectedValue().toString(),listHijo.getSelectedValue().toString());
+						alterna.setVisible(true);
+					   }
+					else {JOptionPane.showMessageDialog(null, "la relacion No se definio");}
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "seleccione una realcion");

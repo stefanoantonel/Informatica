@@ -17,6 +17,7 @@ import modelo.AgregaRelacion;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class AgregarAlternativoUI extends JFrame {
 
@@ -25,6 +26,8 @@ public class AgregarAlternativoUI extends JFrame {
 	JLabel nombreArticulo = new JLabel("");
 	JLabel articuloXdefecto = new JLabel("");
 	JList list = new JList();
+	private String padreDesc;
+	private String hijoDesc;
 
 
 	
@@ -48,8 +51,10 @@ public class AgregarAlternativoUI extends JFrame {
 //	/**
 //	 * Create the frame.
 //	 */
-	public AgregarAlternativoUI(AgregaRelacionUI rela) {
+	public AgregarAlternativoUI(AgregaRelacionUI rela,String p,String h) {
 		this.relacion=rela;
+		padreDesc=p;
+		hijoDesc=h;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 387, 515);
 		contentPane = new JPanel();
@@ -77,7 +82,8 @@ public class AgregarAlternativoUI extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregaRelacion agre=new AgregaRelacion();
-			//	agre.InsertarRelacion();
+				ArrayList<String> alt =(ArrayList) list.getSelectedValuesList();
+			    agre.InsertarAlternativo(padreDesc, hijoDesc,alt);
 				
 			}
 		});
