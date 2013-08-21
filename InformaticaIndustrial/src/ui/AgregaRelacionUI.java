@@ -100,6 +100,7 @@ public class AgregaRelacionUI extends JFrame {
 		listPadre.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 //				JOptionPane.showMessageDialog(null, "f");
+//				listPadre.getsel
 			}
 		});
 		
@@ -157,6 +158,7 @@ public class AgregaRelacionUI extends JFrame {
 		
 		JButton btnAgregeAlternativos = new JButton("Agrege Alternativos");
 		btnAgregeAlternativos.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				if(listPadre.getSelectedValue()!=null && listHijo.getSelectedValue()!=null){
 					AgregaRelacion a = new AgregaRelacion();
