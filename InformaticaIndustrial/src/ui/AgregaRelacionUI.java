@@ -158,8 +158,8 @@ public class AgregaRelacionUI extends JFrame {
 		
 		JButton btnAgregeAlternativos = new JButton("Agrege Alternativos");
 		btnAgregeAlternativos.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
+
 				if(listPadre.getSelectedValue()!=null && listHijo.getSelectedValue()!=null){
 					AgregaRelacion a = new AgregaRelacion();
 					if(a.ControlAlternativos(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString())){

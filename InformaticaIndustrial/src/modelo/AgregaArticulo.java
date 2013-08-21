@@ -6,13 +6,19 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import persistencia.Conexion;
 =======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 import javax.swing.JOptionPane;
 
 import persistencia.Conexion;
 import ui.AgregaArticuloUI;
 import ui.ArticuloUI;
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
 >>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 
 public class AgregaArticulo {
@@ -26,12 +32,18 @@ public class AgregaArticulo {
 	
 	public AgregaArticulo(){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 =======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		um=new ArrayList<>();
 		material=new ArrayList<>();
 		tipo=new ArrayList<>();
 //		InicializarUI();
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
 >>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 	}
 	public void InicializarUI(){
@@ -50,7 +62,11 @@ public class AgregaArticulo {
 					sb.append("FROM [Unidad Medida] um ");
 					sb.append("inner join Descripcion d on um.descripcion_id=d.id ");
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+					
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 =======
 					
 >>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
@@ -65,14 +81,20 @@ public class AgregaArticulo {
 						} catch (Exception e) {
 							System.out.println("error new nodo padre");
 <<<<<<< HEAD
+<<<<<<< HEAD
 						}
 					}
 					con.close();
 =======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 							e.printStackTrace();
 						}
 					}
 					
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
 >>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 				}
 				catch (Exception e) {
@@ -103,7 +125,11 @@ public class AgregaArticulo {
 						}
 					}
 <<<<<<< HEAD
+<<<<<<< HEAD
 					con.close();
+=======
+				
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 =======
 				
 >>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
@@ -119,9 +145,15 @@ public class AgregaArticulo {
 					con = cn2.getConexion();
 					StringBuilder sb = new StringBuilder();
 <<<<<<< HEAD
+<<<<<<< HEAD
 					sb.append("SELECT ma.id [um id],d.descripcion_str ");
 					sb.append("FROM [Material] ma ");
 					sb.append("inner join Descripcion d on ma.descripcion_id=d.id ");
+=======
+					sb.append("SELECT * ");
+					sb.append("FROM [Material] ma ");
+//					sb.append("inner join Descripcion d on ma.descripcion_id=d.id ");
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 =======
 					sb.append("SELECT * ");
 					sb.append("FROM [Material] ma ");
@@ -141,7 +173,11 @@ public class AgregaArticulo {
 						}
 					}
 <<<<<<< HEAD
+<<<<<<< HEAD
 					con.close();
+=======
+					
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 =======
 					
 >>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
@@ -153,10 +189,13 @@ public class AgregaArticulo {
 				
 				
 <<<<<<< HEAD
+<<<<<<< HEAD
 				
 				
 	}
 =======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 			AgregaArticuloUI aui=new AgregaArticuloUI(material,tipo,um);
 //			aui.setVisible(true);
 				
@@ -312,5 +351,8 @@ public class AgregaArticulo {
 
 
 
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
 >>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 }
