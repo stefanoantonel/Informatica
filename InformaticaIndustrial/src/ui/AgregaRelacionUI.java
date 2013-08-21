@@ -169,6 +169,7 @@ public class AgregaRelacionUI extends JFrame {
 				else{
 					JOptionPane.showMessageDialog(null, "seleccione una realcion");
 				}
+
 			}
 		});
 		btnAgregeAlternativos.setBounds(526, 203, 144, 50);
