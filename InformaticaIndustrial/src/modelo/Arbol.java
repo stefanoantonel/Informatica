@@ -3,14 +3,14 @@
 package modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-//import javax.swing.JTree;
-
 import persistencia.Conexion;
+//import javax.swing.JTree;
 
 public class Arbol {
 
@@ -345,4 +345,47 @@ public class Arbol {
 	{
 		return padresPrincipales;
 	}
+	
+	public void ObtenerAlternativos (Nodo x)
+	{
+		Integer padre=null;
+		if(x.getPadre()!=null)
+		   padre=x.getPadre().GetValor();
+		Integer hijo=x.GetValor();
+		Integer id_generico=null;
+		String principal_id= "Select principal_id from Bom where padre="+padre+" and hijo=" +hijo+ " and borrado=0";
+		PreparedStatement stm;
+		
+		try {
+			Conexion cc= new Conexion();
+			Connection con= cc.getConexion();
+			stm = con.prepareStatement(principal_id);
+			ResultSet rs = stm.executeQuery();
+			rs.next();
+			id_generico=rs.getInt(1);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String alternativos = "Select artAlternativo_id from [Articulos Alternativos] where artPrincipal_id="+ id_generico;		
+		try {
+			Conexion cc2= new Conexion();
+			Connection con2= cc2.getConexion();
+			stm = con2.prepareStatement(alternativos);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next())
+			{
+				System.out.println(rs.getInt(1));
+			}
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

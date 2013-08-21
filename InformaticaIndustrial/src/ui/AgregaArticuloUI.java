@@ -2,11 +2,26 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 import java.util.ArrayList;
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+import java.util.ArrayList;
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+<<<<<<< HEAD
+<<<<<<< HEAD
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+=======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 import javax.swing.ComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,6 +32,10 @@ import modelo.AgregaArticulo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 
 public class AgregaArticuloUI extends JFrame {
 
@@ -31,6 +50,33 @@ public class AgregaArticuloUI extends JFrame {
 	private JTextField textField_6;
 	private JTextField textField_7;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AgregaArticuloUI frame = new AgregaArticuloUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AgregaArticuloUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 537, 407);
+=======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 	String descripcionSeleccionado, materialSeleccionado, unidadMedidaSeleccionado, tipoSeleccionado;
 	
 	
@@ -60,6 +106,10 @@ public class AgregaArticuloUI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 727, 407);
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,17 +120,44 @@ public class AgregaArticuloUI extends JFrame {
 		contentPane.add(lblDescripcion);
 		
 		JLabel lblAgregarArticulos = new JLabel("Agregar Articulos");
+<<<<<<< HEAD
+<<<<<<< HEAD
+		lblAgregarArticulos.setBounds(167, 11, 134, 14);
+		contentPane.add(lblAgregarArticulos);
+		
+		descripcion = new JTextField();
+		descripcion.setBounds(113, 56, 86, 20);
+=======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		lblAgregarArticulos.setBounds(320, 11, 134, 14);
 		contentPane.add(lblAgregarArticulos);
 		
 		descripcion = new JTextField();
 		descripcion.setBounds(113, 56, 472, 20);
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(descripcion);
 		descripcion.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Material");
+<<<<<<< HEAD
+<<<<<<< HEAD
+		lblNewLabel.setBounds(20, 84, 46, 14);
+		contentPane.add(lblNewLabel);
+		
+		JComboBox material = new JComboBox();
+		material.setBounds(113, 87, 65, 20);
+=======
 		lblNewLabel.setBounds(20, 93, 46, 14);
 		contentPane.add(lblNewLabel);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+		lblNewLabel.setBounds(20, 93, 46, 14);
+		contentPane.add(lblNewLabel);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(material);
 		
 		JLabel lblAlto = new JLabel("Alto");
@@ -104,6 +181,36 @@ public class AgregaArticuloUI extends JFrame {
 		contentPane.add(lblPeso);
 		
 		JLabel lblUnidadDeMedida = new JLabel("Unidad de medida");
+<<<<<<< HEAD
+<<<<<<< HEAD
+		lblUnidadDeMedida.setBounds(236, 125, 95, 14);
+		contentPane.add(lblUnidadDeMedida);
+		
+		JComboBox unidadMedida = new JComboBox();
+		unidadMedida.setBounds(341, 122, 86, 20);
+		contentPane.add(unidadMedida);
+		
+		JLabel lblColor = new JLabel("Color");
+		lblColor.setBounds(236, 150, 46, 14);
+		contentPane.add(lblColor);
+		
+		JLabel lblCostoStd = new JLabel("Costo Std");
+		lblCostoStd.setBounds(236, 175, 65, 14);
+		contentPane.add(lblCostoStd);
+		
+		JLabel lblPrecioVtaStd = new JLabel("Precio Vta Std");
+		lblPrecioVtaStd.setBounds(236, 200, 95, 14);
+		contentPane.add(lblPrecioVtaStd);
+		
+		JLabel lblTipo = new JLabel("Tipo");
+		lblTipo.setBounds(236, 243, 46, 14);
+		contentPane.add(lblTipo);
+		
+		JComboBox tipo = new JComboBox();
+		tipo.setBounds(341, 240, 86, 20);
+=======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		lblUnidadDeMedida.setBounds(392, 125, 120, 14);
 		contentPane.add(lblUnidadDeMedida);
 		contentPane.add(unidadMedida);
@@ -123,6 +230,10 @@ public class AgregaArticuloUI extends JFrame {
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setBounds(392, 234, 46, 14);
 		contentPane.add(lblTipo);
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(tipo);
 		
 		JLabel lblCentroDeCosto = new JLabel("Centro de costo");
@@ -134,6 +245,20 @@ public class AgregaArticuloUI extends JFrame {
 		contentPane.add(lblClaseMers);
 		
 		JComboBox centroCosto = new JComboBox();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		centroCosto.setBounds(123, 265, 65, 20);
+		contentPane.add(centroCosto);
+		
+		JComboBox claseMerciologica = new JComboBox();
+		claseMerciologica.setBounds(123, 296, 65, 20);
+		contentPane.add(claseMerciologica);
+		
+		textField = new JTextField();
+		textField.setBounds(92, 122, 86, 20);
+=======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		centroCosto.setBounds(157, 265, 65, 20);
 		contentPane.add(centroCosto);
 		
@@ -143,40 +268,100 @@ public class AgregaArticuloUI extends JFrame {
 		
 		textField = new JTextField();
 		textField.setBounds(113, 119, 86, 20);
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		textField_1.setBounds(92, 147, 86, 20);
+=======
 		textField_1.setBounds(113, 144, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+		textField_1.setBounds(113, 144, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		textField_2.setBounds(92, 175, 86, 20);
+=======
 		textField_2.setBounds(113, 172, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+		textField_2.setBounds(113, 172, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
 		textField_3 = new JTextField();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		textField_3.setBounds(92, 197, 86, 20);
+=======
 		textField_3.setBounds(113, 194, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+		textField_3.setBounds(113, 194, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 		
 		textField_4 = new JTextField();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		textField_4.setBounds(92, 222, 86, 20);
+=======
 		textField_4.setBounds(113, 219, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+		textField_4.setBounds(113, 219, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
 		
 		textField_5 = new JTextField();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		textField_5.setBounds(341, 147, 86, 20);
+=======
 		textField_5.setBounds(522, 144, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+		textField_5.setBounds(522, 144, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(textField_5);
 		textField_5.setColumns(10);
 		
 		textField_6 = new JTextField();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		textField_6.setBounds(341, 172, 86, 20);
+=======
 		textField_6.setBounds(522, 169, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+		textField_6.setBounds(522, 169, 86, 20);
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		contentPane.add(textField_6);
 		textField_6.setColumns(10);
 		
 		textField_7 = new JTextField();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		textField_7.setBounds(341, 200, 86, 20);
+		contentPane.add(textField_7);
+		textField_7.setColumns(10);
+=======
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 		textField_7.setBounds(522, 197, 86, 20);
 		contentPane.add(textField_7);
 		textField_7.setColumns(10);
@@ -203,5 +388,9 @@ public class AgregaArticuloUI extends JFrame {
 		
 //		relllenaCombo(mat, tip, um);
 		this.setVisible(true);
+<<<<<<< HEAD
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
+=======
+>>>>>>> 64a622bc85c2213ef7482b078f2f76a8bf4eaf5e
 	}
 }

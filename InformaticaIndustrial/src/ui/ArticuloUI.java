@@ -129,8 +129,19 @@ public class ArticuloUI extends JFrame {
 				JOptionPane.showMessageDialog(null,sb);
 			}
 		});
-		btnNewButton.setBounds(429, 161, 138, 67);
+		btnNewButton.setBounds(424, 266, 138, 67);
 		getContentPane().add(btnNewButton);
+		
+		JButton button = new JButton("Alternativos");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Arbol ar=new Arbol();
+				String descrip=articuloSelecc.getDescripcion();
+				ar.ObtenerAlternativos(ar.getNodoByDescripcion(descrip));
+			}
+		});
+		button.setBounds(424, 161, 138, 67);
+		getContentPane().add(button);
 
 		//pongo en variable
 		//setArticuloSelecc(eleccion);
