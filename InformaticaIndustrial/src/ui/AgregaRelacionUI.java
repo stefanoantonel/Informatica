@@ -2,28 +2,27 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import modelo.AgregaRelacion;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JMenuBar;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenuItem;
 
 public class AgregaRelacionUI extends JFrame {
 
@@ -32,6 +31,8 @@ public class AgregaRelacionUI extends JFrame {
 	final JList listPadre = new JList();
 	final JList listHijo = new JList();
 	DefaultListModel modeloHijo;
+	private JTextField fechaInicio;
+	private JTextField fechaFIn;
 	public DefaultListModel getModeloHijo() {
 		return modeloHijo;
 	}
@@ -78,7 +79,7 @@ public class AgregaRelacionUI extends JFrame {
 		final JComboBox<Object> comboBox = new JComboBox<Object>(um);
 		
 		//PONGO TODO LA UI	
-		setBounds(100, 100, 696, 320);
+		setBounds(100, 100, 696, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -170,8 +171,38 @@ public class AgregaRelacionUI extends JFrame {
 
 			}
 		});
-		btnAgregeAlternativos.setBounds(526, 203, 144, 50);
+		btnAgregeAlternativos.setBounds(526, 225, 144, 50);
 		contentPane.add(btnAgregeAlternativos);
+		
+		JLabel lblFechaInicio = new JLabel("Fecha inicio");
+		lblFechaInicio.setBounds(10, 221, 80, 14);
+		contentPane.add(lblFechaInicio);
+		
+		fechaInicio = new JTextField();
+		fechaInicio.setBounds(83, 218, 86, 20);
+		contentPane.add(fechaInicio);
+		fechaInicio.setColumns(10);
+		
+		JLabel lblddmmyyyy = new JLabel("(DD-MM-YYYY)");
+		lblddmmyyyy.setBounds(181, 221, 86, 14);
+		contentPane.add(lblddmmyyyy);
+		
+		JLabel label = new JLabel("(DD-MM-YYYY)");
+		label.setBounds(181, 261, 86, 14);
+		contentPane.add(label);
+		
+		JLabel lblFechaFin = new JLabel("Fecha fin");
+		lblFechaFin.setBounds(10, 261, 59, 14);
+		contentPane.add(lblFechaFin);
+		
+		fechaFIn = new JTextField();
+		fechaFIn.setBounds(83, 258, 86, 20);
+		contentPane.add(fechaFIn);
+		fechaFIn.setColumns(10);
+		
+		
+
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		
 		
 	}
