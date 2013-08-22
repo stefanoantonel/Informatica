@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
 import modelo.Articulos;
+import modelo.Nodo;
+
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
@@ -24,7 +26,7 @@ public class CambiarArticuloDefecto extends JFrame {
 	private JTextField artDefecto;
 	JList listArticulos = new JList();
 	JList listAlternativos = new JList();
-	
+	String defecto;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,10 +55,18 @@ public class CambiarArticuloDefecto extends JFrame {
 		contentPane.add(scrollPane);
 		listArticulos.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				
+				//obtiene el laternativo 
 				String art=listArticulos.getSelectedValue().toString();
-				AdministraAlternativo adm = new AdministraAlternativo(art);
-				adm.setVisible(true);
+				Nodo n=new Nodo();
+				ArrayList<String> li=new ArrayList<>();
+				li=n.getAlternativos(art);
+				//setea en el lista del alternativo todos
+				DefaultListModel<String> mod=new DefaultListModel<>();
+				for(String s:li){
+					mod.addElement(s);
+				}
+				listAlternativos.setModel(mod);
+//				defecto=n.ge
 			}
 		});
 		

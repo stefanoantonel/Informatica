@@ -140,5 +140,44 @@ public class Nodo {
 		}
 		
 		
-		
+		public String obtenerDefecto(String descripcion){
+			Connection con;
+			Conexion cn = new Conexion();
+			con=cn.getConexion();
+			ResultSet rs;
+
+			ArrayList<String> alt=new ArrayList<>();
+			Arbol a = new Arbol();
+			Nodo nodo=a.getNodoByDescripcion(descripcion);
+			try {
+				Conexion cn1 = new Conexion();
+				con = cn1.getConexion();
+				StringBuilder sb = new StringBuilder();
+				sb.append("select d.descripcion_str ");
+				sb.append(" from BOM b,Articulo a,Descripcion d");
+			   
+				sb.append(" where a.descripcion_id=d.id and ");
+				
+				sb.append("  b.padre=? and b.hijo =?");
+				PreparedStatement stm;
+				stm = con.prepareStatement(sb.toString());
+				stm.setString(1, nodo.getPadre().GetValor().toString());
+				stm.setString(2, nodo.GetValor().toString());
+				rs = stm.executeQuery();
+				
+				while (rs.next()) {
+					//
+					String aa = String.valueOf(rs.getObject(1));
+					System.out.println("Consulta rs: "+aa);
+				    alt.add(aa);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("error en getAlternativos");
+			}
+						
+						
+			return alt.get(1);
+		}
 }
