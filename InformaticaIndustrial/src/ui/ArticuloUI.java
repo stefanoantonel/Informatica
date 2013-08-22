@@ -96,9 +96,24 @@ public class ArticuloUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				float cant =Float.parseFloat(cantidadParaProducir.getText());
+//				JOptionPane.showInputDialog(")
 				
-				Arbol a = new Arbol();
-				a.MostrarArbol(articuloSelecc,cant);
+				String a=JOptionPane.showInputDialog(null,"Ingrese fecha a ver la compocision \n(YYYY-MM-DD)");
+				if(!a.equals("")){
+					Arbol arbol=new Arbol("'"+a+"'");
+//					Arbol ar=new Arbol();
+//					arbol.MostrarArbol();
+					System.out.println("a:"+a);
+					arbol.MostrarArbol(arbol.getNodoByDescripcion(articuloSelecc.getDescripcion()),cant);
+//					ar.MostrarArbol();
+				}
+				
+				
+				
+				
+				
+//				Arbol a = new Arbol();
+//				a.MostrarArbol(articuloSelecc,cant);
 			}
 		});
 		calcularNecesarioProducir.setBounds(127, 42, 89, 19);

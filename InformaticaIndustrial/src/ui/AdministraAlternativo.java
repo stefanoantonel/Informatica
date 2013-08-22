@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 public class AdministraAlternativo extends JFrame {
 
 	private JPanel contentPane;
+	final JList<String> listAlternativos = new JList<>();
 
 	public AdministraAlternativo(String art) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -35,7 +36,7 @@ public class AdministraAlternativo extends JFrame {
 		scrollPane.setBounds(43, 49, 103, 119);
 		contentPane.add(scrollPane);
 		
-		final JList<String> listAlternativos = new JList<>();
+		
 		scrollPane.setViewportView(listAlternativos);
 		
 		//contentPane.add(listAlternativos);
