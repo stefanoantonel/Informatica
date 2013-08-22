@@ -138,6 +138,24 @@ public class ArticuloUI extends JFrame {
 		btnNewButton.setBounds(424, 266, 138, 67);
 		getContentPane().add(btnNewButton);
 		
+		JButton btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String a=JOptionPane.showInputDialog(null,"Ingrese fecha a ver la compocision \n(YYYY-MM-DD)");
+				if(!a.equals("")){
+//					Arbol arbol=new Arbol("'"+a+"'");
+					Arbol ar=new Arbol();
+					System.out.println("a:"+a);
+//					arbol.MostrarArbol(articuloSelecc,1);
+					ar.MostrarArbol();
+				}
+				
+				
+			}
+		});
+		btnHistorial.setBounds(265, 266, 138, 67);
+		getContentPane().add(btnHistorial);
+		
 //		JButton button = new JButton("Alternativos");
 //		button.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent arg0) {
