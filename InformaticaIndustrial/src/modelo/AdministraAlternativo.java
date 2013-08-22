@@ -24,6 +24,9 @@ public class AdministraAlternativo {
 		this.um=um;
 		MostrarAlternativo();
 	}
+	public AdministraAlternativo(){
+		
+	}
 	
 	private ArrayList<String> getAlternativos()
 	{
@@ -83,6 +86,58 @@ public class AdministraAlternativo {
 //		ArrayList<String> alternativosDescripcion = getAlternativos();
 //		return conversion;
 //	}
+	public void cambiarDefault(int padreId, int hijoId, int nuevo){
+		
+		ArrayList<String> descUm = new ArrayList();
 	
+	try {
+		cn = new Conexion();
+		con = cn.getConexion();
+		
+		PreparedStatement stm;
+		
+		ResultSet rs;
+	
+				
+		StringBuilder sb = new StringBuilder();
+		
+//		sb.append(" IF EXISTS (SELECT * FROM BOM WHERE padre="+padreId+" and hijo= "+hijoId+")");
+//		 sb.append("BEGIN ");
+//		     sb.append(" UPDATE BOM ");
+//			 sb.append("SET borrado=1 ");
+//			 sb.append(" WHERE padre= "+padreId+" and hijo=  "+hijoId+"");
+//			 sb.append("INSERT INTO BOM (padre,hijo,cantidad,um_id,fecha_inicio,fecha_fin,user_id,descr_upd,lugar_upd) ");
+//			 sb.append("VALUES ( "+padreId+", "+nuevo+",101,1,GETDATE(),null,2,'cargo bom','casa') ");
+//		sb.append("END ");
+//		 sb.append("ELSE ");
+//		 sb.append("BEGIN ");
+//			 sb.append("INSERT INTO BOM (padre,hijo,cantidad,um_id,fecha_inicio,fecha_fin,user_id,descr_upd,lugar_upd) ");
+//			 sb.append("VALUES ( "+padreId+", "+nuevo+",101,1,GETDATE(),null,2,'cargo bom','casa') ");
+//		 sb.append("END ");
+		 
+		sb.append("UPDATE BOM ");
+//		sb.append("SET borrado=1 ,fecha_fin=getDate() ");
+		sb.append("SET hijo="+nuevo+"");
+		sb.append("WHERE padre="+padreId+" and hijo= "+hijoId+"");
+		 stm=null;
+		 stm = con.prepareStatement(sb.toString());
+		 stm.executeUpdate();
+//		 int ind=0;
+//		 while (rs.next())
+//		 {
+//			 
+//			 conversion[ind][0]=String.valueOf(rs.getInt("um_principal"));
+//			 String sP=rs.getString("descPrincipal");
+//			 conversion[ind][1]=sP;
+//			 String s=rs.getString("descripcion_str");
+//			 descUm.add(s);
+//			 //conversion[ind][1]=rs.getString("un_alternativo");
+//			 conversion[ind][2]=s;
+//			 conversion[ind][3]=rs.getString("factor");
+//			 ind++;
+//		 }
+		}catch(Exception e) { e.printStackTrace(); System.out.println("Error: getAlternativos");}
+
+	}
 	
 }

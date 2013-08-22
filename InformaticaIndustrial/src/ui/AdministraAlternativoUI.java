@@ -3,6 +3,8 @@ package ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -19,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 
 import persistencia.Conexion;
 
+import modelo.AdministraAlternativo;
 import modelo.AgregaArticulo;
 import modelo.Arbol;
 import modelo.Nodo;
@@ -30,8 +33,11 @@ public class AdministraAlternativoUI extends JFrame {
 	private final String[][] conversion = new String[10][10];
 	private final JLabel lblCantidad = new JLabel();
 	private final JLabel lblUm = new JLabel();
+	String original;
 
 	public AdministraAlternativoUI(String art, String cant, String um, ArrayList<String> altDesc, String[][] conv) {
+		original=art;
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 275, 370);
 		contentPane = new JPanel();
@@ -87,6 +93,14 @@ public class AdministraAlternativoUI extends JFrame {
 //					Connection con = cn.getConexion();
 //					String sentencia = ""
 					
+					Arbol a=new Arbol();
+					String nuevo =listAlternativos.getSelectedValue();
+//					a.getNodoByDescripcion(art);
+					AdministraAlternativo aa=new AdministraAlternativo();
+					Nodo viejo=new Nodo();
+					viejo=a.getNodoByDescripcion(original);
+					int nuevoId=a.getNodoByDescripcion(nuevo).GetValor();
+					aa.cambiarDefault((int) viejo.getPadre().GetValor(), (int)viejo.GetValor(), nuevoId);
 					
 				}
 			}
