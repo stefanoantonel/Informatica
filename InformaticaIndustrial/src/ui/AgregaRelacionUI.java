@@ -4,13 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.StringTokenizer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -33,6 +35,27 @@ public class AgregaRelacionUI extends JFrame {
 	DefaultListModel modeloHijo;
 	private JTextField fechaInicio;
 	private JTextField fechaFIn;
+	
+	public String getFechaInicio() {
+		return fechaInicio.getText();
+	}
+
+	public void setFechaInicio(JTextField fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public String getFechaFIn() {
+		
+//			StringTokenizer st=new StringTokenizer(,"-");
+		return fechaFIn.getText();
+		
+		
+	}
+
+	public void setFechaFIn(JTextField fechaFIn) {
+		this.fechaFIn = fechaFIn;
+	}
+
 	public DefaultListModel getModeloHijo() {
 		return modeloHijo;
 	}
@@ -127,7 +150,9 @@ public class AgregaRelacionUI extends JFrame {
 					if(!listPadre.getSelectedValue().equals(listHijo.getSelectedValue())){
 						AgregaRelacion agre=new AgregaRelacion();
 //						Nodo nodo=new Nodo(p, h)
-						agre.InsertarRelacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),cantidad.getText().toString(), comboBox.getSelectedItem().toString(),"fechaInicio","fechaFin");
+						System.out.println("fecha inicio"+ getFechaInicio());
+						System.out.println("fecha fin"+ getFechaFIn());
+						agre.InsertarRelacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),cantidad.getText().toString(), comboBox.getSelectedItem().toString(),getFechaInicio(),getFechaFIn());
 					}
 					else{ JOptionPane.showMessageDialog(null, "seleccione articulos distintos");}
 				}
@@ -187,13 +212,9 @@ public class AgregaRelacionUI extends JFrame {
 		contentPane.add(fechaInicio);
 		fechaInicio.setColumns(10);
 		
-		JLabel lblddmmyyyy = new JLabel("(DD-MM-YYYY)");
+		JLabel lblddmmyyyy = new JLabel("(YYYY-MM-DD)");
 		lblddmmyyyy.setBounds(181, 221, 86, 14);
 		contentPane.add(lblddmmyyyy);
-		
-		JLabel label = new JLabel("(DD-MM-YYYY)");
-		label.setBounds(181, 261, 86, 14);
-		contentPane.add(label);
 		
 		JLabel lblFechaFin = new JLabel("Fecha fin");
 		lblFechaFin.setBounds(10, 261, 59, 14);
@@ -203,6 +224,10 @@ public class AgregaRelacionUI extends JFrame {
 		fechaFIn.setBounds(83, 258, 86, 20);
 		contentPane.add(fechaFIn);
 		fechaFIn.setColumns(10);
+		
+		JLabel label = new JLabel("(YYYY-MM-DD)");
+		label.setBounds(181, 261, 86, 14);
+		contentPane.add(label);
 		
 		
 

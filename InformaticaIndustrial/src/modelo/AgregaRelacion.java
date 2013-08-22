@@ -3,11 +3,10 @@ package modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import persistencia.Conexion;
@@ -67,6 +66,19 @@ public class AgregaRelacion {
 		//con = cn1.getConexion();
 		Integer pId=null;
 		Integer hId=null;
+		if(fechaFin==null||fechaFin.equals("")){
+			fechaFin="NULL ";
+		}
+		else{
+			fechaFin="'"+fechaFin+"'";
+		}
+		if(fechaInicio==null||fechaInicio.equals("")){
+			fechaInicio="getDate() ";
+		}
+		else{
+			fechaInicio="'"+fechaInicio+"'";
+		}
+			
 		
 		pId=ObtenerArituculoID(padreDesc);
 		hId=ObtenerArituculoID(hijoDesc);
@@ -100,7 +112,7 @@ public class AgregaRelacion {
 			sb1.append("INSERT INTO BOM (padre,hijo,cantidad,um_id,fecha_inicio,fecha_fin,user_id,descr_upd,lugar_upd,borrado) ");
 			//HACER!!!!!!!!!!!!!!!!!!!!!!
 			//sb1.append("VALUES ("+padreId+","+hijoId+","+cantidad+","+umId+","+fechaInicio+","+fechaFin+",2,'cargo bom','casa',0) ");
-			sb1.append("VALUES ("+pId+","+hId+","+cantidad+","+umId+", getDate(),getDate(),2,'cargo bom','casa',0) ");
+			sb1.append("VALUES ("+pId+","+hId+","+cantidad+","+umId+","+fechaInicio+","+fechaFin+",2,'cargo bom','casa',0) ");
 			PreparedStatement ps=con.prepareStatement(sb1.toString());
 			ps.executeUpdate();			
 			JOptionPane.showMessageDialog(null, "Agregado Exitosamente");
