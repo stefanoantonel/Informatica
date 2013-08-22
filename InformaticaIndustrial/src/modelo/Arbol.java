@@ -23,9 +23,25 @@ public class Arbol {
 	Nodo aDesc= null ; //Exclusivo para getnodoByDesc
 	ArrayList<Nodo> padresPrincipales = new ArrayList<>();
 	ArrayList<Nodo> padresPrincipalesE = new ArrayList<>();
+	String selectBom;
 	
 
 	public Arbol(){
+		StringBuilder select = new StringBuilder();
+		select.append("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id ");
+		select.append(" from BOM b inner join Articulo a on a.id=b.hijo inner join [Unidad Medida]u on b.um_id=u.id inner join Descripcion d on u.descripcion_id=d.id ");
+		select.append(" where borrado=0 and fecha_inicio<GETDATE() and (fecha_fin>GETDATE() or fecha_fin is NULL)");
+		selectBom = select.toString();
+		InicializarArbol();
+	}
+	
+	public Arbol(String date){
+		StringBuilder select = new StringBuilder();
+		select.append("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id ");
+		select.append(" from BOM b inner join Articulo a on a.id=b.hijo inner join [Unidad Medida]u on b.um_id=u.id inner join Descripcion d on u.descripcion_id=d.id ");
+		//CAST DATE
+		select.append(" where borrado=0 and fecha_inicio<GETDATE() and (fecha_fin>GETDATE() or fecha_fin is NULL)");
+		selectBom = select.toString();
 		InicializarArbol();
 	}
 	
@@ -109,12 +125,8 @@ public class Arbol {
 		 //OBTENER TODA LA BOM
 					try {
 						
-						StringBuilder select = new StringBuilder();
-						select.append("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id ");
-						select.append(" from BOM b inner join Articulo a on a.id=b.hijo inner join [Unidad Medida]u on b.um_id=u.id inner join Descripcion d on u.descripcion_id=d.id ");
-						select.append(" where borrado=0");
 						//ResultSet result= cn.prepareStatement("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id from BOM b,Descripcion d,[Unidad Medida]u,Articulo a where borrado=0 and b.um_id=u.id and u.descripcion_id=d.id and a.id=b.hijo").executeQuery();
-						ResultSet result= cn.prepareStatement(select.toString()).executeQuery();
+						ResultSet result= cn.prepareStatement(selectBom).executeQuery();
 				        
 				        while (result.next()) {
 				        	bom[i][j] = (result.getObject("padre")).toString();
