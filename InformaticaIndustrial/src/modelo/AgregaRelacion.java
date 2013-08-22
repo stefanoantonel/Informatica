@@ -125,7 +125,7 @@ public class AgregaRelacion {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder generico=new StringBuilder();
-			generico.append(" SELECT principal_id FROM BOM WHERE padre= "+pId+" and hijo= "+hId);
+			generico.append(" SELECT generico_id FROM BOM WHERE padre= "+pId+" and hijo= "+hId);
 			PreparedStatement psGenerico=con.prepareStatement(generico.toString());
 			ResultSet rGenerico=psGenerico.executeQuery();
 			rGenerico.next();
@@ -140,7 +140,7 @@ public class AgregaRelacion {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb1=new StringBuilder();
-			sb1.append(" INSERT INTO [Articulos Alternativos] (artPrincipal_id,artAlternativo_id) values ("+artGenerico+", "+hId+")");
+			sb1.append(" INSERT INTO [Articulos Alternativos] (artGenerico_id,artAlternativo_id) values ("+artGenerico+", "+hId+")");
 			PreparedStatement ps2=con.prepareStatement(sb1.toString());
 			ps2.executeUpdate();			
 			
