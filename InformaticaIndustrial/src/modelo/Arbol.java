@@ -24,6 +24,7 @@ public class Arbol {
 	ArrayList<Nodo> padresPrincipales = new ArrayList<>();
 	ArrayList<Nodo> padresPrincipalesE = new ArrayList<>();
 	String selectBom;
+	String selectPadres;
 	
 
 	public Arbol(){
@@ -32,6 +33,14 @@ public class Arbol {
 		select.append(" from BOM b inner join Articulo a on a.id=b.hijo inner join [Unidad Medida]u on b.um_id=u.id inner join Descripcion d on u.descripcion_id=d.id ");
 		select.append(" where borrado=0 and fecha_inicio<=GETDATE() and (fecha_fin>=GETDATE() or fecha_fin is NULL)");
 		selectBom = select.toString();
+		
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append("Select distinct padre from BOM where padre not in (select distinct hijo from BOM) and");
+		sb.append(" padre not in (select hijo from BOM)and");
+		sb.append(" borrado=0 and fecha_inicio<=GETDATE() and (fecha_fin>=GETDATE() or fecha_fin is NULL)");
+		selectPadres = sb.toString();
+		
 		InicializarArbol();
 	}
 	
@@ -42,6 +51,14 @@ public class Arbol {
 		//CAST DATE
 		select.append(" where borrado=0 and fecha_inicio<="+date+" and (fecha_fin>="+date+" or fecha_fin is NULL)");
 		selectBom = select.toString();
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append("Select distinct padre from BOM where padre not in (select distinct hijo from BOM) and");
+		sb.append(" padre not in (select hijo from BOM)and");
+		sb.append(" borrado=0 and fecha_inicio<="+date+" and (fecha_fin>="+date+" or fecha_fin is NULL)");
+		selectPadres = sb.toString();
+		
+		
 		InicializarArbol();
 	}
 	
@@ -69,11 +86,11 @@ public class Arbol {
 				
 		//OBTENER PADRES PRINCIPALES
 				try {
-					StringBuilder sb=new StringBuilder();
-					sb.append("Select distinct padre from BOM where padre not in (select distinct hijo from BOM) and");
-					sb.append(" padre not in (select hijo from BOM)and");
-					sb.append(" borrado=0");	
-					ResultSet padresP = cn.prepareStatement(sb.toString()).executeQuery();
+//					StringBuilder sb=new StringBuilder();
+//					sb.append("Select distinct padre from BOM where padre not in (select distinct hijo from BOM) and");
+//					sb.append(" padre not in (select hijo from BOM)and");
+//					sb.append(" borrado=0");	
+					ResultSet padresP = cn.prepareStatement(selectPadres).executeQuery();
 					while (padresP.next()) {
 				        	Nodo n =new Nodo (padresP.getInt("padre"));
 				        	//1:Make
