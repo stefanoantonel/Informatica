@@ -30,27 +30,6 @@ public class AgregarAlternativoUI extends JFrame {
 	private String hijoDesc;
 
 
-	
-//
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AgregarAlternativoUI frame = new AgregarAlternativoUI();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	/**
-//	 * Create the frame.
-//	 */
 	public AgregarAlternativoUI(AgregaRelacionUI rela,String p,String h) {
 		this.relacion=rela;
 		padreDesc=p;

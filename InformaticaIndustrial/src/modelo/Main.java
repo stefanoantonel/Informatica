@@ -65,8 +65,8 @@ public class Main {
 //				}
 //				
 				
-		AgregaArticulo aa=new AgregaArticulo();
-		aa.InicializarUI();
+		//AgregaArticulo aa=new AgregaArticulo();
+		//aa.InicializarUI();
 		
 		
 	}
