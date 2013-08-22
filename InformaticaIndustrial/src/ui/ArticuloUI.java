@@ -143,11 +143,12 @@ public class ArticuloUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String a=JOptionPane.showInputDialog(null,"Ingrese fecha a ver la compocision \n(YYYY-MM-DD)");
 				if(!a.equals("")){
-//					Arbol arbol=new Arbol("'"+a+"'");
-					Arbol ar=new Arbol();
+					Arbol arbol=new Arbol("'"+a+"'");
+//					Arbol ar=new Arbol();
+//					arbol.MostrarArbol();
 					System.out.println("a:"+a);
-//					arbol.MostrarArbol(articuloSelecc,1);
-					ar.MostrarArbol();
+					arbol.MostrarArbol(arbol.getNodoByDescripcion(articuloSelecc.getDescripcion()),1);
+//					ar.MostrarArbol();
 				}
 				
 				
