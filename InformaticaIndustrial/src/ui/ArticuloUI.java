@@ -94,18 +94,33 @@ public class ArticuloUI extends JFrame {
 		JButton calcularNecesarioProducir = new JButton("Calcular");
 		calcularNecesarioProducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				float cant;
+				if(cantidadParaProducir.getText().equals("")){
+					cant=1;
+				}
+				else{
+					cant =Float.parseFloat(cantidadParaProducir.getText());
+				}
 				
-				float cant =Float.parseFloat(cantidadParaProducir.getText());
 //				JOptionPane.showInputDialog(")
 				
 				String a=JOptionPane.showInputDialog(null,"Ingrese fecha a ver la compocision \n(YYYY-MM-DD)");
+				
 				if(!a.equals("")){
+					
 					Arbol arbol=new Arbol("'"+a+"'");
 //					Arbol ar=new Arbol();
 //					arbol.MostrarArbol();
 					System.out.println("a:"+a);
 					arbol.MostrarArbol(arbol.getNodoByDescripcion(articuloSelecc.getDescripcion()),cant);
 //					ar.MostrarArbol();
+				}
+				else{
+					Arbol arbol=new Arbol("getDate()");
+//					Arbol ar=new Arbol();
+//					arbol.MostrarArbol();
+					System.out.println("a:"+a);
+					arbol.MostrarArbol(arbol.getNodoByDescripcion(articuloSelecc.getDescripcion()),cant);
 				}
 				
 				
