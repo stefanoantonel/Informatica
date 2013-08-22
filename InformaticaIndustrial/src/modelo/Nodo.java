@@ -94,6 +94,8 @@ public class Nodo {
 		    tipo=t;
 		}
 		
+		public Nodo()
+		{}
 		
 		public ArrayList<String> getAlternativos(String desc)
 		{
@@ -103,7 +105,6 @@ public class Nodo {
 			ResultSet rs;
 
 			ArrayList<String> alt=new ArrayList<>();
-			alt=null;
 			Arbol a = new Arbol();
 			Nodo nodo=a.getNodoByDescripcion(desc);
 			try {
@@ -111,18 +112,26 @@ public class Nodo {
 				con = cn1.getConexion();
 				StringBuilder sb = new StringBuilder();
 				sb.append("select d.descripcion_str ");
-//				sb.append(
-//			    sb.append(
-//				sb.append(
+				sb.append(" from BOM b,Articulo a,[Articulos Alternativos] at,Descripcion d");
+			    sb.append(" where at.artAlternativo_id=a.id and");
+				sb.append(" a.descripcion_id=d.id and");
+				sb.append(" b.generico_id=at.artGenerico_id and");
+				sb.append("  b.padre=? and b.hijo =?");
 				PreparedStatement stm;
 				stm = con.prepareStatement(sb.toString());
+				stm.setString(1, nodo.getPadre().GetValor().toString());
+				stm.setString(2, nodo.GetValor().toString());
 				rs = stm.executeQuery();
 				
 				while (rs.next()) {
-				    alt.add(rs.getString(1));
+					//
+					String aa = String.valueOf(rs.getObject(1));
+					System.out.println("Consulta rs: "+aa);
+				    alt.add(aa);
 				}
 				
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.out.println("error en getAlternativos");
 			}
 						

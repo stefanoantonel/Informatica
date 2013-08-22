@@ -12,14 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import modelo.Articulos;
+import modelo.Nodo;
+import javax.swing.JScrollPane;
 
 public class AdministraAlternativo extends JFrame {
 
 	private JPanel contentPane;
 
 	public AdministraAlternativo(String art) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 211, 258);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -29,11 +31,18 @@ public class AdministraAlternativo extends JFrame {
 		lblLosAlternativosSon.setBounds(5, 5, 424, 14);
 		contentPane.add(lblLosAlternativosSon);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(43, 49, 103, 119);
+		contentPane.add(scrollPane);
+		
 		final JList<String> listAlternativos = new JList<>();
-		listAlternativos.setBounds(43, 49, 103, 119);
-		contentPane.add(listAlternativos);
-		Articulos arti=new Articulos();
-		ArrayList<String> articulos=arti.ObtenerArticulos();
+		scrollPane.setViewportView(listAlternativos);
+		
+		//contentPane.add(listAlternativos);
+		//contentPane.add(scrollPane);
+		
+		Nodo n=new Nodo();
+		ArrayList<String> articulos=n.getAlternativos(art);
 		int i=0;
 		DefaultListModel<String> modelo=new DefaultListModel<>();
 		for (String s:articulos){
