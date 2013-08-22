@@ -19,6 +19,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 
+import modelo.AdministraAlternativo;
 import modelo.Arbol;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -50,10 +51,15 @@ public class ExplosionUI extends JFrame {
 				
 				System.out.println("path "+arg0.getPath().getLastPathComponent());
 				String art =arg0.getPath().getLastPathComponent().toString();
-				art = (art.split(" -"))[0];
-				
-				AdministraAlternativo adm = new AdministraAlternativo(art);
-				adm.setVisible(true);
+				art = (art.split(" - "))[0];
+				String cant1=arg0.getPath().getLastPathComponent().toString();
+				cant1 = (cant1.split("- Cant:")[1]);
+				String cant = (cant1.split(" ")[0]);
+			//	System.out.println("Cant: "+cant);
+				//Cola - Cant:1.0 Litros
+				String um = (cant1.split(" ")[1]);
+				AdministraAlternativo adm = new AdministraAlternativo(art,cant,um);
+
 				
 //				int eleccion=JOptionPane.showConfirmDialog(null, "Desea Implosionar?");
 //				if(eleccion==0){

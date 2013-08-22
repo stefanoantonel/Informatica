@@ -73,8 +73,8 @@ public class Arbol {
 				        	desc[f][c]=descripcion.getString("id");
 				        	c++;
 				        	desc[f][c]=descripcion.getString("descripcion_str");
-							System.out.println("id: "+desc[f][0]);
-							System.out.println("desc: "+desc[f][1]);
+							//System.out.println("id: "+desc[f][0]);
+							//System.out.println("desc: "+desc[f][1]);
 				        	
 				        	f++;
 				        	c=0;
@@ -198,7 +198,7 @@ public class Arbol {
 					        { 
 							 //System.out.println("Valor: "+nodo.GetValor().toString());
 							
-							System.out.println(bom[k][1]); 
+							//System.out.println(bom[k][1]); 
 							Nodo h = new Nodo(Integer.parseInt(bom[k][1]));
 							 
 							 h.setCantidad(Float.parseFloat(bom[k][2]));
@@ -217,10 +217,10 @@ public class Arbol {
 								
 							 }
 							 nodo.AgregarHijo(h);
-							 System.out.println("Valor:"+nodo.GetValor()+" cantidad:"+h.getCantidad()+" desc:"+h.getDescripcion());
+							// System.out.println("Valor:"+nodo.GetValor()+" cantidad:"+h.getCantidad()+" desc:"+h.getDescripcion());
 							 h.setPadre(nodo);
 							 
-							 System.out.println("Padre: "+nodo.GetValor()+"--hijo:"+h.GetValor());
+							// System.out.println("Padre: "+nodo.GetValor()+"--hijo:"+h.GetValor());
 							 ArmaArbol(bom,h);
 							 k++;
 							  
