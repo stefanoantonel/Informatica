@@ -30,7 +30,7 @@ public class Arbol {
 		StringBuilder select = new StringBuilder();
 		select.append("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id ");
 		select.append(" from BOM b inner join Articulo a on a.id=b.hijo inner join [Unidad Medida]u on b.um_id=u.id inner join Descripcion d on u.descripcion_id=d.id ");
-		select.append(" where borrado=0 and fecha_inicio<GETDATE() and (fecha_fin>GETDATE() or fecha_fin is NULL)");
+		select.append(" where borrado=0 and fecha_inicio<=GETDATE() and (fecha_fin>=GETDATE() or fecha_fin is NULL)");
 		selectBom = select.toString();
 		InicializarArbol();
 	}
@@ -40,7 +40,7 @@ public class Arbol {
 		select.append("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id ");
 		select.append(" from BOM b inner join Articulo a on a.id=b.hijo inner join [Unidad Medida]u on b.um_id=u.id inner join Descripcion d on u.descripcion_id=d.id ");
 		//CAST DATE
-		select.append(" where borrado=0 and fecha_inicio<GETDATE() and (fecha_fin>GETDATE() or fecha_fin is NULL)");
+		select.append(" where borrado=0 and fecha_inicio<="+date+" and (fecha_fin>="+date+" or fecha_fin is NULL)");
 		selectBom = select.toString();
 		InicializarArbol();
 	}
@@ -226,12 +226,12 @@ public class Arbol {
 	}
 	
 	public void MostrarArbol(Nodo a,float cant){
-		
+		//explosiona el nodo
 		
 		Jtree j=new Jtree(a,cant);
 	}
 	
-	
+
 	
 	
 	

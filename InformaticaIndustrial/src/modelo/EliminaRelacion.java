@@ -127,7 +127,7 @@ public EliminaRelacion()
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE BOM ");
-			sb.append("SET borrado=1 ");
+			sb.append("SET borrado=1 ,fecha_fin=getDate() ");
 			sb.append("WHERE padre="+padreId+" and hijo= "+hijoId+"");
 			//PREPARAR CONSULTA
 			PreparedStatement stm;
