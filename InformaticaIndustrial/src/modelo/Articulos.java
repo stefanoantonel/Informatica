@@ -15,6 +15,7 @@ public class Articulos {
 	public Articulos(){
 		
 	}
+	
 	public ArrayList<String> ObtenerArticulos(){
 		
 		Connection con;

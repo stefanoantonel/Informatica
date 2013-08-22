@@ -20,7 +20,7 @@ import ui.*;
 		private DefaultTreeModel modelo;
 		private JTree tree;
 		
-		public Jtree(ArrayList<Nodo> ListaNodo){
+		public Jtree(ArrayList<Nodo> ListaNodo,ArrayList<Nodo> ListaNodoE ){
 			//para los padres principales
 			
 			//Defino el primer padre de TODO para crear el modelo con ese padre
@@ -31,11 +31,24 @@ import ui.*;
 			//Llamo a la funcion por cada padre principal que haya mandado en ListaNodo
 			for(Nodo nodo: ListaNodo)
 		      {
+				
+				//Controlar que no sea un alternativo que no tenga un padre Principal asignado
+				int banderaA=0;
+				for(Nodo E: ListaNodoE)
+					{ 
+					  if(nodo.GetValor()==E.GetValor())
+						  banderaA=1;
+					}
+				if (banderaA==1)
+				{
+					//Fin de control alternativo
+				
 				DefaultMutableTreeNode padre = new DefaultMutableTreeNode (nodo.GetValor().toString());
 				DefaultMutableTreeNode p = new DefaultMutableTreeNode (nodo.getDescripcion());
 				modelo.insertNodeInto(p, articulo,i);
 				modelo= ArmaJtree(p,modelo,nodo,1);
 				i++;
+				}
 		      }
 		    
 		    this.tree = new JTree(modelo);
@@ -73,10 +86,7 @@ import ui.*;
 			{
 			    Nodo nodoH = (Nodo)ListaHijos.next();
 				
-			    if(nodoH.getTipo()==3)
-			    	 a= nodoH.getXdefectoDesc();
-			    else
-			         a= nodoH.getDescripcion();
+			    a= nodoH.getDescripcion();
 				Integer b= padre.GetValor();
 				
 				float cant = nodoH.getCantidad()*cantidad;
