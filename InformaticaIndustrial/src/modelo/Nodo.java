@@ -110,8 +110,10 @@ public class Nodo {
 				Conexion cn1 = new Conexion();
 				con = cn1.getConexion();
 				StringBuilder sb = new StringBuilder();
-				sb.append("SELECT a.id[Articulo ID], d.");
-				
+				sb.append("select d.descripcion_str ");
+//				sb.append(
+//			    sb.append(
+//				sb.append(
 				PreparedStatement stm;
 				stm = con.prepareStatement(sb.toString());
 				rs = stm.executeQuery();
