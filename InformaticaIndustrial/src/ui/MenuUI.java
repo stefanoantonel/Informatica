@@ -11,11 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import modelo.AgregaArticulo;
 import modelo.AgregaRelacion;
 import modelo.Arbol;
 import modelo.Articulos;
@@ -104,8 +106,14 @@ public class MenuUI extends JFrame {
 				Arbol a=new Arbol();
 
 				Nodo elecc=null;
-
-				elecc=a.getNodoByDescripcion(listArticulos.getSelectedValue().toString());
+				String eleccion=listArticulos.getSelectedValue().toString();
+				elecc=a.getNodoByDescripcion(eleccion);
+				if(elecc==null){
+					AgregaArticulo aa=new AgregaArticulo();
+					
+					String dato=aa.getDatosArticulo(eleccion);
+					JOptionPane.showMessageDialog(null, dato);
+				}
 				//inicio la interfaz, seteo y luego muestro sino null
 			    artui.setArticuloSelecc(elecc);
 			    artui.InicializarCampos();
@@ -144,6 +152,17 @@ public class MenuUI extends JFrame {
 		});
 		button.setBounds(341, 162, 143, 67);
 		contentPane.add(button);
+		
+		JButton btnNewButton = new JButton("Agrega Articulo");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AgregaArticulo a=new AgregaArticulo();
+				a.InicializarUI();
+				
+			}
+		});
+		btnNewButton.setBounds(341, 83, 141, 67);
+		contentPane.add(btnNewButton);
 		setLocationRelativeTo(null);
 	}
 }

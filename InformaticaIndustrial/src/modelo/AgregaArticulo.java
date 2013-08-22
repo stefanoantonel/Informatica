@@ -137,7 +137,7 @@ public class AgregaArticulo {
 		insertarArticulo(descripcionSeleccionado,umId,materialId,tipoId);
 	}
 	
-	public int getUmBy(String um){
+	private int getUmBy(String um){
 		Connection con;
 		ResultSet rs;
 		int umId=-1;
@@ -163,7 +163,7 @@ public class AgregaArticulo {
 		return umId;
 	}
 
-	public int getMaterialBy(String mat){
+	private int getMaterialBy(String mat){
 		Connection con;
 		ResultSet rs;
 		int material=-1;
@@ -189,7 +189,7 @@ public class AgregaArticulo {
 		
 	}
 
-	public int getTipoBy(String tip){
+	private int getTipoBy(String tip){
 		Connection con;
 		ResultSet rs;
 		int tipo=-1;
@@ -215,7 +215,7 @@ public class AgregaArticulo {
 		return tipo;
 	}
 
-	public void insertarArticulo(String descripcion, int umId,int materialId,int tipoId){
+	private void insertarArticulo(String descripcion, int umId,int materialId,int tipoId){
 		int descripcionId=-1;
 		
 		Connection con;
@@ -272,6 +272,35 @@ public class AgregaArticulo {
 		
 	}
 
+	public String getDatosArticulo(String descricion){
+		Connection con;
+		ResultSet rs;
+		StringBuilder datos=new StringBuilder();
+		
+		try{//---------------------------------articulo por descripcion 
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT a.id, d.descripcion_str ");
+			sb.append("FROM Articulo a ");
+			sb.append("inner join Descripcion d on a.descripcion_id=d.id ");
+			sb.append("WHERE d.descripcion_str='"+descricion+"' ");
+			//PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			//PONER VALORES
+//			stm.setString(1, um);
+			
+			rs = stm.executeQuery();
+			rs.next();
+			datos.append("ID articulo: "+rs.getString(1)+"\n");
+			datos.append("Descripcion: "+rs.getString(2)+"\n");
+//			datos.append("Unidad de medida: "+rs.getString(3)+"\n");
+			
+			
+		}catch (Exception e){e.printStackTrace(); System.out.println("error insertar");}
+		return datos.toString();
+	}
 
 
 
