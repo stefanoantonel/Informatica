@@ -48,6 +48,13 @@ public class ExplosionUI extends JFrame {
 		tree_1.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				
+				System.out.println("path "+arg0.getPath().getLastPathComponent());
+				String art =arg0.getPath().getLastPathComponent().toString();
+				art = (art.split(" -"))[0];
+				
+				AdministraAlternativo adm = new AdministraAlternativo(art);
+				adm.setVisible(true);
+				
 //				int eleccion=JOptionPane.showConfirmDialog(null, "Desea Implosionar?");
 //				if(eleccion==0){
 //					

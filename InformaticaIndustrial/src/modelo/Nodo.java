@@ -1,6 +1,11 @@
 package modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import persistencia.Conexion;
 
 public class Nodo {
 
@@ -12,8 +17,6 @@ public class Nodo {
 		private Float cantidad;
 		//1:Make, 2:Buy, 3:Generic
 		private int tipo;
-		private Integer valorXdefecto;
-		private String xDefectoDesc;
 
 		private String um;/**888*/
 
@@ -91,23 +94,40 @@ public class Nodo {
 		    tipo=t;
 		}
 		
-		public Integer getXdefecto() {
-			    return valorXdefecto;
-		}
 		
-		public void setXdefecto(int defect) {
+		public ArrayList<String> getAlternativos(String desc)
+		{
+			Connection con;
+			Conexion cn = new Conexion();
+			con=cn.getConexion();
+			ResultSet rs;
 
-			valorXdefecto=defect;
+			ArrayList<String> alt=new ArrayList<>();
+			alt=null;
+			Arbol a = new Arbol();
+			Nodo nodo=a.getNodoByDescripcion(desc);
+			try {
+				Conexion cn1 = new Conexion();
+				con = cn1.getConexion();
+				StringBuilder sb = new StringBuilder();
+				sb.append("SELECT a.id[Articulo ID], d.");
+				
+				PreparedStatement stm;
+				stm = con.prepareStatement(sb.toString());
+				rs = stm.executeQuery();
+				
+				while (rs.next()) {
+				    alt.add(rs.getString(1));
+				}
+				
+			} catch (Exception e) {
+				System.out.println("error en getAlternativos");
+			}
+						
+						
+			return alt;
 		}
 		
-		public String getXdefectoDesc() {
-		    return xDefectoDesc;
-		}
-		
-		public void setXdefectoDesc(String defect) {
-	
-			xDefectoDesc=defect;
-		}
 		
 		
 }

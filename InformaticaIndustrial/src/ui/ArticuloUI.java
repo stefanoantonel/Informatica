@@ -121,27 +121,33 @@ public class ArticuloUI extends JFrame {
 				ArrayList<StringBuilder> listaSB =new ArrayList<>();
 				
 				listaSB=ar.ArmaListaPadre(ar.getNodoByDescripcion(descrip));
+				if (!(listaSB.size()==0))
+				{	
 				StringBuilder sb=new StringBuilder();
 				for (int i=0;i<listaSB.size();i++){
 					sb.append(listaSB.get(i));
 					sb.append("\n");
-				}
+				    }
 				JOptionPane.showMessageDialog(null,sb);
+				}
+				else
+					JOptionPane.showMessageDialog(null,"El articulo no tiene implosion");
+					
 			}
 		});
 		btnNewButton.setBounds(424, 266, 138, 67);
 		getContentPane().add(btnNewButton);
 		
-		JButton button = new JButton("Alternativos");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Arbol ar=new Arbol();
-				String descrip=articuloSelecc.getDescripcion();
-				ar.ObtenerAlternativos(ar.getNodoByDescripcion(descrip));
-			}
-		});
-		button.setBounds(424, 161, 138, 67);
-		getContentPane().add(button);
+//		JButton button = new JButton("Alternativos");
+//		button.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				Arbol ar=new Arbol();
+//				String descrip=articuloSelecc.getDescripcion();
+//				ar.getAlternativos(ar.getNodoByDescripcion(descrip));
+//			}
+//		});
+//		button.setBounds(424, 161, 138, 67);
+//		getContentPane().add(button);
 
 		//pongo en variable
 		//setArticuloSelecc(eleccion);
