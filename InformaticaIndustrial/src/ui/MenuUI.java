@@ -143,7 +143,7 @@ public class MenuUI extends JFrame {
 		JButton button = new JButton("Explosion");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Arbol arbol = new Arbol();
+				Arbol arbol = new Arbol("GETDATE()");
 				arbol.MostrarArbol();
 			}
 		});

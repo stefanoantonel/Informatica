@@ -91,6 +91,7 @@ import ui.*;
 				
 				float cant = nodoH.getCantidad()*cantidad;
 				//String aa=a+" - Cant:"+cant+" "+nodoH.getUm()+"     tipo"+nodoH.getTipo();
+				//String aa=nodoH.GetValor()+"|"+a+" - Cant:"+cant+" "+nodoH.getUm();
 				String aa=a+" - Cant:"+cant+" "+nodoH.getUm();
 				vector[j]=new DefaultMutableTreeNode(aa);
 //				System.out.println("vector j: "+vector[0]);
