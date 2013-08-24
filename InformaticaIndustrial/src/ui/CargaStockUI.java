@@ -31,7 +31,8 @@ public class CargaStockUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField plano;
 	private JTextField cantidad;
-
+	int cant=-1;
+	int codigoPlano=-1;
 	/**
 	 * Launch the application.
 	 */
@@ -82,22 +83,10 @@ public class CargaStockUI extends JFrame {
 		btnCargar.setBounds(96, 173, 85, 23);
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int cant;
-				int codigoPlano;
-				try{
-					if(plano.getText().length()<4||plano.getText().length()>5){
-						JOptionPane.showMessageDialog(null, "datos mal ingresados");
-						return;
-					}
-					codigoPlano=Integer.parseInt(plano.getText());
-					cant=Integer.parseInt(cantidad.getText());
-					
+				if(controlar()==true){
+					CargaStock cs=new CargaStock(cant, codigoPlano);
 				}
-				catch(Exception e){
-					JOptionPane.showMessageDialog(null, "datos mal ingresados");
-					return;
-				}
-				CargaStock cs=new CargaStock(cant, codigoPlano);
+				
 				
 			}
 		});
@@ -108,5 +97,35 @@ public class CargaStockUI extends JFrame {
 		contentPane.add(plano);
 		contentPane.add(btnCargar);
 		contentPane.add(lblCargaDeStock);
+	}
+	
+	private boolean controlar(){
+		
+		try{
+			if(plano.getText().length()<4||plano.getText().length()>4){
+				
+				JOptionPane.showMessageDialog(null, "codigo debe ser de 4 digitos");
+				return false;
+			}
+			try {
+				
+				codigoPlano=Integer.parseInt(plano.getText());
+				cant=Integer.parseInt(cantidad.getText());
+				if(cant<0){
+					JOptionPane.showMessageDialog(null, "ingrese cantidad positiva");
+					return false;
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "no ingreso numeros");
+				return false;
+			}
+			
+			
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null, "datos mal ingresados");
+			return false;
+		}
+		return true;
 	}
 }
