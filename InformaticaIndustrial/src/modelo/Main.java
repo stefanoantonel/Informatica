@@ -67,7 +67,11 @@ public class Main {
 				
 		//AgregaArticulo aa=new AgregaArticulo();
 		//aa.InicializarUI();
-		
+		String a="111122222223";
+		System.out.println("1: "+a.substring(0, 3));
+		System.out.println("2: "+a.substring(4, 10));
+		System.out.println("3: "+a.substring(11, 12));
+	
 		
 	}
 	
