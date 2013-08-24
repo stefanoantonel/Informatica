@@ -4,8 +4,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import javax.naming.BinaryRefAddr;
+import javax.swing.table.DefaultTableModel;
 
 import persistencia.CargaStockDAO;
+import ui.CodigoDeArticulos;
 
 public class CargaStock {
 	
@@ -94,5 +96,30 @@ public class CargaStock {
 		
 		CargaStockDAO cs=new CargaStockDAO();
 		cs.insertarStock(codigoPlano, serie, verificador);
+		
+		cargarModeloTabla();
+	}
+	
+	private void cargarModeloTabla(){
+		DefaultTableModel modelo=new DefaultTableModel();
+		modelo.addColumn("Codigo Barra");
+		
+		int i=0;
+		for(String s:serie){
+			StringBuilder sb1=new StringBuilder();
+			sb1.append(codigoPlano);
+//			sb1.append(" ");
+			sb1.append(s);
+//			sb1.append(" ");
+			sb1.append(String.valueOf(verificador.get(i)));
+//			sb1.append(" ");
+			i++;
+//			System.out.println();
+//			sb1.append("\n");
+			String [] a=new String[1];
+			a[0]=sb1.toString();
+			modelo.addRow(a);
+		}
+		CodigoDeArticulos ca=new CodigoDeArticulos(modelo);
 	}
 }
