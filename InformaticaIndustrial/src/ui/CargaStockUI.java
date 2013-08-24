@@ -54,42 +54,47 @@ public class CargaStockUI extends JFrame {
 	 * Create the frame.
 	 */
 	public CargaStockUI() {
+		setTitle("Carga de Stock");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 203);
+		setBounds(100, 100, 275, 242);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JLabel lblCodigoDelArticulo = new JLabel("Codigo del articulo ");
-		lblCodigoDelArticulo.setBounds(15, 68, 91, 14);
+		lblCodigoDelArticulo.setBounds(10, 73, 127, 14);
 		
 		plano = new JTextField();
-		plano.setBounds(110, 65, 94, 20);
+		plano.setBounds(146, 70, 94, 20);
 		plano.setColumns(10);
 		
 		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(15, 114, 43, 14);
+		lblCantidad.setBounds(10, 117, 127, 14);
 		
 		cantidad = new JTextField();
-		cantidad.setBounds(110, 114, 94, 20);
+		cantidad.setBounds(146, 114, 94, 20);
 		cantidad.setColumns(10);
 		
 		JLabel lblCargaDeStock = new JLabel("Carga de Stock");
-		lblCargaDeStock.setBounds(176, 5, 114, 32);
+		lblCargaDeStock.setBounds(89, 11, 114, 32);
 		
 		JButton btnCargar = new JButton("Cargar");
-		btnCargar.setBounds(315, 64, 65, 23);
+		btnCargar.setBounds(96, 173, 85, 23);
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int cant;
 				int codigoPlano;
 				try{
+					if(plano.getText().length()<4||plano.getText().length()>5){
+						JOptionPane.showMessageDialog(null, "datos mal ingresados");
+						return;
+					}
 					codigoPlano=Integer.parseInt(plano.getText());
 					cant=Integer.parseInt(cantidad.getText());
 					
 				}
 				catch(Exception e){
-					JOptionPane.showConfirmDialog(null, "datos mal ingresados");
+					JOptionPane.showMessageDialog(null, "datos mal ingresados");
 					return;
 				}
 				CargaStock cs=new CargaStock(cant, codigoPlano);

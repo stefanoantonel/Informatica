@@ -46,7 +46,7 @@ public class MenuUI extends JFrame {
 
 	public MenuUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 552, 467);
+		setBounds(100, 100, 683, 476);
 		
 		contentPane = new JPanel();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,7 +67,7 @@ public class MenuUI extends JFrame {
 //			}
 //		});
 		
-		JButton btnNewButton_1 = new JButton("Eliminar");
+		JButton btnNewButton_1 = new JButton("Eliminar Relac");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EliminaRelacion elim=new EliminaRelacion();
@@ -78,7 +78,7 @@ public class MenuUI extends JFrame {
 		btnNewButton_1.setBounds(341, 318, 141, 67);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Agregar");
+		JButton btnNewButton_2 = new JButton("Agregar Relac");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregaRelacion ag=new AgregaRelacion();
@@ -161,6 +161,26 @@ public class MenuUI extends JFrame {
 		});
 		btnNewButton.setBounds(341, 83, 141, 67);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_3 = new JButton("Cargar Stock");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				CargaStockUI.main(null);
+			}
+		});
+		btnNewButton_3.setBounds(496, 82, 141, 68);
+		contentPane.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Remito");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RemitoUI.main(null);
+				
+			}
+		});
+		btnNewButton_4.setBounds(496, 162, 141, 67);
+		contentPane.add(btnNewButton_4);
 		setLocationRelativeTo(null);
 	}
 }

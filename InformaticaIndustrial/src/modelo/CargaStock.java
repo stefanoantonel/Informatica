@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import javax.naming.BinaryRefAddr;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 import persistencia.CargaStockDAO;
@@ -56,7 +57,7 @@ public class CargaStock {
 			sb.append(s);
 			String[] unido=sb.toString().split(""); //es todo ej 1040 0001001001
 			int acumulador=11;
-			while(acumulador>10){
+			while(acumulador>=10){
 				acumulador=0;
 				
 				for(String cadaUno:unido){
@@ -101,8 +102,9 @@ public class CargaStock {
 	}
 	
 	private void cargarModeloTabla(){
-		DefaultTableModel modelo=new DefaultTableModel();
-		modelo.addColumn("Codigo Barra");
+//		DefaultTableModel modelo=new DefaultTableModel();
+		DefaultListModel<String> modelo1=new DefaultListModel<>();
+//		modelo.addColumn("Codigo Barra");
 		
 		int i=0;
 		for(String s:serie){
@@ -116,10 +118,11 @@ public class CargaStock {
 			i++;
 //			System.out.println();
 //			sb1.append("\n");
-			String [] a=new String[1];
-			a[0]=sb1.toString();
-			modelo.addRow(a);
+//			String [] a=new String[1];
+//			a[0]=sb1.toString();
+//			modelo.addRow(a);
+			modelo1.addElement(sb1.toString());
 		}
-		CodigoDeArticulos ca=new CodigoDeArticulos(modelo);
+		CodigoDeArticulos ca=new CodigoDeArticulos(modelo1);
 	}
 }

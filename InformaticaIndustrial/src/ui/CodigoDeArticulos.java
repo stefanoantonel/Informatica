@@ -4,16 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class CodigoDeArticulos extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 //
 //	/**
 //	 * Launch the application.
@@ -36,27 +38,25 @@ public class CodigoDeArticulos extends JFrame {
 //	 */
 	
 	
-	public CodigoDeArticulos(DefaultTableModel modelo) {
+//	public CodigoDeArticulos(DefaultTableModel modelo) {
+	public CodigoDeArticulos(DefaultListModel<String> modelo1) {
+		setTitle("Codigo de Barras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 282, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		table = new JTable();
-		table.setBounds(5, 11, 424, 245);
-		Font f=new Font("3 of 9 Barcode", 0, 10);
+		Font f=new Font("3 of 9 Barcode", 0, 20);
 		contentPane.setLayout(null);
-		table.setFont(f);
-//		table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//			},
-//			new String[] {
-//				"Codigo Barra"
-//			}
-//		));
-		table.setModel(modelo);
-		contentPane.add(table);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(29, 11, 209, 239);
+		contentPane.add(scrollPane);
+		
+		JList<String> list = new JList<>();
+		scrollPane.setViewportView(list);
+		list.setFont(new Font("3 of 9 Barcode", Font.PLAIN, 24));
+		list.setModel(modelo1);
 		this.setVisible(true);
 		
 	}
@@ -65,5 +65,4 @@ public class CodigoDeArticulos extends JFrame {
 	public void mostrar(){
 		
 	}
-
 }
