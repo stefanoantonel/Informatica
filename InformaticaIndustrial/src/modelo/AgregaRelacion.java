@@ -171,7 +171,7 @@ public class AgregaRelacion {
 			StringBuilder controlar=new StringBuilder();
 			controlar.append(" SELECT * FROM BOM WHERE padre= "+padreID+" and hijo= "+hijoID);
 			controlar.append(" and borrado=0 and fecha_inicio in ");
-			controlar.append(" (Select fecha_inicio from BOM where padre= "+padreID+" and hijo= "+hijoID+" and GETDATE() between fecha_inicio and fecha_fin)");
+			controlar.append(" (Select fecha_inicio from BOM where padre= "+padreID+" and hijo= "+hijoID+" )");//and GETDATE() > fecha_inicio and (fecha_fin>getDate() or fecha_fin is null))");
 			PreparedStatement psControl=con.prepareStatement(controlar.toString());
 			ResultSet rControl=psControl.executeQuery();
 			if(rControl.next())
@@ -183,7 +183,7 @@ public class AgregaRelacion {
 				//---------------------------------INSERTAR en ARTICULO ALTERNATIVO
 				//obtengo el indice del generico de la tabla BOM
 				StringBuilder generico=new StringBuilder();
-				generico.append(" SELECT principal_id FROM BOM WHERE padre= "+padreID+" and hijo= "+hijoID);
+				generico.append(" SELECT generico_id FROM BOM WHERE padre= "+padreID+" and hijo= "+hijoID);
 				PreparedStatement psGenerico=con.prepareStatement(generico.toString());
 				ResultSet rGenerico=psGenerico.executeQuery();
 				rGenerico.next();
@@ -192,8 +192,8 @@ public class AgregaRelacion {
 				for (int ind=0; ind<idAlt.size(); ind++)
 				{
 				StringBuilder sb1=new StringBuilder();
-				sb1.append(" INSERT INTO [ARTICULO ALTERNATIVO] (artPrincipal_id,artAlternativo_id) values "+artGenerico+", "+idAlt.get(ind)+")");
-				sb1.append("Where artPrincipal_id="+artGenerico);
+				sb1.append(" INSERT INTO [ARTICULO ALTERNATIVO] (artGenerico_id,artAlternativo_id) values "+artGenerico+", "+idAlt.get(ind)+")");
+				sb1.append("Where artGenerico_id="+artGenerico);
 				PreparedStatement ps=con.prepareStatement(sb1.toString());
 				ps.executeUpdate();
 				}
@@ -251,7 +251,7 @@ public class AgregaRelacion {
 		        //---------------------------------INSERTAR en ARTICULO ALTERNATIVO
 				//obtengo el indice del generico de la tabla BOM
 				StringBuilder generico=new StringBuilder();
-				generico.append(" SELECT principal_id FROM BOM WHERE padre= "+padreID+" and hijo= "+hijoID);
+				generico.append(" SELECT generico_id FROM BOM WHERE padre= "+padreID+" and hijo= "+hijoID);
 				PreparedStatement psGenerico=con.prepareStatement(generico.toString());
 				ResultSet rGenerico=psGenerico.executeQuery();
 				Integer artGenerico=null;
@@ -264,7 +264,7 @@ public class AgregaRelacion {
 				 try{
 					 con = cn2.getConexion();
 					StringBuilder sb1=new StringBuilder();
-					sb1.append(" INSERT INTO [Articulos Alternativos] (artPrincipal_id,artAlternativo_id) values ("+artGenerico+", "+idAlt.get(ind)+")");
+					sb1.append(" INSERT INTO [Articulos Alternativos] (artGenerico_id,artAlternativo_id) values ("+artGenerico+", "+idAlt.get(ind)+")");
 					//sb1.append("Where artPrincipal_id="+artGenerico);
 					PreparedStatement ps=con.prepareStatement(sb1.toString());
 					ps.executeUpdate();

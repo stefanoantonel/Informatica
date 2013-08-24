@@ -39,7 +39,7 @@ public EliminaRelacion()
 			
 			sb.append("SELECT distinct b.padre [Articulo id], d.descripcion_str [Descripcion] ");
 			sb.append("FROM BOM b, Articulo a, Descripcion d ");
-			sb.append("WHERE b.padre=a.id AND a.descripcion_id=d.id AND b.borrado=0");
+			sb.append("WHERE b.padre=a.id AND a.descripcion_id=d.id AND b.borrado=0 and fecha_inicio<=GETDATE() and (fecha_fin>=GETDATE() or fecha_fin is NULL)");
 			
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());

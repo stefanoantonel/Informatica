@@ -16,7 +16,7 @@ public class AgregaArticulo {
 	int materialID, umID, tipoID, centroCostoID, claseMercioID;
 	String alto, ancho, profundidad, diametro, peso,color,costoStd, precioVtaStd,descripcionStd= descipcion,  descUpd="cargo"+ descipcion;
 	ArrayList<String> um, material,tipo;
-	
+	int idParaInsert;
 	
 	
 	
@@ -225,6 +225,7 @@ public class AgregaArticulo {
 		Conexion cn1 = new Conexion();
 		con = cn1.getConexion();
 		StringBuilder sb1=new StringBuilder();
+		
 		sb1.append("INSERT INTO Descripcion (id,descripcion_str) ");
 		sb1.append("VALUES ((select max(id)+1 from Descripcion),'"+descripcion+"') ");
 //		sb1.append(" END");
@@ -258,8 +259,10 @@ public class AgregaArticulo {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb1=new StringBuilder();
-			sb1.append("INSERT INTO Articulo (descripcion_id,material_id,um_id,tipo_id,descr_upd) ");
-			sb1.append("VALUES ('"+descripcionId+"' ,"+materialId+" ,"+umId+", "+tipoId+" , 'cargo "+descripcion+"') ");
+			max();
+			idParaInsert++;
+			sb1.append("INSERT INTO Articulo (descripcion_id,material_id,um_id,tipo_id,descr_upd,um_alt_id) ");
+			sb1.append("VALUES ('"+descripcionId+"' ,"+materialId+" ,"+umId+", "+tipoId+" , 'cargo "+descripcion+"',"+idParaInsert+") ");
 //			sb1.append(" END");
 			PreparedStatement ps=con.prepareStatement(sb1.toString());
 
@@ -294,12 +297,41 @@ public class AgregaArticulo {
 			rs = stm.executeQuery();
 			rs.next();
 			datos.append("ID articulo: "+rs.getString(1)+"\n");
+			
 			datos.append("Descripcion: "+rs.getString(2)+"\n");
 //			datos.append("Unidad de medida: "+rs.getString(3)+"\n");
 			
 			
 		}catch (Exception e){e.printStackTrace(); System.out.println("error insertar");}
 		return datos.toString();
+	}
+	
+	public void max(){
+		Connection con;
+		ResultSet rs;
+		StringBuilder datos=new StringBuilder();
+		
+		try{//---------------------------------articulo por descripcion 
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT MAX(a.id) ");
+			sb.append("FROM Articulo a ");
+			
+			//PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			//PONER VALORES
+//			stm.setString(1, um);
+			
+			rs = stm.executeQuery();
+			rs.next();
+			idParaInsert=rs.getInt(1);
+//			datos.append("Unidad de medida: "+rs.getString(3)+"\n");
+			
+			
+		}catch (Exception e){e.printStackTrace(); System.out.println("error insertar");}
+	
 	}
 
 

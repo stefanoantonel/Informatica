@@ -70,16 +70,6 @@ public class ArticuloUI extends JFrame {
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(10, 127, 98, 14);
 		getContentPane().add(lblNewLabel);
-
-		JButton btnExplosionTotal = new JButton("Explosion");
-		btnExplosionTotal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Arbol arbol = new Arbol();
-				arbol.MostrarArbol(articuloSelecc,1);
-			}
-		});
-		btnExplosionTotal.setBounds(424, 67, 143, 67);
-		getContentPane().add(btnExplosionTotal);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -168,7 +158,7 @@ public class ArticuloUI extends JFrame {
 		btnNewButton.setBounds(424, 266, 138, 67);
 		getContentPane().add(btnNewButton);
 		
-		JButton btnHistorial = new JButton("Historial");
+		JButton btnHistorial = new JButton("Explosion");
 		btnHistorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String a=JOptionPane.showInputDialog(null,"Ingrese fecha a ver la compocision \n(YYYY-MM-DD)");
@@ -181,6 +171,15 @@ public class ArticuloUI extends JFrame {
 					arbol.MostrarArbol(arbol.getNodoByDescripcion(articuloSelecc.getDescripcion()),1);
 //					ar.MostrarArbol();
 
+				}
+				else
+				{
+					Arbol arbol=new Arbol("getDate()");
+//					Arbol ar=new Arbol();
+//					arbol.MostrarArbol();
+					//System.out.println("a:"+a);
+					arbol.MostrarArbol(arbol.getNodoByDescripcion(articuloSelecc.getDescripcion()),1);
+//					ar.MostrarArbol();
 				}
 				
 				
