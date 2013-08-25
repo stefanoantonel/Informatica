@@ -18,13 +18,7 @@ public class Remito {
 //	int verificador;
 	String plano,serie,verificador;
 	
-//	public Remito (String numero, RemitoDAO remDao){
-//		this.codigoCompleto=numero;
-//		this.dao=remDao;
-////		String a="111122222223";
-//		dividir();
-//		
-//	}
+
 	public Remito (RemitoDAO remDao){
 		this.dao=remDao;
 		
