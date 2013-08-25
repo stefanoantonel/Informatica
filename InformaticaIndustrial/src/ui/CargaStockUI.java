@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import modelo.CargaStock;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.BevelBorder;
 
 public class CargaStockUI extends JFrame {
 
@@ -41,6 +42,7 @@ public class CargaStockUI extends JFrame {
 			public void run() {
 				try {
 					CargaStockUI frame = new CargaStockUI();
+					
 					frame.setVisible(true);
 					
 //					System.out.println(b);
@@ -59,7 +61,7 @@ public class CargaStockUI extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 275, 242);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setContentPane(contentPane);
 		
 		JLabel lblCodigoDelArticulo = new JLabel("Codigo del articulo ");
@@ -97,6 +99,7 @@ public class CargaStockUI extends JFrame {
 		contentPane.add(plano);
 		contentPane.add(btnCargar);
 		contentPane.add(lblCargaDeStock);
+		
 	}
 	
 	private boolean controlar(){

@@ -24,16 +24,6 @@ public class CargaStock {
 		calcularVerificador();
 	}
 	
-//	public void generaCodigos(int cantidad, int codigoPlano){
-//		String codigoSerie;
-//		int codigoVerificador;
-//		int acumulador;
-//		
-//		
-//	}
-	
-	
-	
 	private void obtenerSerie() {
 
         for(int i=1;i<=cantidad;i++){
@@ -73,10 +63,6 @@ public class CargaStock {
 			
 		}
 		
-//		String[] b=a.split("");
-//		for(String s:b){
-//			System.out.println(s);
-//		}
 		StringBuilder sb1=new StringBuilder();
 		int i=0;
 		for(String s:serie){
@@ -102,25 +88,14 @@ public class CargaStock {
 	}
 	
 	private void cargarModeloTabla(){
-//		DefaultTableModel modelo=new DefaultTableModel();
 		DefaultListModel<String> modelo1=new DefaultListModel<>();
-//		modelo.addColumn("Codigo Barra");
-		
 		int i=0;
 		for(String s:serie){
 			StringBuilder sb1=new StringBuilder();
 			sb1.append(codigoPlano);
-//			sb1.append(" ");
 			sb1.append(s);
-//			sb1.append(" ");
 			sb1.append(String.valueOf(verificador.get(i)));
-//			sb1.append(" ");
 			i++;
-//			System.out.println();
-//			sb1.append("\n");
-//			String [] a=new String[1];
-//			a[0]=sb1.toString();
-//			modelo.addRow(a);
 			modelo1.addElement(sb1.toString());
 		}
 		CodigoDeArticulos ca=new CodigoDeArticulos(modelo1);
