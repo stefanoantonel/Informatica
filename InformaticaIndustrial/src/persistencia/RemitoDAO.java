@@ -10,13 +10,7 @@ import javax.swing.JOptionPane;
 public class RemitoDAO {
 	
 	ArrayList<String> listaCodigosExistentes;
-	
-//	public int verificarExistencia(){
-//		
-//	}
-	
 
-	
 	public void cargar(){
 		listaCodigosExistentes=new ArrayList<>();
 		Connection con;

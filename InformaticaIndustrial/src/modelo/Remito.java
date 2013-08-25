@@ -75,5 +75,5 @@ public class Remito {
 		}
 		dao.ponerEspera(pla, ser, ver);
 	}
-//	public void 
+
 }

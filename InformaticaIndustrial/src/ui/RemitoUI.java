@@ -1,8 +1,6 @@
 package ui;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,23 +9,18 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import modelo.Remito;
 import persistencia.RemitoDAO;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.AbstractListModel;
 
 public class RemitoUI extends JFrame {
 
@@ -37,10 +30,8 @@ public class RemitoUI extends JFrame {
 	
 	static RemitoDAO remDao;
 	static Remito remitop;
+
 	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -52,12 +43,7 @@ public class RemitoUI extends JFrame {
 					remDao.cargar();
 					
 					remitop=new Remito(remDao);
-					
-//					int a=33;
-//					String b=Integer.toBinaryString(a);
-//					System.out.println("binario: "+b);
-//					int c=Integer.parseInt(b,2);
-//					System.out.println("int: "+c);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -115,13 +101,15 @@ public class RemitoUI extends JFrame {
 		
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-//				ListModel<String> listModddel;
-//				listModddel=list.getModel();
-//				
-//				String a=list.getSelectedValue();
-//				DefaultListModel<String> mo=new DefaultListModel<>();
-//				mo.removeElement(a);
-//				list.setModel(mo);
+				if ( !arg0.getValueIsAdjusting() && ! list.isSelectionEmpty()){
+					int r=JOptionPane.showConfirmDialog(null, "Desea Eliminar?");
+					if(r==0){ //SII
+						int s=list.getSelectedIndex();
+						eliminarDeLista(s);
+					}
+				}
+				
+				
 			}
 		});
 		
@@ -169,6 +157,7 @@ public class RemitoUI extends JFrame {
 			mod.addElement(m.getElementAt(i));
 		}
 		mod.remove(indice);
+		
 		list.setModel(mod);
 	}
 	private void agregarALista(String codigo){
