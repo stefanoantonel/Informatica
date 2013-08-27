@@ -16,6 +16,7 @@ public class CargaStock {
 	int codigoPlano;
 	ArrayList<String> serie=new ArrayList<>();
 	ArrayList<Integer> verificador=new ArrayList<>();
+	CargaStockDAO cs=new CargaStockDAO();
 	
 	public CargaStock(int cant, int plano){
 		this.cantidad=cant;
@@ -25,8 +26,8 @@ public class CargaStock {
 	}
 	
 	private void obtenerSerie() {
-
-        for(int i=1;i<=cantidad;i++){
+		int base=cs.obtenerUltimoSerie(codigoPlano); //obtengo para que no se me pise en las serie
+        for(int i=base+1;i<=base+cantidad;i++){
         	StringBuilder sb=new StringBuilder();
         	String bina=Integer.toBinaryString(i);
         	for(int j=7;j>bina.length();j--){
@@ -37,10 +38,23 @@ public class CargaStock {
         }        
     }
 	
+//	private void obtenerPlano() {
+//
+//        
+//        	StringBuilder sb=new StringBuilder();
+//        	String bina=Integer.toBinaryString(i);
+//        	for(int j=4;j>this.codigoPlano.size().;j--){
+//        		sb.append("0");
+//        	}
+//        	sb.append(bina);
+//        	serie.add(sb.toString());
+//        }        
+//    }
+	
 	private void calcularVerificador(){
 		
 		String pl=String.valueOf(codigoPlano);
-		
+		boolean bandera=true;
 		for(String s:serie){
 			StringBuilder sb=new StringBuilder();
 			sb.append(codigoPlano);
@@ -51,8 +65,14 @@ public class CargaStock {
 				acumulador=0;
 				
 				for(String cadaUno:unido){
-					if(!cadaUno.equals("")){
+					if(!cadaUno.equals("")&&bandera==true){
 						acumulador+=Integer.parseInt(cadaUno);
+						bandera=false;
+						continue;
+					}
+					if(!cadaUno.equals("")&&bandera==false){
+						acumulador+=Integer.parseInt(cadaUno);
+						bandera=true;
 					}
 					
 				}
@@ -81,7 +101,7 @@ public class CargaStock {
 		
 		//-----------------------mando para el instertar
 		
-		CargaStockDAO cs=new CargaStockDAO();
+		
 		cs.insertarStock(codigoPlano, serie, verificador);
 		
 		cargarModeloTabla();
