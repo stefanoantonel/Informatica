@@ -175,7 +175,7 @@ public class MenuUI extends JFrame {
 		JButton btnNewButton_4 = new JButton("Remito");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RemitoUI.main(null);
+				TablaCargaRemitoUI.main(null);
 				
 			}
 		});

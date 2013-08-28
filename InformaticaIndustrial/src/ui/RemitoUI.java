@@ -27,36 +27,35 @@ public class RemitoUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField codigo;
 	JList<String> list = new JList<>();
-	
+	ArrayList<Integer> plano,cant;
 	static RemitoDAO remDao;
 	static Remito remitop;
 
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RemitoUI frame = new RemitoUI();
-					frame.setVisible(true);
-					
-					remDao =new RemitoDAO();
-					remDao.cargar();
-					
-					remitop=new Remito(remDao);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					RemitoUI frame = new RemitoUI();
+//					
+//					remitop=new Remito(plano, cant);
+//					//remitop.preguntarCarga();
+//					frame.setVisible(true);
+//
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame. final ArrayList<Integer> plano, final ArrayList<Integer> cant
 	 */
-	public RemitoUI() {
-		setTitle("Remito");
+	public RemitoUI(Remito r) {
+		remitop=r;
 		
+		setTitle("Remito");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 386, 315);
 		contentPane = new JPanel();
@@ -118,27 +117,28 @@ public class RemitoUI extends JFrame {
 		JButton btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				ArrayList<String> listaParaDespachar=new ArrayList<>();
+				ListModel<String> m=list.getModel();
+				int tam=m.getSize();
+				for(int i=0;i<tam;i++){
+					listaParaDespachar.add(m.getElementAt(i));
+				}
+				
+				remitop.guardarRemito(listaParaDespachar);
+				
 				int resp=JOptionPane.showConfirmDialog(null, "Desea despacharlo?");
 				if(resp==0){
 					JOptionPane.showMessageDialog(null, "sii");
-					ArrayList<String> listaParaDespachar=new ArrayList<>();
-					ListModel<String> m=list.getModel();
-					int tam=m.getSize();
-					for(int i=0;i<tam;i++){
-						listaParaDespachar.add(m.getElementAt(i));
+					
+					if(remitop.verificarFinalizacionPedido(listaParaDespachar)==true){ //coincide lo pedido con lo ingresado en el PIP..
+						remitop.despachado(listaParaDespachar);
 					}
 					
-					remitop.despachado(listaParaDespachar);
 				}
 				if(resp==1){
-					ArrayList<String> listaParaEspera=new ArrayList<>();
-					ListModel<String> m=list.getModel();
-					int tam=m.getSize();
-					for(int i=0;i<tam;i++){
-						listaParaEspera.add(m.getElementAt(i));
-					}
 					
-					remitop.espera(listaParaEspera);
+					remitop.espera(listaParaDespachar); //esta en espera
 				}
 				
 			}
@@ -165,9 +165,16 @@ public class RemitoUI extends JFrame {
 		ListModel<String> m=list.getModel();
 		int tam=m.getSize();
 		for(int i=0;i<tam;i++){
-			mod.addElement(m.getElementAt(i));
+			if(!m.getElementAt(i).equals(codigo)){
+				mod.addElement(m.getElementAt(i));
+			}
+			
 		}
 		mod.addElement(codigo);
 		list.setModel(mod);
 	}
+//	public void asignarPlanoyCant(ArrayList<Integer> p,ArrayList<Integer> c){
+//		this.plano=p;
+//		this.cant=c;
+//	}
 }
