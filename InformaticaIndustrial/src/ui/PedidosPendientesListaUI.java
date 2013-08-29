@@ -20,26 +20,7 @@ public class PedidosPendientesListaUI extends JFrame {
 	JList list = new JList();
 	RemitoDAO dao=new RemitoDAO();
 	
-	
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					PedidosPendientesLista frame = new PedidosPendientesLista(null);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	/**
-	 * Create the frame.
-	 */
 	public PedidosPendientesListaUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
