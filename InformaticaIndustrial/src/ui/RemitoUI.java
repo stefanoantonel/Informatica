@@ -77,17 +77,24 @@ public class RemitoUI extends JFrame {
 		btnAgregar.setBounds(278, 35, 82, 23);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String co=codigo.getText();
-				boolean b=remitop.verificarExistencia(co);
-				if(b==true){
-					System.out.println("si esta");
-					agregarALista(co);
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "articulo no disponible");
-					System.out.println("no esta");
-				}
 				
+				String comp=codigo.getText();
+				String co=remitop.rellenar(comp); //para que si o si el codigo sea de 12 digitos
+				boolean concordancia=remitop.verificarConcordancia(co);
+				if(concordancia==true){
+					boolean b=remitop.verificarExistencia(co);
+					if(b==true){
+						System.out.println("si esta");
+						agregarALista(co);
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "articulo no disponible");
+						System.out.println("no esta");
+					}
+					
+				}
+				else
+					return;
 			}
 		});
 		contentPane.add(btnAgregar);
@@ -132,13 +139,20 @@ public class RemitoUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "sii");
 					
 					if(remitop.verificarFinalizacionPedido(listaParaDespachar)==true){ //coincide lo pedido con lo ingresado en el PIP..
+						remitop.guardarRemitoDespachado();
 						remitop.despachado(listaParaDespachar);
 					}
 					
 				}
 				if(resp==1){
-					
+					remitop.guardarRemitoAnulado(); //En espera
 					remitop.espera(listaParaDespachar); //esta en espera
+				}
+				if(resp==2){
+					return;
+				}
+				else{
+					RemitoUI.this.setVisible(false);
 				}
 				
 			}
@@ -172,6 +186,15 @@ public class RemitoUI extends JFrame {
 		}
 		mod.addElement(codigo);
 		list.setModel(mod);
+	}
+	
+	public void agregarCargados(){
+		ArrayList<String> e=remitop.getArticulosCargados();
+		DefaultListModel<String> d=new DefaultListModel<>();
+		for(String s:e){
+			d.addElement(s);
+		}
+		list.setModel(d);
 	}
 //	public void asignarPlanoyCant(ArrayList<Integer> p,ArrayList<Integer> c){
 //		this.plano=p;

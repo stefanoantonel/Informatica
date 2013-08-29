@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import modelo.Remito;
+
 import org.omg.CORBA.ULongLongSeqHelper;
 
 public class RemitoDAO {
@@ -29,7 +31,9 @@ public class RemitoDAO {
 	public ArrayList<Integer> getCantidad() {
 		return cantidad;
 	}
-	
+	public int getUltimoRemito(){
+		return ultimoNumeroRemito;
+	}
 	
 	
 	public void cargar(){
@@ -143,6 +147,70 @@ public class RemitoDAO {
 		JOptionPane.showMessageDialog(null, "error en la carga de articulos existentes");}
 	}
 	
+	public Remito getElecciones(int idRemito){
+		ArrayList<Integer> planoEleccion=new ArrayList<>();
+		ArrayList<Integer> cantidadEleccion=new ArrayList<>();
+		ArrayList<Integer> remitoEleccion=new ArrayList<>();
+		Remito r = null;
+		Connection con;
+		ResultSet rs=null;
+		try{//---------------------------------select todos en stock 
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT remito_id,articulo_id,cantidad ");
+			sb.append("FROM [EleccionPyC] ");
+			sb.append("WHERE remito_id="+idRemito+" ");
+			//PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			rs=stm.executeQuery();
+			while(rs.next()){
+				remitoEleccion.add(rs.getInt(1));
+				planoEleccion.add(rs.getInt(2));
+				cantidadEleccion.add(rs.getInt(3));
+			}
+			r=new Remito(planoEleccion, cantidadEleccion, remitoEleccion.get(0),this);
+			
+		}catch (Exception e){e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "error en la carga de elecciones");}
+		return r;
+	}
+	
+	public ArrayList<String> getArticulosCargados(int idRemito){
+
+		ArrayList<String> articulos=new ArrayList<>();
+		Remito r = null;
+		Connection con;
+		ResultSet rs=null;
+		try{//---------------------------------select todos en stock 
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT s.codigo_plano,s.numero_serie,s.verificador ");
+			sb.append("FROM [Remito-SPS] r, [Stock Productos Serializados] s ");
+			sb.append("WHERE r.sps_id=s.id AND r.remito_id="+idRemito+"");
+
+			//PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			rs=stm.executeQuery();
+			
+			while(rs.next()){
+				StringBuilder sb1=new StringBuilder();
+				sb1.append(rs.getInt(1));
+				sb1.append(rs.getString(2));
+				sb1.append(rs.getInt(3));
+				articulos.add(sb1.toString());
+			}
+			
+			
+		}catch (Exception e){e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "error en la carga de articulos de reito pendiente");}
+		return articulos;
+	}
+	
+	
 	public void guardarRemito(ArrayList<String> listaPara){
 		
 		insertarRemito();
@@ -168,7 +236,7 @@ public class RemitoDAO {
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			stm.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Despachado Correctamente");
+//			JOptionPane.showMessageDialog(null, "Despachado Correctamente");
 			
 			
 		}catch (Exception e){e.printStackTrace();
@@ -176,6 +244,7 @@ public class RemitoDAO {
 		
 		
 	}
+
 	
 	private int obtenerUltimoRemito(){
 
@@ -286,5 +355,72 @@ public class RemitoDAO {
 		}catch (Exception e){e.printStackTrace();
 		JOptionPane.showMessageDialog(null, "error gobtener id by codigo");}
 		return idsps;
+	}
+	public void guardarRemitoAnulado(){
+		Connection con;
+		ResultSet rs=null;
+		try{//---------------------------------select todos en stock 
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE [Remito] ");
+			sb.append("SET estado_id=11 ");
+			sb.append("WHERE id=? ");
+			//PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			stm.setInt(1, ultimoNumeroRemito);
+			stm.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Puesto en espera dso de guardado");
+		}catch (Exception e){e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "error update espera");}
+	}
+	
+	public void guardarRemitoDespachado(){
+		Connection con;
+		ResultSet rs=null;
+		try{//---------------------------------select todos en stock 
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE [Remito] ");
+			sb.append("SET estado_id=12 ");
+			sb.append("WHERE id=? ");
+			//PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			stm.setInt(1, ultimoNumeroRemito);
+			stm.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Puesto en despachado al remito que estaba guardado");
+		}catch (Exception e){e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "error update espera");}
+	}
+	
+	public ArrayList<Integer> obtenerRemitosPendientes(){
+		Connection con;
+		ResultSet rs=null;
+		int id=0;
+		ArrayList<Integer> idRemitosPend=new ArrayList<>();
+		rs=null;
+		try{//--------------------------------
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT r.id ");
+			sb.append("FROM [Remito] r ");
+			sb.append("WHERE r.estado_id=11 ");
+			//PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			
+			rs=stm.executeQuery();
+			while(rs.next()){
+				id=rs.getInt(1);
+				idRemitosPend.add(id);
+				}
+		
+		}catch (Exception e){e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "error gobtener id by codigo");}
+		return idRemitosPend;
 	}
 }

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,6 +23,7 @@ public class Remito {
 	String plano,serie,verificador;
 	int cantidadEleccion, planoEleccion;
 	ArrayList<Integer> planoRequerido, cantRequerido;
+	int idRemito;
 	
 	
 
@@ -29,6 +31,14 @@ public class Remito {
 		dao=new RemitoDAO();
 		planoRequerido=plano;
 		cantRequerido=cant;
+
+	}
+	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ,int id,RemitoDAO d){
+		idRemito=id;
+		dao=d;
+		planoRequerido=plano;
+		cantRequerido=cant;
+		cargarUI();
 
 	}
 	
@@ -121,6 +131,20 @@ public class Remito {
 		RemitoUI rui=new RemitoUI(this);
 		rui.setVisible(true);
 	}
+	public void cargarUI(){
+		RemitoUI rui=new RemitoUI(this);
+		rui.agregarCargados();
+		rui.setVisible(true);
+	}
+	
+//	public void inicializarUI( ArrayList<String> a){
+//		int j=0;
+//		DefaultListModel<String> mod=new DefaultListModel<>();
+//		for(String s:a){
+//			mod.addElement(s);
+//		}
+//		
+//	}
 	
 	public boolean verificarFinalizacionPedido(ArrayList<String> listaDespachar){
 		int j=0;
@@ -143,5 +167,41 @@ public class Remito {
 	
 	public void guardarRemito(ArrayList<String> listaPara){
 		dao.guardarRemito(listaPara);
+	}
+	public void guardarRemitoAnulado(){
+		dao.guardarRemitoAnulado();
+	}
+	public void guardarRemitoDespachado(){
+		dao.guardarRemitoDespachado();
+	}
+	public ArrayList<String> getArticulosCargados(){
+		ArrayList<String> t=dao.getArticulosCargados(idRemito);
+		return t;
+	}
+	public boolean verificarConcordancia(String codigoCompleto){
+		String p=codigoCompleto.substring(0,4);
+		String s=codigoCompleto.substring(4,11);
+		String v=codigoCompleto.substring(11,12);
+		int p1=Integer.parseInt(p);
+		if(planoRequerido.contains(p1)){
+			System.out.println("si contiene");
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "Ingrese articulo correcto para este remito");
+			return false;
+		}
+		return true;
+	}
+	
+	public String rellenar(String cod){
+		StringBuilder sb=new StringBuilder();
+		if(cod.length()<12){
+			
+			for (int i=12;i>cod.length();i--){
+				sb.append("0");
+			}
+			sb.append(cod);
+		}
+		return sb.toString();
 	}
 }

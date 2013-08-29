@@ -25,6 +25,21 @@ import modelo.EliminaRelacion;
 import modelo.Nodo;
 
 import com.jgoodies.forms.factories.Borders.EmptyBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.event.MenuKeyListener;
+import javax.swing.event.MenuKeyEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+
+import persistencia.RemitoDAO;
 
 public class MenuUI extends JFrame {
 
@@ -47,6 +62,26 @@ public class MenuUI extends JFrame {
 	public MenuUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 683, 476);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmRemitosPendientes = new JMenuItem("Remitos pendientes");
+		mntmRemitosPendientes.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				System.out.println("geniale!");
+			}
+		});
+		mntmRemitosPendientes.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println("geniale!");
+			}
+		});
+		menuBar.add(mntmRemitosPendientes);
 		
 		contentPane = new JPanel();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -172,7 +207,7 @@ public class MenuUI extends JFrame {
 		btnNewButton_3.setBounds(496, 82, 141, 68);
 		contentPane.add(btnNewButton_3);
 		
-		JButton btnNewButton_4 = new JButton("Remito");
+		JButton btnNewButton_4 = new JButton("Genera Remito");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TablaCargaRemitoUI.main(null);
@@ -181,6 +216,17 @@ public class MenuUI extends JFrame {
 		});
 		btnNewButton_4.setBounds(496, 162, 141, 67);
 		contentPane.add(btnNewButton_4);
+		
+		JButton btnRemitosPendientes = new JButton("Remitos Pendientes ");
+		btnRemitosPendientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				PedidosPendientesLista pp=new PedidosPendientesLista();
+				pp.inicializarUI();
+			}
+		});
+		btnRemitosPendientes.setBounds(494, 240, 143, 28);
+		contentPane.add(btnRemitosPendientes);
 		setLocationRelativeTo(null);
 	}
 }
