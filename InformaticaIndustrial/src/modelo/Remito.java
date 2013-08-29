@@ -173,12 +173,16 @@ public class Remito {
 	public void guardarRemito(ArrayList<String> listaPara){
 		dao.guardarRemito(listaPara);
 	}
-	public void guardarRemitoAnulado(){
-		dao.guardarRemitoAnulado();
+	public void guardarRemitoEspera(){
+		dao.guardarRemitoEspera();
 	}
 	public void guardarRemitoDespachado(){
 		dao.guardarRemitoDespachado();
 	}
+	public void guardarRemitoActivo(){
+		dao.guardarRemitoActivo();
+	}
+	
 	public ArrayList<String> getArticulosCargados(){
 		ArrayList<String> t=dao.getArticulosCargados(idRemito);
 		return t;

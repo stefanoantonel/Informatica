@@ -39,8 +39,12 @@ public class TablaCargaRemito {
 				String c=t.getValueAt(i, 1).toString();
 				cant.add(Integer.parseInt(c));
 				String p=t.getValueAt(i, 0).toString();
-				plano.add(Integer.valueOf(p));
-				if(!dao.getPlano().contains(plano)){
+				int pl=Integer.valueOf(p);
+				plano.add(pl);
+				if(dao.getPlano().contains(pl)){	//si esta en lo que elegi para el remito
+					
+				}
+				else{
 					JOptionPane.showMessageDialog(null, "articulo: "+plano+" no disponible en stock");
 					return;
 				}

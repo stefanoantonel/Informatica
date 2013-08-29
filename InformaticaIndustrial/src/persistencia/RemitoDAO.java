@@ -385,7 +385,7 @@ public class RemitoDAO {
 		return idsps;
 	}
 
-	public void guardarRemitoAnulado() {
+	public void guardarRemitoEspera() {
 		Connection con;
 		ResultSet rs = null;
 		try {// ---------------------------------select todos en stock
@@ -394,6 +394,29 @@ public class RemitoDAO {
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE [Remito] ");
 			sb.append("SET estado_id=11 ");
+			sb.append("WHERE id=? ");
+			// PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			stm.setInt(1, ultimoNumeroRemito);
+			stm.executeUpdate();
+			JOptionPane.showMessageDialog(null,
+					"Puesto en espera dso de guardado");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "error update espera");
+		}
+	}
+	
+	public void guardarRemitoActivo() {
+		Connection con;
+		ResultSet rs = null;
+		try {// ---------------------------------select todos en stock
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE [Remito] ");
+			sb.append("SET estado_id=10 ");
 			sb.append("WHERE id=? ");
 			// PREPARAR CONSULTA
 			PreparedStatement stm;

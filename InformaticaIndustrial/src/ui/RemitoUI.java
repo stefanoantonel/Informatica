@@ -28,7 +28,7 @@ public class RemitoUI extends JFrame {
 	private JTextField codigo;
 	JList<String> list = new JList<>();
 	ArrayList<Integer> plano,cant;
-	static RemitoDAO remDao;
+//	static RemitoDAO remDao;
 	static Remito remitop;
 
 	
@@ -151,7 +151,7 @@ public class RemitoUI extends JFrame {
 					
 				}
 				if(resp==1){
-					remitop.guardarRemitoAnulado(); //En espera
+					remitop.guardarRemitoEspera(); //En espera
 					remitop.espera(listaParaDespachar); //esta en espera
 				}
 				if(resp==2){
@@ -172,6 +172,9 @@ public class RemitoUI extends JFrame {
 				if(list.getModel().getSize()>0){ //si tiene articulos 
 					JOptionPane.showMessageDialog(null, "Debe eliminar los articulos de la lista");
 					return;
+				}
+				else{
+					remitop.guardarRemitoActivo();
 				}
 				
 			}
