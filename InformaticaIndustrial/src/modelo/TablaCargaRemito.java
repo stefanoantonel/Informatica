@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
+import persistencia.RemitoDAO;
+
 import ui.RemitoUI;
 import ui.TablaCargaRemitoUI;
 
 public class TablaCargaRemito {
 	int filas;
 	ArrayList<Integer> planoInt,cantInt;
+	RemitoDAO dao=new RemitoDAO(); //es solo para comprobar que lo que ingrese ne la tabla este en el articulo
 
 	public int preguntarCarga(){
 		String cant=JOptionPane.showInputDialog("Cuantos articulos distintos desea ingresar?");
@@ -37,7 +40,10 @@ public class TablaCargaRemito {
 				cant.add(Integer.parseInt(c));
 				String p=t.getValueAt(i, 0).toString();
 				plano.add(Integer.valueOf(p));
-				
+				if(!dao.getPlano().contains(plano)){
+					JOptionPane.showMessageDialog(null, "articulo: "+plano+" no disponible en stock");
+					return;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, " datos incorrectos en la tabla");

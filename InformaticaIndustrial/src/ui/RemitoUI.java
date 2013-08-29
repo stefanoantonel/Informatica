@@ -56,7 +56,13 @@ public class RemitoUI extends JFrame {
 		remitop=r;
 		
 		setTitle("Remito");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		if(remitop.getEstado()==10){
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		}
+		else{
+			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		}
+		
 		setBounds(100, 100, 386, 315);
 		contentPane = new JPanel();
 //		contentPane.
@@ -80,9 +86,9 @@ public class RemitoUI extends JFrame {
 				
 				String comp=codigo.getText();
 				String co=remitop.rellenar(comp); //para que si o si el codigo sea de 12 digitos
-				boolean concordancia=remitop.verificarConcordancia(co);
+				boolean concordancia=remitop.verificarConcordancia(co); //que lo que ingrese este en lo que pidio
 				if(concordancia==true){
-					boolean b=remitop.verificarExistencia(co);
+					boolean b=remitop.verificarExistencia(co);	//que este disponible segun el estado del articulo
 					if(b==true){
 						System.out.println("si esta");
 						agregarALista(co);
@@ -160,17 +166,34 @@ public class RemitoUI extends JFrame {
 		btnFinalizar.setBounds(271, 218, 89, 23);
 		contentPane.add(btnFinalizar);
 		
+		JButton btnDescartar = new JButton("Descartar");
+		btnDescartar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(list.getModel().getSize()>0){ //si tiene articulos 
+					JOptionPane.showMessageDialog(null, "Debe eliminar los articulos de la lista");
+					return;
+				}
+				
+			}
+		});
+		btnDescartar.setBounds(271, 173, 89, 23);
+		contentPane.add(btnDescartar);
+		
 		setLocationRelativeTo(null);
 	}
 	
 	private void eliminarDeLista(int indice){
 		DefaultListModel<String> mod=new DefaultListModel<>();
 		ListModel<String> m=list.getModel();
-		
+		String art=list.getModel().getElementAt(indice);
 		for(int i=0;i<m.getSize();i++){
 			mod.addElement(m.getElementAt(i));
 		}
 		mod.remove(indice);
+		if(remitop.getEstado()==11){
+			
+			remitop.liberarArticulo(art);
+		}
 		
 		list.setModel(mod);
 	}
@@ -196,8 +219,4 @@ public class RemitoUI extends JFrame {
 		}
 		list.setModel(d);
 	}
-//	public void asignarPlanoyCant(ArrayList<Integer> p,ArrayList<Integer> c){
-//		this.plano=p;
-//		this.cant=c;
-//	}
 }

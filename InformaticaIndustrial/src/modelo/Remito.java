@@ -23,13 +23,14 @@ public class Remito {
 	String plano,serie,verificador;
 	int cantidadEleccion, planoEleccion;
 	ArrayList<Integer> planoRequerido, cantRequerido;
-	int idRemito;
+	int idRemito, estado;
 	
 	
 
 	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ){
 		dao=new RemitoDAO();
 		planoRequerido=plano;
+		estado=10;
 		cantRequerido=cant;
 
 	}
@@ -39,9 +40,13 @@ public class Remito {
 		planoRequerido=plano;
 		cantRequerido=cant;
 		cargarUI();
+		estado=11;
 
 	}
 	
+	public int getEstado() {
+		return estado;
+	}
 	private void dividir(){
 		try{
 //			plano=Integer.parseInt(codigoCompleto.substring(0, 3));
@@ -202,6 +207,12 @@ public class Remito {
 			}
 			sb.append(cod);
 		}
+		else{
+			sb.append(cod);
+		}
 		return sb.toString();
+	}
+	public void liberarArticulo(String art){
+		dao.liberaArticulo(art);
 	}
 }
