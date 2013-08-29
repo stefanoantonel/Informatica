@@ -180,6 +180,7 @@ public class Remito {
 		dao.guardarRemitoDespachado();
 	}
 	public void guardarRemitoActivo(){
+		
 		dao.guardarRemitoActivo();
 	}
 	
