@@ -175,6 +175,7 @@ public class RemitoUI extends JFrame {
 				}
 				else{
 					remitop.guardarRemitoActivo();
+					RemitoUI.this.setVisible(false);
 				}
 				
 			}

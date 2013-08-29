@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
+import persistencia.CargaStockDAO;
 import persistencia.RemitoDAO;
 
 import ui.RemitoUI;
@@ -14,7 +15,9 @@ public class TablaCargaRemito {
 	int filas;
 	ArrayList<Integer> planoInt,cantInt;
 	RemitoDAO dao=new RemitoDAO(); //es solo para comprobar que lo que ingrese ne la tabla este en el articulo
-
+	ArrayList<ArrayList<String>> articuloCodigo = new ArrayList<>();
+	CargaStockDAO stock = new CargaStockDAO();
+	
 	public int preguntarCarga(){
 		String cant=JOptionPane.showInputDialog("Cuantos articulos distintos desea ingresar?");
 		filas=-1;
@@ -80,5 +83,28 @@ public class TablaCargaRemito {
 
 	public ArrayList<Integer> getCantInt() {
 		return cantInt;
+	}
+	public ArrayList<String> cargaArticulosLista(){
+		
+		ArrayList<String> articuloDescripcion = new ArrayList<>();
+		
+		articuloCodigo=stock.obtenerArticulosStock();
+		for (ArrayList<String> art: articuloCodigo)
+		{
+			articuloDescripcion.add(art.get(1));
+		}
+		
+		return articuloDescripcion;
+	}
+	public ArrayList<String> obtenerCodigoPlano(ArrayList<String> descArt){
+		ArrayList<String> codigoPlano=new ArrayList<>();
+		for(ArrayList<String> artCod:articuloCodigo){
+			for(String desc: descArt ){
+				if(artCod.get(1).equals(desc)){
+					codigoPlano.add(artCod.get(0));
+				}
+			}
+		}
+		return codigoPlano;
 	}
 }

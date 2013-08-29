@@ -74,5 +74,61 @@ public void insertarStock(int codigoPlano,ArrayList<String> serie, ArrayList<Int
 		
 		return ultimoSerie;
 	}
+	
+	public ArrayList<ArrayList<String>> obtenerArticulosStock(){
+		Connection con;
+		ResultSet rs;
+
+		ArrayList<ArrayList<String>> articuloCodigo=new ArrayList<>();
+		
+		
+		try {
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+	
+			sb.append("SELECt distinct a.codigo_plano , d.descripcion_str ");
+			sb.append("FROM [Stock Productos Serializados] s ");
+			sb.append("INNER JOIN Articulo a on a.codigo_plano=s.codigo_plano ");
+			sb.append("INNER JOIN Descripcion d on d.id=a.descripcion_id ");
+			
+			
+			
+			
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			rs = stm.executeQuery();
+
+			while (rs.next()) {
+				try {
+					ArrayList<String> fila= new ArrayList();
+					fila.add(String.valueOf(rs.getString(1)));
+					fila.add(rs.getString(2));
+					articuloCodigo.add(fila);
+//					nodo.setDescripcion();
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("error obtener articulo stock ");
+				}
+
+//				// String a = rs.getString(2);
+//
+//				try {
+//					modelo1.addElement(nodo.getDescripcion());
+//					
+//				} catch (Exception e) {
+//					System.out.println("erros add eleme");
+//					e.printStackTrace();
+//				}
+
+			}
+			
+		} catch (Exception e) {
+			System.out.println("error reporta conexion");
+			e.printStackTrace();
+		}
+		return articuloCodigo;
+	}
+	
 
 }

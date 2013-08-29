@@ -170,7 +170,7 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT remito_id,articulo_id,cantidad ");
+			sb.append("SELECT remito_id,codigo_plano,cantidad ");
 			sb.append("FROM [EleccionPyC] ");
 			sb.append("WHERE remito_id=" + idRemito + " ");
 			// PREPARAR CONSULTA
@@ -295,11 +295,13 @@ public class RemitoDAO {
 		Connection con;
 		ResultSet rs = null;
 		rs = null;
+		CargaStockDAO car=new CargaStockDAO();
+		
 		try {// --------------------------------
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("INSERT INTO EleccionPyC (articulo_id,cantidad,remito_id) ");
+			sb.append("INSERT INTO EleccionPyC (codigo_plano,cantidad,remito_id) ");
 			sb.append("VALUES (?,?,?)");
 			// sb.append("VALUES ('10') ");
 			// sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");

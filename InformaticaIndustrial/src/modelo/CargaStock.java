@@ -8,7 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 import persistencia.CargaStockDAO;
-import ui.CodigoDeArticulos;
+import ui.CodigoDeArticulosUI;
 
 public class CargaStock {
 	
@@ -118,6 +118,6 @@ public class CargaStock {
 			i++;
 			modelo1.addElement(sb1.toString());
 		}
-		CodigoDeArticulos ca=new CodigoDeArticulos(modelo1);
+		CodigoDeArticulosUI ca=new CodigoDeArticulosUI(modelo1);
 	}
 }
