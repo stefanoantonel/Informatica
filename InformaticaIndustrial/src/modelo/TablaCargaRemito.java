@@ -17,6 +17,7 @@ public class TablaCargaRemito {
 	RemitoDAO dao=new RemitoDAO(); //es solo para comprobar que lo que ingrese ne la tabla este en el articulo
 	ArrayList<ArrayList<String>> articuloCodigo = new ArrayList<>();
 	CargaStockDAO stock = new CargaStockDAO();
+//	ArrayList<String> cantFilas=new ArrayList<>();
 	
 	public int preguntarCarga(){
 		String cant=JOptionPane.showInputDialog("Cuantos articulos distintos desea ingresar?");
@@ -97,6 +98,7 @@ public class TablaCargaRemito {
 		return articuloDescripcion;
 	}
 	public ArrayList<String> obtenerCodigoPlano(ArrayList<String> descArt){
+		filas=descArt.size();
 		ArrayList<String> codigoPlano=new ArrayList<>();
 		for(ArrayList<String> artCod:articuloCodigo){
 			for(String desc: descArt ){

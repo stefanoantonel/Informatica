@@ -170,6 +170,9 @@ public class Remito {
 		return true;
 	}
 	
+	public int getIdRemito() {
+		return idRemito;
+	}
 	public void guardarRemito(ArrayList<String> listaPara){
 		dao.guardarRemito(listaPara);
 	}
@@ -219,5 +222,9 @@ public class Remito {
 	}
 	public void liberarArticulo(String art){
 		dao.liberaArticulo(art);
+	}
+	
+	public void updateRemito(ArrayList<String> listaParaDespachar,int remitoId){
+		dao.guardarRemito(listaParaDespachar, remitoId);
 	}
 }

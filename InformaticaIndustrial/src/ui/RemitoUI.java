@@ -137,8 +137,13 @@ public class RemitoUI extends JFrame {
 				for(int i=0;i<tam;i++){
 					listaParaDespachar.add(m.getElementAt(i));
 				}
+				if(remitop.getEstado()==11){
+					remitop.updateRemito(listaParaDespachar,remitop.getIdRemito());
+				}
+				else{
+					remitop.guardarRemito(listaParaDespachar);
+				}
 				
-				remitop.guardarRemito(listaParaDespachar);
 				
 				int resp=JOptionPane.showConfirmDialog(null, "Desea despacharlo?");
 				if(resp==0){
@@ -153,13 +158,13 @@ public class RemitoUI extends JFrame {
 				if(resp==1){
 					remitop.guardarRemitoEspera(); //En espera
 					remitop.espera(listaParaDespachar); //esta en espera
+					RemitoUI.this.setVisible(false);
+					return;
 				}
 				if(resp==2){
 					return;
 				}
-				else{
-					RemitoUI.this.setVisible(false);
-				}
+				
 				
 			}
 		});

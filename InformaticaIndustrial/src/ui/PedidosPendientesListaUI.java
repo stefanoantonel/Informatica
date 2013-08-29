@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import modelo.Remito;
 import persistencia.RemitoDAO;
 
-public class PedidosPendientesLista extends JFrame {
+public class PedidosPendientesListaUI extends JFrame {
 
 	private JPanel contentPane;
 	JList list = new JList();
@@ -40,8 +40,8 @@ public class PedidosPendientesLista extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PedidosPendientesLista() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public PedidosPendientesListaUI() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -49,7 +49,10 @@ public class PedidosPendientesLista extends JFrame {
 		setContentPane(contentPane);
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				Remito r=dao.getElecciones((Integer)list.getSelectedValue());
+				if ( !arg0.getValueIsAdjusting() && ! list.isSelectionEmpty()){
+					dao.getElecciones((Integer)list.getSelectedValue());
+				}
+				
 			}
 		});
 		

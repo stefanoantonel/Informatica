@@ -170,9 +170,11 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT remito_id,codigo_plano,cantidad ");
-			sb.append("FROM [EleccionPyC] ");
-			sb.append("WHERE remito_id=" + idRemito + " ");
+			sb.append("SELECT remito_id,codigo_plano,cantidad  ");
+			sb.append("FROM [EleccionPyC] e ");
+			sb.append("INNER JOIN [Stock Productos Serializados] sps on sps.id=e.sps_id ");
+			sb.append("WHERE remito_id= " + idRemito + "");
+			
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
@@ -182,8 +184,7 @@ public class RemitoDAO {
 				planoEleccion.add(rs.getInt(2));
 				cantidadEleccion.add(rs.getInt(3));
 			}
-			r = new Remito(planoEleccion, cantidadEleccion,
-					remitoEleccion.get(0), this);
+			r = new Remito(planoEleccion, cantidadEleccion,	remitoEleccion.get(0), this);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -235,6 +236,15 @@ public class RemitoDAO {
 		guardarElecciones();
 		ArrayList<Integer> idsps = obtenerIdByCodigo(listaPara);
 		guardarListaArticulos(idsps);
+
+	}
+	public void guardarRemito(ArrayList<String> listaPara,int remitoId) {
+
+//		insertarRemito();
+		ultimoNumeroRemito = remitoId;
+//		guardarElecciones();
+		ArrayList<Integer> idsps = obtenerIdByCodigo(listaPara);
+		updateListaArticulos(idsps,remitoId);
 
 	}
 
@@ -301,8 +311,9 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("INSERT INTO EleccionPyC (codigo_plano,cantidad,remito_id) ");
-			sb.append("VALUES (?,?,?)");
+			sb.append("INSERT INTO EleccionPyC (sps_id,cantidad,remito_id) ");
+			String obtenerId="(SELECT TOP 1 s.id FROM [Stock Productos Serializados] s WHERE s.codigo_plano=?)";
+			sb.append("VALUES ("+obtenerId+",?,?)");
 			// sb.append("VALUES ('10') ");
 			// sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
 			// PREPARAR CONSULTA
@@ -312,7 +323,6 @@ public class RemitoDAO {
 			for (Integer i : plano) {
 				stm.setInt(1, i);
 				stm.setInt(2, cantidad.get(j));
-				;
 				stm.setInt(3, ultimoNumeroRemito);
 				stm.executeUpdate();
 
@@ -334,6 +344,7 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
+			
 			sb.append("INSERT INTO [Remito-SPS] (remito_id,sps_id) ");
 			sb.append("VALUES (?,?) ");
 			// sb.append("VALUES ('10') ");
@@ -353,6 +364,37 @@ public class RemitoDAO {
 		}
 	}
 
+	private void updateListaArticulos(ArrayList<Integer> idsps,int remitoId) {
+		Connection con;
+		ResultSet rs = null;
+		rs = null;
+		// int idsps=obtenerIdByCodigo(codigo)
+		try {// --------------------------------
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("IF NOT EXISTS(SELECT * FROM [Remito-SPS] WHERE sps_id=?)");
+			sb.append("BEGIN ");
+			sb.append("INSERT INTO [Remito-SPS] (remito_id,sps_id) ");
+			sb.append("VALUES (?,?) ");
+			sb.append("END");
+			// sb.append("VALUES ('10') ");
+			// sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
+			// PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			for (Integer i : idsps) {
+				stm.setInt(1, i);
+				stm.setInt(2, remitoId);
+				stm.setInt(3, i);
+				stm.executeUpdate();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane
+					.showMessageDialog(null, "error guardar update articulos");
+		}
+	}
 	private ArrayList<Integer> obtenerIdByCodigo(ArrayList<String> codigo) {
 
 		Connection con;

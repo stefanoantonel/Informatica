@@ -218,10 +218,10 @@ public class MenuUI extends JFrame {
 		contentPane.add(btnNewButton_4);
 		
 		JButton btnRemitosPendientes = new JButton("Remitos Pendientes ");
+		
 		btnRemitosPendientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				PedidosPendientesLista pp=new PedidosPendientesLista();
+				PedidosPendientesListaUI pp=new PedidosPendientesListaUI();
 				pp.inicializarUI();
 			}
 		});
