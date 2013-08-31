@@ -36,6 +36,7 @@ public class AdministraAlternativoUI extends JFrame {
 	String original;
 
 	public AdministraAlternativoUI(String art, String cant, String um, ArrayList<String> altDesc, String[][] conv) {
+		setTitle("Administrar Alternativos");
 		original=art;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

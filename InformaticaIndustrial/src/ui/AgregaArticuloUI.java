@@ -36,6 +36,7 @@ public class AgregaArticuloUI extends JFrame {
 	
 	
 	public AgregaArticuloUI(ArrayList<String> mat,ArrayList<String> tip,ArrayList<String> um) {
+		setTitle("Agregar Articulo");
 		
 		
 		

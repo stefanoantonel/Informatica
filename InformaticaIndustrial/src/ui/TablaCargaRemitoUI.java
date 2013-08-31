@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
 
 public class TablaCargaRemitoUI extends JFrame {
 
@@ -90,6 +91,14 @@ public class TablaCargaRemitoUI extends JFrame {
 		list.setBounds(10, 57, 169, 309);
 		contentPane.add(list);
 		
+		JLabel lblSeleccioneAriculos = new JLabel("Seleccione Ariculos ");
+		lblSeleccioneAriculos.setBounds(10, 32, 169, 14);
+		contentPane.add(lblSeleccioneAriculos);
+		
+		JLabel lblIngreseCantidades = new JLabel("Ingrese Cantidades");
+		lblIngreseCantidades.setBounds(234, 32, 110, 14);
+		contentPane.add(lblIngreseCantidades);
+		
 		
 		//cargaModelo();
 		cargaLista();
@@ -136,7 +145,4 @@ public class TablaCargaRemitoUI extends JFrame {
 		list.setModel(modeloLista);
 		this.setVisible(true);
 	}
-	
-	
-	
 }

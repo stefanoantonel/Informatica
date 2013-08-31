@@ -90,6 +90,7 @@ public class AgregaRelacionUI extends JFrame {
 	 */
 
 	public AgregaRelacionUI(DefaultListModel modelo1, DefaultListModel modelo2, Object[] um) {
+		setTitle("Agregar Relacion");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {

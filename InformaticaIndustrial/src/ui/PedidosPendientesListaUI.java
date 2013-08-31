@@ -14,15 +14,18 @@ import javax.swing.event.ListSelectionListener;
 import modelo.Remito;
 import persistencia.RemitoDAO;
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
 
 public class PedidosPendientesListaUI extends JFrame {
 
 	private JPanel contentPane;
 	JList list = new JList();
 	RemitoDAO dao=new RemitoDAO();
+	private final JLabel lblSeleccioneUnPedido_1 = new JLabel("Seleccione un Pedido:");
 	
 
 	public PedidosPendientesListaUI() {
+		setTitle("Pedidos Pendientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -33,6 +36,8 @@ public class PedidosPendientesListaUI extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane(list);
 		contentPane.add(scrollPane);
+		
+		contentPane.add(lblSeleccioneUnPedido_1, BorderLayout.NORTH);
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if ( !arg0.getValueIsAdjusting() && ! list.isSelectionEmpty()){

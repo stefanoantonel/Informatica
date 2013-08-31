@@ -32,6 +32,7 @@ public class ExplosionUI extends JFrame {
 
 
 	public ExplosionUI(DefaultTreeModel modelo) {
+		setTitle("Explosion");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 568, 371);//jhkj

@@ -60,6 +60,7 @@ public class MenuUI extends JFrame {
 	}
 
 	public MenuUI() {
+		setTitle("Informatica Industrial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 683, 476);
 		

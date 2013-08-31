@@ -49,6 +49,7 @@ public class EliminaRelacionUI extends JFrame {
 	 * Create the frame.
 	 */
 public EliminaRelacionUI() {
+		setTitle("Elimina Relacion");
 		getContentPane().setLayout(null);
 
 }

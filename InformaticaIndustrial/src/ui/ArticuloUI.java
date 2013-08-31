@@ -38,6 +38,7 @@ public class ArticuloUI extends JFrame {
 	}
 
 	public ArticuloUI() {
+		setTitle("Descripcon Articulos");
 		
 		setBounds(100, 100, 657, 448);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

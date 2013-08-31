@@ -31,6 +31,7 @@ public class AgregarAlternativoUI extends JFrame {
 
 
 	public AgregarAlternativoUI(AgregaRelacionUI rela,String p,String h) {
+		setTitle("Agregar Alternativo");
 		this.relacion=rela;
 		padreDesc=p;
 		hijoDesc=h;
