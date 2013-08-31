@@ -18,6 +18,24 @@ public class RemitoDAO {
 	ArrayList<Integer> cantidad;
 	int ultimoNumeroRemito;
 	CargaStockDAO stock=new CargaStockDAO();
+	ArrayList<Integer> idRemitosPendientes;
+	ArrayList<String> fechaRemitoPendiente;
+
+	public ArrayList<Integer> getIdRemitosPendientes() {
+		return idRemitosPendientes;
+	}
+
+	public void setIdRemitosPendientes(ArrayList<Integer> idRemitosPendientes) {
+		this.idRemitosPendientes = idRemitosPendientes;
+	}
+
+	public ArrayList<String> getFechaRemitoPendiente() {
+		return fechaRemitoPendiente;
+	}
+
+	public void setFechaRemitoPendiente(ArrayList<String> fechaRemitoPendiente) {
+		this.fechaRemitoPendiente = fechaRemitoPendiente;
+	}
 
 	public RemitoDAO() {
 		cargar(); //carga la lista de codigos completos
@@ -397,17 +415,18 @@ public class RemitoDAO {
 		}
 	}
 
-	public ArrayList<Integer> obtenerRemitosPendientes() {
+	public void cargarRemitosPendientes() {
 		Connection con;
 		ResultSet rs = null;
 		int id = 0;
-		ArrayList<Integer> idRemitosPend = new ArrayList<>();
+		idRemitosPendientes = new ArrayList<>();
+		fechaRemitoPendiente=new ArrayList<>();
 		rs = null;
 		try {// --------------------------------
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT r.id ");
+			sb.append("SELECT r.id ,r.fecha_inicio ");
 			sb.append("FROM [Remito] r ");
 			sb.append("WHERE r.estado_id=11 ");
 			// PREPARAR CONSULTA
@@ -416,15 +435,16 @@ public class RemitoDAO {
 
 			rs = stm.executeQuery();
 			while (rs.next()) {
-				id = rs.getInt(1);
-				idRemitosPend.add(id);
+				id = rs.getInt("id");
+				idRemitosPendientes.add(id);
+				fechaRemitoPendiente.add(rs.getDate("fecha_inicio").toString());
+				
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "error gobtener id by codigo");
+			JOptionPane.showMessageDialog(null, "error cargar pedidos pendientes");
 		}
-		return idRemitosPend;
 	}
 
 	public void liberaArticulo(String articulo) {

@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.Remito;
 import persistencia.RemitoDAO;
+import javax.swing.JScrollPane;
 
 public class PedidosPendientesListaUI extends JFrame {
 
@@ -26,30 +27,45 @@ public class PedidosPendientesListaUI extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		list.setValueIsAdjusting(true);
+		
+		JScrollPane scrollPane = new JScrollPane(list);
+		contentPane.add(scrollPane);
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if ( !arg0.getValueIsAdjusting() && ! list.isSelectionEmpty()){
-					dao.getElecciones((Integer)list.getSelectedValue());
+					//tengo que sacar el id del string con todo
+					
+					String seleccion=(String)list.getSelectedValue();
+					String split[]=seleccion.split("-");
+					int remitoId=Integer.parseInt(split[1].trim());
+					
+					dao.getElecciones(remitoId);
 				}
 				
 			}
 		});
 		
 		
-		contentPane.add(list, BorderLayout.CENTER);
+		//contentPane.add(list, BorderLayout.CENTER);
 		
 		
 	}
 	public void inicializarUI(){
 		
-		ArrayList<Integer>in=dao.obtenerRemitosPendientes();
-		DefaultListModel<Integer> dm=new DefaultListModel<>();
-		for(Integer i:in){
-			dm.addElement(i);
+		dao.cargarRemitosPendientes();
+		ArrayList<Integer> pedidosPendId =dao.getIdRemitosPendientes();
+		ArrayList<String> fechaPedidosPendientes =dao.getFechaRemitoPendiente();
+		DefaultListModel<String> modelo=new DefaultListModel<>();
+		int j=0;
+		for(Integer id:pedidosPendId){
+			String m= "Remito - "+ id + " - Fecha: " + fechaPedidosPendientes.get(j);
+			modelo.addElement(m);
+			j++;
 		}
-		list.setModel(dm);
+		list.setModel(modelo);
 		this.setVisible(true);
 	}
 
