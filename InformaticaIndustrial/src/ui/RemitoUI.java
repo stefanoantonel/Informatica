@@ -143,11 +143,9 @@ public class RemitoUI extends JFrame {
 				else{
 					remitop.guardarRemito(listaParaDespachar);
 				}
-				
-				
 				int resp=JOptionPane.showConfirmDialog(null, "Desea despacharlo?");
 				if(resp==0){
-					JOptionPane.showMessageDialog(null, "sii");
+//					JOptionPane.showMessageDialog(null, "sii");
 					
 					if(remitop.verificarFinalizacionPedido(listaParaDespachar)==true){ //coincide lo pedido con lo ingresado en el PIP..
 						remitop.guardarRemitoDespachado();

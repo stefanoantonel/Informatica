@@ -17,10 +17,11 @@ public class RemitoDAO {
 	ArrayList<Integer> plano;
 	ArrayList<Integer> cantidad;
 	int ultimoNumeroRemito;
+	CargaStockDAO stock=new CargaStockDAO();
 
 	public RemitoDAO() {
-		cargar();
-		getPlanoCantidad();
+		cargar(); //carga la lista de codigos completos
+		getPlanoCantidad(); //carga lista de planos y cantidades
 	}
 
 	public ArrayList<Integer> getPlano() {
@@ -36,127 +37,25 @@ public class RemitoDAO {
 	}
 
 	public void cargar() {
-		listaCodigosExistentes = new ArrayList<>();
-		Connection con;
-		ResultSet rs = null;
-		try {// ---------------------------------select todos en stock
-			Conexion cn1 = new Conexion();
-			con = cn1.getConexion();
-			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT [codigo_plano],[numero_serie],[verificador] ");
-			sb.append("FROM [Stock Productos Serializados] stock ");
-			sb.append("WHERE estado_id=1 ");
-			// PREPARAR CONSULTA
-			PreparedStatement stm;
-			stm = con.prepareStatement(sb.toString());
-			rs = stm.executeQuery();
-			while (rs.next()) {
-				StringBuilder sb1 = new StringBuilder();
-				sb1.append(rs.getString(1));
-				sb1.append(rs.getString(2).trim());
-				sb1.append(rs.getString(3));
-
-				listaCodigosExistentes.add(sb1.toString());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"error en la carga de articulos existentes");
-		}
+		listaCodigosExistentes=stock.cargarListaCodigosExistentes();
 	}
 
 	public ArrayList<String> getListaCodigosExistentes() {
 		return listaCodigosExistentes;
 	}
 
-	public void ponerDespachado(ArrayList<String> plano,
-			ArrayList<String> serie, ArrayList<String> verificacion) {
-		Connection con;
-		ResultSet rs = null;
-		try {// ---------------------------------select todos en stock
-			Conexion cn1 = new Conexion();
-			con = cn1.getConexion();
-			StringBuilder sb = new StringBuilder();
-			sb.append("UPDATE [Stock Productos Serializados] ");
-			sb.append("SET estado_id=3 ");
-			sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
-			// PREPARAR CONSULTA
-			PreparedStatement stm;
-			stm = con.prepareStatement(sb.toString());
-			for (int i = 0; i < serie.size(); i++) {
-				stm.setString(1, plano.get(i));
-				stm.setString(2, serie.get(i));
-				stm.setString(3, verificacion.get(i));
-				stm.executeUpdate();
-			}
-			JOptionPane.showMessageDialog(null, "Despachado Correctamente");
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "error update espera");
-		}
+	public void ponerDespachado(ArrayList<String> plano,ArrayList<String> serie, ArrayList<String> verificacion) {
+		stock.ponerDespachadoArticulos(plano, serie, verificacion);
 	}
 
-	public void ponerEspera(ArrayList<String> plano, ArrayList<String> serie,
-			ArrayList<String> verificacion) {
-		Connection con;
-		ResultSet rs = null;
-		try {// ---------------------------------select todos en stock
-			Conexion cn1 = new Conexion();
-			con = cn1.getConexion();
-			StringBuilder sb = new StringBuilder();
-			sb.append("UPDATE [Stock Productos Serializados] ");
-			sb.append("SET estado_id=2 ");
-			sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
-			// PREPARAR CONSULTA
-			PreparedStatement stm;
-			stm = con.prepareStatement(sb.toString());
-			for (int i = 0; i < serie.size(); i++) {
-				stm.setString(1, plano.get(i));
-				stm.setString(2, serie.get(i));
-				stm.setString(3, verificacion.get(i));
-				stm.executeUpdate();
-			}
-			JOptionPane.showMessageDialog(null, "Puesto en espera");
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "error update espera");
-		}
+	public void ponerEspera(ArrayList<String> plano, ArrayList<String> serie,ArrayList<String> verificacion) {
+		stock.ponerEsperaArticulos(plano, serie, verificacion);
 	}
 
 	public void getPlanoCantidad() {
-		plano = new ArrayList<>();
-		cantidad = new ArrayList<>();
-
-		Connection con;
-		ResultSet rs = null;
-		try {// ---------------------------------select todos en stock
-			Conexion cn1 = new Conexion();
-			con = cn1.getConexion();
-			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT codigo_plano,COUNT (*)");
-			sb.append("FROM [Stock Productos Serializados]");
-			sb.append("GROUP BY codigo_plano");
-			// PREPARAR CONSULTA
-			PreparedStatement stm;
-			stm = con.prepareStatement(sb.toString());
-			rs = stm.executeQuery();
-			while (rs.next()) {
-				plano.add(rs.getInt(1));
-				cantidad.add(rs.getInt(2));
-				// StringBuilder sb1=new StringBuilder();
-				// sb1.append(rs.getString(1));
-				// sb1.append(rs.getString(2).trim());
-				// sb1.append(rs.getString(3));
-				//
-				// listaCodigosExistentes.add(sb1.toString());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null,
-					"error en la carga de articulos existentes");
-		}
+		stock.getPlanoCantidad(); //carga las cosas
+		plano=stock.getCodigoPlano();
+		cantidad=stock.getCantidad();
 	}
 
 	public Remito getElecciones(int idRemito) {
@@ -255,8 +154,8 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("INSERT INTO Remito (estado_id) ");
-			sb.append("VALUES ('10') ");
+			sb.append("INSERT INTO Remito (estado_id,fecha_inicio) ");
+			sb.append("VALUES ('10', getDate()) ");
 			// sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
@@ -444,8 +343,8 @@ public class RemitoDAO {
 			stm = con.prepareStatement(sb.toString());
 			stm.setInt(1, ultimoNumeroRemito);
 			stm.executeUpdate();
-			JOptionPane.showMessageDialog(null,
-					"Puesto en espera dso de guardado");
+//			JOptionPane.showMessageDialog(null,
+//					"Puesto en espera dso de guardado");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "error update espera");
@@ -467,8 +366,8 @@ public class RemitoDAO {
 			stm = con.prepareStatement(sb.toString());
 			stm.setInt(1, ultimoNumeroRemito);
 			stm.executeUpdate();
-			JOptionPane.showMessageDialog(null,
-					"Puesto en espera dso de guardado");
+//			JOptionPane.showMessageDialog(null,
+//					"Puesto en espera dso de guardado");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "error update espera");
@@ -483,15 +382,15 @@ public class RemitoDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE [Remito] ");
-			sb.append("SET estado_id=12 ");
+			sb.append("SET estado_id=12,fecha_despacho=GETDATE() ");
 			sb.append("WHERE id=? ");
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			stm.setInt(1, ultimoNumeroRemito);
 			stm.executeUpdate();
-			JOptionPane.showMessageDialog(null,
-					"Puesto en despachado al remito que estaba guardado");
+//			JOptionPane.showMessageDialog(null,
+//					"Puesto en despachado al remito que estaba guardado");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "error update espera");

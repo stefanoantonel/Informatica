@@ -25,7 +25,6 @@ public class Remito {
 	ArrayList<Integer> planoRequerido, cantRequerido;
 	int idRemito, estado;
 	
-	
 
 	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ){
 		dao=new RemitoDAO();

@@ -225,7 +225,7 @@ public class MenuUI extends JFrame {
 				pp.inicializarUI();
 			}
 		});
-		btnRemitosPendientes.setBounds(494, 240, 143, 28);
+		btnRemitosPendientes.setBounds(494, 240, 143, 67);
 		contentPane.add(btnRemitosPendientes);
 		setLocationRelativeTo(null);
 	}

@@ -16,21 +16,21 @@ public class TablaCargaRemito {
 	ArrayList<Integer> planoInt,cantInt;
 	RemitoDAO dao=new RemitoDAO(); //es solo para comprobar que lo que ingrese ne la tabla este en el articulo
 	ArrayList<ArrayList<String>> articuloCodigo = new ArrayList<>();
-	CargaStockDAO stock = new CargaStockDAO();
+	CargaStockDAO stockDao = new CargaStockDAO();
 //	ArrayList<String> cantFilas=new ArrayList<>();
 	
-	public int preguntarCarga(){
-		String cant=JOptionPane.showInputDialog("Cuantos articulos distintos desea ingresar?");
-		filas=-1;
-		try {
-			filas=Integer.parseInt(cant);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "ingrese datos correctos");
-			return -1;
-		}
-		return filas;
-		
-	}
+//	public int preguntarCarga(){
+//		String cant=JOptionPane.showInputDialog("Cuantos articulos distintos desea ingresar?");
+//		filas=-1;
+//		try {
+//			filas=Integer.parseInt(cant);
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null, "ingrese datos correctos");
+//			return -1;
+//		}
+//		return filas;
+//		
+//	}
 	
 	public void recorrerTabla(TableModel t){
 		
@@ -89,7 +89,7 @@ public class TablaCargaRemito {
 		
 		ArrayList<String> articuloDescripcion = new ArrayList<>();
 		
-		articuloCodigo=stock.obtenerArticulosStock();
+		articuloCodigo=stockDao.obtenerArticulosStock();
 		for (ArrayList<String> art: articuloCodigo)
 		{
 			articuloDescripcion.add(art.get(1));
