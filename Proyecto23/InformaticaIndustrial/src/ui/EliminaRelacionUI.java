@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -30,10 +31,10 @@ public class EliminaRelacionUI extends JFrame {
 	DefaultListModel<String> modeloPadre;
 	DefaultListModel<String> modeloHijo;
 
-public EliminaRelacionUI() {
-		getContentPane().setLayout(null);
-
-}
+	public EliminaRelacionUI() {
+			getContentPane().setLayout(null);
+	
+	}
 	public EliminaRelacionUI(DefaultListModel<String> padre) {
 		
 		modeloPadre=padre;
@@ -156,6 +157,11 @@ public EliminaRelacionUI() {
 			public void actionPerformed(ActionEvent arg0) {
 				EliminaRelacion eli=new EliminaRelacion();
 				eli.Eliminacion(listPadre.getSelectedValue().toString(), listHijo.getSelectedValue().toString(),EliminaRelacionUI.this);
+				JOptionPane.showMessageDialog(null, "Borrado con exito");
+				//Limpiar la lista hijo
+				listHijo.setModel(new DefaultListModel<>());
+				listPadre.setModel(new DefaultListModel<>());
+				eli.recargaPantalla();
 			}
 		});
 		btnEliminaRelacion.setBounds(193, 232, 143, 23);
