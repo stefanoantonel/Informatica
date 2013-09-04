@@ -1,0 +1,751 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.6.2
+Created-By: 16.2-b04 (Sun Microsystems Inc.)
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerException.class
+SHA1-Digest: dCJJa5V9iIHolHPt23TjBak0WNM=
+
+Name: com/microsoft/sqlserver/jdbc/JDBCType$UpdaterConversion.class
+SHA1-Digest: 28q9+GqlRzU+u+tBma9XG+CZyQg=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerParameterMetaData$MetaInfo
+ .class
+SHA1-Digest: acclhq8K63B8mqFGLn2F+WOO2UY=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$FetchBuffer.clas
+ s
+SHA1-Digest: /NyqElHsjczkrJBaKQ/kbxWgQwc=
+
+Name: com/microsoft/sqlserver/jdbc/StreamPacket.class
+SHA1-Digest: LmH4fyq1L/s3Q0XpX/BIl24RB8Q=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolDataSource.c
+ lass
+SHA1-Digest: TjBsgsdnbYiY0G31RVpjMBcwSsM=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1DeleteRowRPC.cl
+ ass
+SHA1-Digest: iVcyhr9VDQcwNtaV62SXpvefeUw=
+
+Name: com/microsoft/sqlserver/jdbc/ActivityId.class
+SHA1-Digest: MY4sE9rKnGdjpo0dzBEq6b0QXv8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerStatement$ExecutePropertie
+ s.class
+SHA1-Digest: MIewjUuVwUNcV+i84hsbHMcBheo=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$Strategy.class
+SHA1-Digest: ekdB+lNCap1TQF2fRJA9nNM9Km4=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerStatement$StmtExecOutParam
+ Handler.class
+SHA1-Digest: xVaWYuRjKicu3WFTKcOyhgVwpXQ=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel.class
+SHA1-Digest: iQwc3UquZKvXK5KNhpVa89XCOQM=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo.class
+SHA1-Digest: XiDPVeScnz2+rtff83vERJK09f8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement$PrepStmt
+ BatchExecCmd.class
+SHA1-Digest: pgydpuaijpkf1uB5BUyaCRg5h30=
+
+Name: com/microsoft/sqlserver/jdbc/ServerDTVImpl$1.class
+SHA1-Digest: 9Z+m4oA6v5YgVMKlpDdRxx29RaM=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel$ProxySocket.class
+SHA1-Digest: KaSk72FertQTgDEw+/aoLU7uexI=
+
+Name: com/microsoft/sqlserver/jdbc/SSLenType.class
+SHA1-Digest: Exj6wMYNgift0kJi+c7x1kelaS8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.class
+SHA1-Digest: vb3BOY2umYZI8SY6er+Nb8xKI5c=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDataSourceObjectFactory.cl
+ ass
+SHA1-Digest: Y/YzprR5diFTSqeolgkJb6dHz3Y=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1ClientCursorIni
+ tializer.class
+SHA1-Digest: oJaLljCN1D5pQ4WS+v+WjNCI6Ew=
+
+Name: com/microsoft/sqlserver/jdbc/PLPXMLInputStream.class
+SHA1-Digest: Wq9aFpWH6FfyH65JsGPPeAk+Sjg=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData$HandleAss
+ ociation.class
+SHA1-Digest: A/BYxCRYTPFHQeKw+GOVHnLSFNw=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_ru.class
+SHA1-Digest: 2JIFq1TbabMJ3f5y4KrhDdEjXGU=
+
+Name: com/microsoft/sqlserver/jdbc/UDTTDSHeader.class
+SHA1-Digest: EXHkwehBJ8o9wFcmXjfMlsVB5Ps=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDriverIntProperty.class
+SHA1-Digest: sLN/K11JlOW/Wa9KzfUgPoY7dh0=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDataSource$SerializationPr
+ oxy.class
+SHA1-Digest: MSY6NcYCzLqmfCOwKOOdGKiVuDw=
+
+Name: com/microsoft/sqlserver/jdbc/ScrollWindow.class
+SHA1-Digest: wX0M45se0D+ujd5bAJcOZJduTFQ=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_ko.class
+SHA1-Digest: D6nPKUw3Wy8XAZteRmuSuJzO9AQ=
+
+Name: com/microsoft/sqlserver/jdbc/ActivityCorrelator$1.class
+SHA1-Digest: 4jgY0CtZ+2Pz3bexAKAwuFjoPjw=
+
+Name: com/microsoft/sqlserver/jdbc/UninterruptableTDSCommand.class
+SHA1-Digest: zHIQ5B6nXxDYY59WP9SAZHRgkDU=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDriverPropertyInfo.class
+SHA1-Digest: 5MKMv0Plpl+ZKSErrEyim60lrwU=
+
+Name: com/microsoft/sqlserver/jdbc/SQLCollation.class
+SHA1-Digest: 1zvcmjMtcrGGWG7jyd2pBKijwN0=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerXADataSource.class
+SHA1-Digest: WO9fOoYG1p2ADMNI/qxECin3ELg=
+
+Name: com/microsoft/sqlserver/jdbc/DTV.class
+SHA1-Digest: dd7Bx0xzcMgT/WJ2NAh7iv2wxo0=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$6.class
+SHA1-Digest: STCRUjIHrbZMTZjjogqu/rC8OKc=
+
+Name: com/microsoft/sqlserver/jdbc/StreamType.class
+SHA1-Digest: s+fteMmoCW/b5wWdjw1rHNNrufE=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerClobAsciiOutputStream.clas
+ s
+SHA1-Digest: sV1uNp/LgDN86XuZfo2V3X+LiS8=
+
+Name: com/microsoft/sqlserver/jdbc/Util.class
+SHA1-Digest: XNiiK/qTqJnGCHN6htlQrYES8tY=
+
+Name: com/microsoft/sqlserver/jdbc/DDC$1.class
+SHA1-Digest: TJo+C6dzvcQCzbiI3IlmmC2jy60=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerCallableStatement$1ThreePa
+ rtNamesParser.class
+SHA1-Digest: Jcq2M9G1MSf+hrDhnbJw/AhCYIk=
+
+Name: com/microsoft/sqlserver/jdbc/ParameterUtils.class
+SHA1-Digest: qLxKv+EcoexhFduXjAoTE656y9Q=
+
+Name: com/microsoft/sqlserver/jdbc/SSType$Category.class
+SHA1-Digest: 2dnElqirwhfC6KR76d65b58XgeA=
+
+Name: com/microsoft/sqlserver/jdbc/ReaderInputStream.class
+SHA1-Digest: EcS2xYZMAgxvlboSDL97Izgrw14=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$7.class
+SHA1-Digest: 7rPAewozypRoRD9QgKZmxGtl+8M=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerCallableStatement$1OutPara
+ mHandler.class
+SHA1-Digest: Zib9Uv+Pr91FB7QvVrmTAvu6afw=
+
+Name: com/microsoft/sqlserver/jdbc/ISQLServerCallableStatement.class
+SHA1-Digest: JxfrqLU09HbcyepiP7t1pOOBdQ8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerStatement$1NextResult.clas
+ s
+SHA1-Digest: OMpMXsTZjjL3+Pwy7BvltQ1TKWg=
+
+Name: com/microsoft/sqlserver/jdbc/DTV$1.class
+SHA1-Digest: 9XdnpMrGa6+uFONaC0//G8qZapo=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$2.class
+SHA1-Digest: voFAq56KgkLEOqVDtGlUBslqIVg=
+
+Name: com/microsoft/sqlserver/jdbc/JDBCType$Category.class
+SHA1-Digest: HHXeSkMeY845PnkumWIEAnjIg18=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerXAConnection.class
+SHA1-Digest: cYkLJgP9CvICfin3PTeKW0Ah25w=
+
+Name: com/microsoft/sqlserver/jdbc/DTVImpl.class
+SHA1-Digest: mcvqkEtkLRCUeFZl9HpxD6qcgKw=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnection$1DTCCommand.cla
+ ss
+SHA1-Digest: rxI21vCOrr5/ijqs3KT5VTasTUA=
+
+Name: com/microsoft/sqlserver/jdbc/AsciiFilteredUnicodeInputStream.cla
+ ss
+SHA1-Digest: N+GbvHCVQ/gA8CYSJouZZBF5+ss=
+
+Name: com/microsoft/sqlserver/jdbc/IntColumnFilter$1.class
+SHA1-Digest: Sb/w4KRc1bS7nmYBZPomFo86WfY=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel$SSLHandshakeOutputStream
+ .class
+SHA1-Digest: u43J7M99xFnw/Yo1cpY60ZuE5nM=
+
+Name: com/microsoft/sqlserver/jdbc/DataTypes.class
+SHA1-Digest: OPdtPEwM0csl0YsA1isosPbndI0=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerParameterMetaData.class
+SHA1-Digest: h1turU+V3QkYHSi6XSJGk9YIxQI=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement$1Prepare
+ dHandleClose.class
+SHA1-Digest: eZ60BtUDcsi2ElqpuXNZ00psVbs=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel$PermissiveX509TrustManag
+ er.class
+SHA1-Digest: +fBsVAlzed+dmi+72wkKABh7MhY=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource.class
+SHA1-Digest: IaqI/I1pWdFGk3V0KGAge4SUv98=
+
+Name: com/microsoft/sqlserver/jdbc/TDSReader$1.class
+SHA1-Digest: GAre9G+Qr+SMlWVm2Cps5PhVyTI=
+
+Name: com/microsoft/sqlserver/jdbc/ISQLServerStatement.class
+SHA1-Digest: 6CrmPs8oCCva9/M9zmzBtR5tvnY=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerCallableStatement$1ExecDon
+ eHandler.class
+SHA1-Digest: cbHAwkQv5J9+irLN2rT4RSepBMM=
+
+Name: com/microsoft/sqlserver/jdbc/TDSTokenHandler.class
+SHA1-Digest: wtow2ghLD+E63d6POR+HwymQba4=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_zh_CN.class
+SHA1-Digest: /RccN+s60uOPl3neERMhgQuUWBA=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.class
+SHA1-Digest: 3OsUb9ICIqiZolu+6NuGeKybRhU=
+
+Name: com/microsoft/sqlserver/jdbc/Parameter$GetTypeDefinitionOp.class
+SHA1-Digest: 104d4I4BdE3zykfWx3vXnQdJJa8=
+
+Name: microsoft/sql/Types.class
+SHA1-Digest: MuYApuK/3Smwbw4WtOFCXhZetFE=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_es.class
+SHA1-Digest: GMcIfs23IIoqWAuUvwEpMwEP5pQ=
+
+Name: com/microsoft/sqlserver/jdbc/ColumnFilter.class
+SHA1-Digest: 4UlgiFVGTwlFUvVHLsyjbZOhvAU=
+
+Name: com/microsoft/sqlserver/jdbc/ISQLServerResultSet.class
+SHA1-Digest: veBOohxMvtbLztgBj0vDSjHYXb0=
+
+Name: com/microsoft/sqlserver/jdbc/StreamError.class
+SHA1-Digest: F54L6hCyrN1N3e/RX3Dk9gO8wew=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnection.class
+SHA1-Digest: 4YLVXlI/0cNRiNYEgST1QSYwPrE=
+
+Name: com/microsoft/sqlserver/jdbc/GregorianChange.class
+SHA1-Digest: YJ89SJ0o/TDneVkSqEfSWcpr6xA=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerStatement.class
+SHA1-Digest: RQnmvMYxttHzQx1DUhG74a99Pkk=
+
+Name: com/microsoft/sqlserver/jdbc/StreamColumns.class
+SHA1-Digest: 3ax4Nj9pX31qxTZngPO5JINI3Cg=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_ja.class
+SHA1-Digest: 3Zq+cR/mnDwWqaJmeAW69Z+l5u4=
+
+Name: com/microsoft/sqlserver/jdbc/KerbAuthentication.class
+SHA1-Digest: Lt2bACxm0k3qefRUwj/e3OulEME=
+
+Name: com/microsoft/sqlserver/jdbc/AppDTVImpl.class
+SHA1-Digest: 5xRoAcpJRw29KWi+hDS54RLNbo8=
+
+Name: com/microsoft/sqlserver/jdbc/DTVExecuteOp.class
+SHA1-Digest: tuHqMhFoj6++6iNno5BtqaE0H5A=
+
+Name: com/microsoft/sqlserver/jdbc/JDBCType.class
+SHA1-Digest: Jt+bthcd7+bsNLoT8qjuenrditg=
+
+Name: com/microsoft/sqlserver/jdbc/KerbAuthentication$1.class
+SHA1-Digest: lvR+H53gcA/9vWw2WfaMzTV9xec=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$15.class
+SHA1-Digest: OpWisWnmGzpmPctxsPUdEOBaM+I=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1InsertRowRPC.cl
+ ass
+SHA1-Digest: uOHp8vF1kJUHd0T7YpXkWxoMykE=
+
+Name: microsoft/sql/DateTimeOffset.class
+SHA1-Digest: XvKvXr/so+j5IoJsHnwQE+4fPRE=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_zh_TW.class
+SHA1-Digest: KC+r/IS/n5zN+B0WSmVeQMJTf00=
+
+Name: com/microsoft/sqlserver/jdbc/TimeoutTimer.class
+SHA1-Digest: qbHTT16Hqww9ZYw5HU8uksereXQ=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_fr.class
+SHA1-Digest: aCwiOTjxzPcTxhFBnM/pTVs2ARk=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerXADataSource$Serialization
+ Proxy.class
+SHA1-Digest: 1cXLyqDIDNHOjSAw0R+/eP2WshY=
+
+Name: com/microsoft/sqlserver/jdbc/DriverJDBCVersion.class
+SHA1-Digest: 2ksOKAkETBQPJO3ElN0AJ2tARLY=
+
+Name: com/microsoft/sqlserver/jdbc/TDSCommand.class
+SHA1-Digest: UDp0Kd6HBLvnW5qrrGL5p1Dtoso=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_sv.class
+SHA1-Digest: V06Xr3jrAceUXtf0TEt8VAy3Stc=
+
+Name: com/microsoft/sqlserver/jdbc/UserTypes.class
+SHA1-Digest: bFgnCV+SYynZ50fAB7Bqk4tFDrY=
+
+Name: com/microsoft/sqlserver/jdbc/DTV$SendByRPCOp.class
+SHA1-Digest: GTLKIbAxjLJO5seWAoqcQZ9yFxs=
+
+Name: com/microsoft/sqlserver/jdbc/AuthenticationScheme.class
+SHA1-Digest: 88xZivjGqLnkr0Q/zaAxd+6Iqsk=
+
+Name: com/microsoft/sqlserver/jdbc/SSType$GetterConversion.class
+SHA1-Digest: Lg6zzaHQWmNJP/wSQmIStPn3RUA=
+
+Name: com/microsoft/sqlserver/jdbc/FailoverInfo.class
+SHA1-Digest: AYCJykVCg9rTahneV00nyiedNe0=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$1.class
+SHA1-Digest: MSn5Y7CRnUch2MqQ4/mkhgbhofc=
+
+Name: com/microsoft/sqlserver/jdbc/IntColumnIdentityFilter$1.class
+SHA1-Digest: ep2mwUOb//eIPZDimoPx0AhWYu0=
+
+Name: com/microsoft/sqlserver/jdbc/TDSParser.class
+SHA1-Digest: DOKVRI4io2xL67B8gfHed9LywcI=
+
+Name: com/microsoft/sqlserver/jdbc/StreamSetterArgs.class
+SHA1-Digest: qWEw2YNjsAS1c+gSDgRVtGG36Cw=
+
+Name: com/microsoft/sqlserver/jdbc/ISQLServerDataSource.class
+SHA1-Digest: mWC5xkqTcbBIhUEQyLA+mtPzjho=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1UpdateRowRPC.cl
+ ass
+SHA1-Digest: fGzd0N1FqaLs5m+kTetP+ESOuAc=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData$1.class
+SHA1-Digest: NbphoGeEXh7uDT/6Ot4I5a5jwms=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDriverBooleanProperty.clas
+ s
+SHA1-Digest: 979IFy0J4eJm6om6MxlY47EGlr8=
+
+Name: com/microsoft/sqlserver/jdbc/AppDTVImpl$SetValueOp.class
+SHA1-Digest: iob+UhUHjyymksYVa0ueP5Z2lS0=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel$ProxyOutputStream.class
+SHA1-Digest: PbvgkDkM2TYVBmNlXmreV716B8M=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet.class
+SHA1-Digest: yCzu3m8bExHFJGcGh6dehHOUcHE=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$KatmaiScaledTempor
+ alStrategy.class
+SHA1-Digest: 4pOxJuPlGbbwYzuwHbs010hVjOk=
+
+Name: com/microsoft/sqlserver/jdbc/SocketConnector.class
+SHA1-Digest: t03ka0adw5PyWFMPG3ITnZSC15s=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnection$1LogonProcessor
+ .class
+SHA1-Digest: SG2XWE5oDuv9tzRfpAkwfBjeSts=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$FetchBuffer$Fetc
+ hBufferTokenHandler.class
+SHA1-Digest: jm9/gR8zFSFskSuDC4DbrDdho/4=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerEntityResolver.class
+SHA1-Digest: cr85hC08qjLHKFkSYS4XHtWvsO8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerSQLXML.class
+SHA1-Digest: Rm3zd9G7y+Nzp5vzWR0XW/05WS4=
+
+Name: com/microsoft/sqlserver/jdbc/StreamSSPI.class
+SHA1-Digest: H5ELvCyCjA8fryRMepMX/q6WgT0=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel$ProxyInputStream.class
+SHA1-Digest: jqWUQkJVTQu4ETvbJAXcyxwH2ms=
+
+Name: com/microsoft/sqlserver/jdbc/TDSType.class
+SHA1-Digest: FZ/nEMwo09PFOXSnKftLD8X6lCY=
+
+Name: com/microsoft/sqlserver/jdbc/TDSReaderMark.class
+SHA1-Digest: qJ/Axvf43mglIxAKaidQDmWqdBQ=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1CursorInitializ
+ er.class
+SHA1-Digest: d2OBratB5EzObj10zyJoWyYRjFw=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDataSource.class
+SHA1-Digest: 1/sOwxvoW2tba31I8lPn+bR9pD4=
+
+Name: com/microsoft/sqlserver/jdbc/Nanos.class
+SHA1-Digest: Xo/M+vgRE1fhlTACWSxSIWchakA=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder.class
+SHA1-Digest: GJV9RYX/ej0dYcbFcwSzC2Lga4Y=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnection$LogonCommand.cl
+ ass
+SHA1-Digest: oTBoOmnml9MSb/QNJpBHqK3yHQc=
+
+Name: com/microsoft/sqlserver/jdbc/DDC.class
+SHA1-Digest: ANKRK5DMNRuBxzOeSJGtSp3GM28=
+
+Name: com/microsoft/sqlserver/jdbc/TDSWriter.class
+SHA1-Digest: I5LziGRDcot9ZJp+YeQY3IbAYnk=
+
+Name: com/microsoft/sqlserver/jdbc/SQLIdentifier.class
+SHA1-Digest: CqzYdhoulDQD0sGlNagP4Fd4EAA=
+
+Name: com/microsoft/sqlserver/jdbc/IntColumnIdentityFilter.class
+SHA1-Digest: 2cslNxzCWBrnaBUKjOGTszkJ9oQ=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$8.class
+SHA1-Digest: VnWGZK+3V02XGOvmJI+25iEREtY=
+
+Name: com/microsoft/sqlserver/jdbc/ByteArrayOutputStreamToInputStream.
+ class
+SHA1-Digest: 6/wyte4rP3k6mCBe8t63Af0vZf8=
+
+Name: com/microsoft/sqlserver/jdbc/ServerPortPlaceHolder.class
+SHA1-Digest: tNALRKrIlnStLKTQbRGNK2uE2V8=
+
+Name: com/microsoft/sqlserver/jdbc/FailoverMapSingleton.class
+SHA1-Digest: ABhAcTHbws0poXQup+WUQH+VK7Y=
+
+Name: com/microsoft/sqlserver/jdbc/BaseInputStream.class
+SHA1-Digest: 7wgOX1QxfSHsvhPNNm5CGRHKzkU=
+
+Name: com/microsoft/sqlserver/jdbc/JDBCType$SetterConversion.class
+SHA1-Digest: tq/kJj9ktULVvfOR+5xJB3fAodU=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_de.class
+SHA1-Digest: S77b0T1sikl7HDs2CRNqXG2YOrw=
+
+Name: com/microsoft/sqlserver/jdbc/InputStreamGetterArgs.class
+SHA1-Digest: vUesGj7wDKywUCDoS5rXmQk4UUo=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_it.class
+SHA1-Digest: d21ICnVGUUBQINSTT2k6vB6g3O8=
+
+Name: com/microsoft/sqlserver/jdbc/TDSWriter$1.class
+SHA1-Digest: UUWs2PeaMIcYjy/NSu5NduwVR30=
+
+Name: com/microsoft/sqlserver/jdbc/Parameter.class
+SHA1-Digest: KnxpJvR9dqzcsHtYwPxY4yYHpfM=
+
+Name: com/microsoft/sqlserver/jdbc/SocketFinder.class
+SHA1-Digest: 2jAZK7sMUdOOuh/EZJhMQRXH9s0=
+
+Name: com/microsoft/sqlserver/jdbc/PLPInputStream.class
+SHA1-Digest: wUgDfkSCPZrQU+DrhybAVPTIYYg=
+
+Name: com/microsoft/sqlserver/jdbc/ISQLServerPreparedStatement.class
+SHA1-Digest: Zcf7xfvDFQ0bxy/d+8e3i3kwk7o=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerStatement$StmtBatchExecCmd
+ .class
+SHA1-Digest: /5Bk6JhbwdwgwX1ggPoiwDyyoHE=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel$SSLHandshakeInputStream.
+ class
+SHA1-Digest: pgAeArcoyv5I3omlHW3P8Ou3eLo=
+
+Name: com/microsoft/sqlserver/jdbc/SQLCollation$WindowsLocale.class
+SHA1-Digest: nT8iWNcn5YbvxwmZ33nAtklgsZc=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResource_pt_BR.class
+SHA1-Digest: uYBaXSuLjFdyoSrWaQzgryrxb+w=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$5.class
+SHA1-Digest: C7NnbJP9f43aXmnluR9tDAQRx4U=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerNClob.class
+SHA1-Digest: YRUjnHM5wk3VEwL+Zrnd5whYKx0=
+
+Name: com/microsoft/sqlserver/jdbc/SQLState.class
+SHA1-Digest: Opv97KBRqZg/33AGCpeEAphwLkQ=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$12.class
+SHA1-Digest: aSsrC1RKTuq/rbFvgQK7rNj3bxw=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$CursorFetchComma
+ nd.class
+SHA1-Digest: qs8mdgFRgPE74igYGe+BYaCAOhU=
+
+Name: com/microsoft/sqlserver/jdbc/RowType.class
+SHA1-Digest: +3GMPCIuNYobWLTP2HSXXiyEtZo=
+
+Name: com/microsoft/sqlserver/jdbc/TDSReader.class
+SHA1-Digest: eNvR26zlbWzXjct6n1R/t39W9rU=
+
+Name: com/microsoft/sqlserver/jdbc/StreamLoginAck.class
+SHA1-Digest: sShfpjYWQhhcVIaN/l4JE51Q8J0=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDriverStringProperty.class
+SHA1-Digest: 1pWb3So1s71SxtDYlhBsXtfQyDE=
+
+Name: com/microsoft/sqlserver/jdbc/JDBCType$1.class
+SHA1-Digest: g6RVlpwgog9cSG71gd4INrJMyRc=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement$PrepStmt
+ ExecCmd.class
+SHA1-Digest: 2rBn7y3nbHQofrXs1aoWJMS1q0k=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDriver.class
+SHA1-Digest: 1aa062xzWp9J8p9T9GhBoMu7k0A=
+
+Name: com/microsoft/sqlserver/jdbc/AsciiFilteredInputStream.class
+SHA1-Digest: bNY2fUJvF/HsXlztXngDQwkYVRs=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$BigOrSmallByteLenS
+ trategy.class
+SHA1-Digest: 4Th2BOAhbn6CbHtdnJe1EuEqp/o=
+
+Name: com/microsoft/sqlserver/jdbc/Encoding.class
+SHA1-Digest: doiethK+tXmlifEdNvBxkClDwtk=
+
+Name: com/microsoft/sqlserver/jdbc/JDBCCallSyntaxTranslator.class
+SHA1-Digest: yJt4phhZRmUmwuD8HNccfah51Qc=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerClob.class
+SHA1-Digest: BctYvQhCLdruj+CsFsBfL7zYuu0=
+
+Name: com/microsoft/sqlserver/jdbc/SimpleInputStream.class
+SHA1-Digest: ilBZLswsfUC7S93gWQdc06uwWf8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerBlobOutputStream.class
+SHA1-Digest: ugtE8M8eokBClfsm34rqqQmbCRQ=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$13.class
+SHA1-Digest: 41SkbNLXopHoYEPW5eJDvE5WFk0=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$11.class
+SHA1-Digest: NFUD1rswOUsO+vYLBu8POkZAd2k=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.class
+SHA1-Digest: AGME5CK1Dhr7CUrt+g0tmSDtzYU=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1CloseServerCurs
+ orCommand.class
+SHA1-Digest: T80wkkFi5IiF0D2nJ8CWjzAD26o=
+
+Name: com/microsoft/sqlserver/jdbc/SSType.class
+SHA1-Digest: R1R/1Ah5P3DhVtihfxS0bXx37uM=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerXAResource.class
+SHA1-Digest: nDqlv6GXJaVYhbfRcD1vmKsIHWY=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.class
+SHA1-Digest: L2pTcQez6HdbHo19rDR1ccaRPvw=
+
+Name: com/microsoft/sqlserver/jdbc/XAReturnValue.class
+SHA1-Digest: l1znIUY3BXRJzHooJaXJJO1vsow=
+
+Name: com/microsoft/sqlserver/jdbc/SQLCollation$SortOrder.class
+SHA1-Digest: vijM1lVZ+lZYLCSbACweNHi3lzY=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$9.class
+SHA1-Digest: tDJUiXxyff8jiTDM4FZ52wJU2nk=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1ServerCursorIni
+ tializer.class
+SHA1-Digest: S3FvkAL4or6u4QFRmRCeCxMSJQ8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerBlob.class
+SHA1-Digest: GYtluhckPeyFJUg8msyhyH4rwe0=
+
+Name: com/microsoft/sqlserver/jdbc/SQLJdbcVersion.class
+SHA1-Digest: T459ef2lb89aDPWFD0ECqSmXCoQ=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerClobBase.class
+SHA1-Digest: TA15KEZ1MTmSmDwH3coMIatUX4w=
+
+Name: microsoft/sql/DateTimeOffset$SerializationProxy.class
+SHA1-Digest: OVT657HFcH4jRxxwyUNQeAGNwg8=
+
+Name: com/microsoft/sqlserver/jdbc/StreamInfo.class
+SHA1-Digest: IO0oQhwZNHZ32r2F6IeQnBbXJOk=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerStatement$StmtExecCmd.clas
+ s
+SHA1-Digest: QSMb5grTyK6mntayio1Zwif+Jdc=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$4.class
+SHA1-Digest: M1mBVcWZwK+dGEVIJln5I/V7x/o=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$16.class
+SHA1-Digest: 7d9MGrUxuamBznhlbSCXr/cChtg=
+
+Name: com/microsoft/sqlserver/jdbc/JavaType$2.class
+SHA1-Digest: gTXuAYtZVSFR4qr59Q5hAqKlXPc=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$1.class
+SHA1-Digest: sERR3tZrkC7KTxFq7/gV7pDdndU=
+
+Name: com/microsoft/sqlserver/jdbc/TDS.class
+SHA1-Digest: JW3SfJYkvsYONFXSvg7tSkVj3z8=
+
+Name: com/microsoft/sqlserver/jdbc/XMLTDSHeader.class
+SHA1-Digest: YwY/v41Hh+tD5M7xMECE0pZlXCs=
+
+Name: com/microsoft/sqlserver/jdbc/DataTypeFilter.class
+SHA1-Digest: tm4z3cn38vxHZNqzv6Dy4VmecZg=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnection$1ConnectionComm
+ and.class
+SHA1-Digest: mPjoGrHk26elzycgO2w15i12QC0=
+
+Name: microsoft/sql/DateTimeOffset$1.class
+SHA1-Digest: A4AdhSPyFkBs7vLVEim502DUrRE=
+
+Name: com/microsoft/sqlserver/jdbc/StreamRetStatus.class
+SHA1-Digest: OzqTuEFJRWvcO/TglU5KKP2wVLw=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerSavepoint.class
+SHA1-Digest: bwqaWiuQ2jo5ccA+fadisnkL2mk=
+
+Name: com/microsoft/sqlserver/jdbc/SSPIAuthentication.class
+SHA1-Digest: avsZb48B6XtgrOciF+9RLw3vimc=
+
+Name: com/microsoft/sqlserver/jdbc/Parameter$1.class
+SHA1-Digest: hgAMZZmLNf7yn+lbL0L+yRWGe0I=
+
+Name: com/microsoft/sqlserver/jdbc/AuthenticationJNI.class
+SHA1-Digest: 7x1QluMgTe25r7toZ6VtUnkWda0=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData$CallableH
+ andles.class
+SHA1-Digest: 05e4Q3V24IoLf3HGkWycJBwJKiA=
+
+Name: com/microsoft/sqlserver/jdbc/ISQLServerConnection.class
+SHA1-Digest: 0rTKg+vIolrmvUohZoUZ78Jfd18=
+
+Name: com/microsoft/sqlserver/jdbc/JavaType.class
+SHA1-Digest: ZocH/fc6LfCkwhG7TA7jo1MOGPE=
+
+Name: com/microsoft/sqlserver/jdbc/ZeroFixupFilter.class
+SHA1-Digest: Fo4ln7IYJWGKkOklYpywfXw81uo=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnection$State.class
+SHA1-Digest: 9BCh3IjNHaUvLGNW9UV8UC7e/hE=
+
+Name: com/microsoft/sqlserver/jdbc/KerbAuthentication$1SQLJDBCDriverCo
+ nfig.class
+SHA1-Digest: 4Mn+hnI/3r+EhAaFkQfiiUifJvo=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerResultSet$1.class
+SHA1-Digest: 5y9DN1i1KZJ6JYuHrVDcsT1gg6Q=
+
+Name: com/microsoft/sqlserver/jdbc/StreamRetValue.class
+SHA1-Digest: yWPFV6LmA/EJgENTB2WTWo2YJfY=
+
+Name: com/microsoft/sqlserver/jdbc/ActivityCorrelator.class
+SHA1-Digest: cpabwp4lJL5Wv68dtUsHClyJL2I=
+
+Name: com/microsoft/sqlserver/jdbc/ServerDTVImpl.class
+SHA1-Digest: Ydi+519g0ewqUMD9VGvxSvzALrc=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnectionSecurityManager.
+ class
+SHA1-Digest: sosdHp8oHZqK2nOIh68RF5NFLRQ=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$FixedLenStrategy.c
+ lass
+SHA1-Digest: /1fTs8W40jEefeFu85PvkvubB2c=
+
+Name: com/microsoft/sqlserver/jdbc/IntColumnFilter.class
+SHA1-Digest: OgkLDe60yyzJHpdC3cO6YzBxIKs=
+
+Name: com/microsoft/sqlserver/jdbc/Column.class
+SHA1-Digest: Xv3CeeSigdtwaOkONjaQtf1Goj8=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolProxy.class
+SHA1-Digest: gtURiqCEu0xryaRn19RWOpw1MiA=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement$1.class
+SHA1-Digest: iTOrGk8FE4H7z9Kx4zbhCoADjh8=
+
+Name: com/microsoft/sqlserver/jdbc/TDSChannel$HostNameOverrideX509Trus
+ tManager.class
+SHA1-Digest: /Hp+ASIo9n8huwOXtLGLUdHf53U=
+
+Name: com/microsoft/sqlserver/jdbc/SocketFinder$Result.class
+SHA1-Digest: B96LgGY7SP/IVLW+zacTC1hMBck=
+
+Name: com/microsoft/sqlserver/jdbc/DriverError.class
+SHA1-Digest: n1USFD0tWXZEHzfZKIzHc0NcNPU=
+
+Name: com/microsoft/sqlserver/jdbc/XidImpl.class
+SHA1-Digest: ODP9azA8lgKjMQvAE/CJKmBmb+I=
+
+Name: com/microsoft/sqlserver/jdbc/UTC.class
+SHA1-Digest: zKwt8noD3KLXeoNUaDxbpM5pxTQ=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$10.class
+SHA1-Digest: LIvKhWJPTKVeQ2U0sbVd7r71WT4=
+
+Name: META-INF/services/java.sql.Driver
+SHA1-Digest: oGuKBFSZj1/xPd4Nz9LRyaHnuRU=
+
+Name: com/microsoft/sqlserver/jdbc/StreamDone.class
+SHA1-Digest: 7PahYpTaQoDDcX8kyL7JhZQDJtc=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.class
+SHA1-Digest: 6v38z5++7mBozx2a9depCETjn14=
+
+Name: com/microsoft/sqlserver/jdbc/StreamTabName.class
+SHA1-Digest: I3MdbWYXWf5Zvbr2O5CgwQ+n/XI=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement$1PrepStm
+ tExecOutParamHandler.class
+SHA1-Digest: F4de7VNnHSgvdsYcn84+9c453X0=
+
+Name: com/microsoft/sqlserver/jdbc/StreamColInfo.class
+SHA1-Digest: LWxAz2MQHoNR7PUYOEJhMnstPKc=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolDataSource$S
+ erializationProxy.class
+SHA1-Digest: UvhMuV2jIrbzDS92EOMEmz009Ek=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$3.class
+SHA1-Digest: iWeJssi6ApeBMja9Tf7WrOnpeXk=
+
+Name: com/microsoft/sqlserver/jdbc/ApplicationIntent.class
+SHA1-Digest: trY1chrnWswBFzRcMrxaY/gjdt8=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$14.class
+SHA1-Digest: +gK0LZzfSfHffnlAJ1EF7iCqr1U=
+
+Name: com/microsoft/sqlserver/jdbc/SQLServerClobWriter.class
+SHA1-Digest: puhwXp+P7WlddLKaL6vYkdV7ALo=
+
+Name: com/microsoft/sqlserver/jdbc/DataTypes$1.class
+SHA1-Digest: NYDV/9objTP1LjbzW7TW5MhAIWg=
+
+Name: com/microsoft/sqlserver/jdbc/TypeInfo$Builder$DecimalNumericStra
+ tegy.class
+SHA1-Digest: MRQaGk6fb8JI/A8ck0xue6MmJXQ=
+
+Name: com/microsoft/sqlserver/jdbc/JavaType$1.class
+SHA1-Digest: SqCHx8PNdcSW5BwvItpY3GZkMjQ=
+
+Name: com/microsoft/sqlserver/jdbc/TDSPacket.class
+SHA1-Digest: AtVsGll72MALQsrCBqwNT7RDVyY=
+
