@@ -21,7 +21,7 @@ import utilidades.DateClass;
 		private DefaultTreeModel modelo;
 		private JTree tree;
 		
-		public Jtree(ArrayList<Nodo> ListaNodo,Calendar fecha ){
+		public Jtree(ArrayList<Nodo> ListaNodo,String fecha ){
 			
 //			DateClass parseDate= new DateClass();
 //			fecha= parseDate.toDate(fecha);
@@ -52,7 +52,7 @@ import utilidades.DateClass;
 		
 		
 		//Otro constructor para explosionar un nodo especifico
-		public Jtree(Nodo nodo, float cantidad,Calendar fecha){
+		public Jtree(Nodo nodo, float cantidad,String fecha){
 
 			//Defino el primer padre de TODO para crear el modelo con ese padre
 			DefaultMutableTreeNode articulo = new DefaultMutableTreeNode("Articulos");			
@@ -70,7 +70,7 @@ import utilidades.DateClass;
 		
 		
 		
-		public DefaultTreeModel ArmaJtree(DefaultMutableTreeNode articulo, DefaultTreeModel modelo, Nodo padre, float cantidad,Calendar fecha)
+		public DefaultTreeModel ArmaJtree(DefaultMutableTreeNode articulo, DefaultTreeModel modelo, Nodo padre, float cantidad,String fecha)
 		{
 			int j=0;
 			String a=null;
@@ -82,8 +82,10 @@ import utilidades.DateClass;
 			while (ListaHijos.hasNext())
 			{
 			    Nodo nodoH = (Nodo)ListaHijos.next();
-				
-			    //if(nodoH.getFecha_inicio().compareTo(fecha)<0 && (nodoH.getFecha_fin().compareTo(fecha)>0|| nodoH.getFecha_fin()==null))
+				DateClass date=new DateClass();
+				int comparacionInicio= date.compararFecha(nodoH.getFecha_inicio(), fecha);
+				int comparacionFin= date.compararFecha(nodoH.getFecha_fin(), fecha);
+			    if(comparacionInicio<0 && (comparacionFin>0|| nodoH.getFecha_fin()==null))
 			    {a= nodoH.getDescripcion();
 				Integer b= padre.getId();
 				
