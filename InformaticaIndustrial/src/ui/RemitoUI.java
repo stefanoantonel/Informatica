@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.Remito;
 import persistencia.RemitoDAO;
+import javax.swing.JTextArea;
 
 public class RemitoUI extends JFrame {
 
@@ -30,10 +31,12 @@ public class RemitoUI extends JFrame {
 	ArrayList<Integer> plano,cant;
 //	static RemitoDAO remDao;
 	static Remito remitop;
+	JTextArea textArea = new JTextArea();
 
 
 	public RemitoUI(Remito r) {
 		remitop=r;
+		cargaInfoRemito();
 		
 		setTitle("Remito");
 		if(remitop.getEstado()==10){
@@ -43,7 +46,7 @@ public class RemitoUI extends JFrame {
 			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		}
 		
-		setBounds(100, 100, 614, 351);
+		setBounds(100, 100, 714, 351);
 		contentPane = new JPanel();
 //		contentPane.
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,7 +89,7 @@ public class RemitoUI extends JFrame {
 		contentPane.add(btnAgregar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(82, 79, 365, 162);
+		scrollPane.setBounds(82, 79, 294, 162);
 		contentPane.add(scrollPane);
 		
 		
@@ -171,6 +174,16 @@ public class RemitoUI extends JFrame {
 		btnDescartar.setBounds(485, 173, 89, 23);
 		contentPane.add(btnDescartar);
 		
+		JLabel lblElRemitoDebe = new JLabel("El remito debe contener");
+		lblElRemitoDebe.setBounds(433, 49, 166, 14);
+		contentPane.add(lblElRemitoDebe);
+		
+		
+		textArea.setEnabled(false);
+		textArea.setEditable(false);
+		textArea.setBounds(433, 76, 255, 69);
+		contentPane.add(textArea);
+		
 		setLocationRelativeTo(null);
 	}
 	
@@ -218,5 +231,8 @@ public class RemitoUI extends JFrame {
 			d.addElement(a);
 		}
 		list.setModel(d);
+	}
+	private void cargaInfoRemito(){
+		textArea.setText(remitop.getPlanoCantiReqString());
 	}
 }

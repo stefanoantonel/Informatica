@@ -119,7 +119,7 @@ public class RemitoDAO {
 				cantidadEleccion.add(rs.getInt(3));
 				descripcionesEleccion.add(rs.getString("descripcion_str"));
 			}
-			r = new Remito(planoEleccion, cantidadEleccion,	remitoEleccion.get(0), descripciones, this);
+			r = new Remito(planoEleccion, cantidadEleccion,	remitoEleccion.get(0), descripcionesEleccion, this);
 
 		} catch (Exception e) {
 			e.printStackTrace();

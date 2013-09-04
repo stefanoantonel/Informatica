@@ -23,7 +23,8 @@ public class Remito {
 	String plano,serie,verificador;
 	int cantidadEleccion, planoEleccion;
 	ArrayList<Integer> planoRequerido, cantRequerido;
-	
+	ArrayList<String> descripcionRequerido;
+	int idRemito, estado;
 	
 	public ArrayList<Integer> getPlanoRequerido() {
 		return planoRequerido;
@@ -37,8 +38,7 @@ public class Remito {
 	public void setCantRequerido(ArrayList<Integer> cantRequerido) {
 		this.cantRequerido = cantRequerido;
 	}
-	ArrayList<String> descripcionRequerido;
-	int idRemito, estado;
+
 	
 
 	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ){
@@ -235,5 +235,17 @@ public class Remito {
 	public String getDescripcionByCodigo(String codigo){
 		String des=dao.getDescripcionByCodigo(codigo);
 		return des;
+	}
+	public String getPlanoCantiReqString(){
+		StringBuilder sb=new StringBuilder();
+		for(int j=0;j<planoRequerido.size();j++){
+			sb.append("Articulo: "+descripcionRequerido.get(j));
+			sb.append("\n");
+			sb.append("Cantidad: "+cantRequerido.get(j));
+			sb.append("\n");
+			
+			
+		}
+		return sb.toString();
 	}
 }
