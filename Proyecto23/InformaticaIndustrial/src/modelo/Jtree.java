@@ -3,6 +3,7 @@ package modelo;
 
 
 	import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -20,7 +21,7 @@ import utilidades.DateClass;
 		private DefaultTreeModel modelo;
 		private JTree tree;
 		
-		public Jtree(ArrayList<Nodo> ListaNodo,Date fecha ){
+		public Jtree(ArrayList<Nodo> ListaNodo,Calendar fecha ){
 			
 //			DateClass parseDate= new DateClass();
 //			fecha= parseDate.toDate(fecha);
@@ -51,7 +52,7 @@ import utilidades.DateClass;
 		
 		
 		//Otro constructor para explosionar un nodo especifico
-		public Jtree(Nodo nodo, float cantidad,Date fecha){
+		public Jtree(Nodo nodo, float cantidad,Calendar fecha){
 
 			//Defino el primer padre de TODO para crear el modelo con ese padre
 			DefaultMutableTreeNode articulo = new DefaultMutableTreeNode("Articulos");			
@@ -69,7 +70,7 @@ import utilidades.DateClass;
 		
 		
 		
-		public DefaultTreeModel ArmaJtree(DefaultMutableTreeNode articulo, DefaultTreeModel modelo, Nodo padre, float cantidad,Date fecha)
+		public DefaultTreeModel ArmaJtree(DefaultMutableTreeNode articulo, DefaultTreeModel modelo, Nodo padre, float cantidad,Calendar fecha)
 		{
 			int j=0;
 			String a=null;

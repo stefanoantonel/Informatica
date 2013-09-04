@@ -1,16 +1,10 @@
 package modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.DefaultListModel;
-
-import persistencia.Conexion;
 import persistencia.NodoDAO;
-import ui.EliminaRelacionUI;
 import ui.MenuUI;
 import utilidades.DateClass;
 
@@ -24,8 +18,8 @@ public class Nodo {
 	private  ArrayList<Nodo> alternativo;
 	private String fecha_inicio;
 	private String fecha_fin;
-	private Date fecha_i;
-	private Date fecha_f;
+	private Calendar fecha_i;
+	private Calendar fecha_f;
     private Integer id;
     private DateClass date = new DateClass();
     private NodoDAO nDao = new NodoDAO();
@@ -58,14 +52,14 @@ public class Nodo {
     
 	
     
-    public Date getFecha_inicio()
+    public Calendar getFecha_inicio()
     {
     	
     	fecha_i = date.obtenerFecha(fecha_inicio);
     	//System.out.println("fecha_i: "+fecha_i);
     	return fecha_i;
     }
-    public Date getFecha_fin()
+    public Calendar getFecha_fin()
     {
     	fecha_f = date.obtenerFecha(fecha_fin);
     	return fecha_f;
