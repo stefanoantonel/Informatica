@@ -26,7 +26,6 @@ import modelo.Articulos;
 import modelo.EliminaRelacion;
 import modelo.Nodo;
 
-import com.jgoodies.forms.factories.Borders.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;

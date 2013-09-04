@@ -17,18 +17,21 @@ public class EliminaRelacion {
 	Nodo hijo;
 	EliminaRelacionUI elim;
 	Arbol a;
+	DefaultListModel<String> modeloPadre= new DefaultListModel<>();
+	DefaultListModel<String> modelo2 = new DefaultListModel<>();
 
 		public EliminaRelacion()
 		{
 			elim= new EliminaRelacionUI();
+			a= MenuUI.arbol;
 		}
 		
 		public void InicializarPadre ()
 		{
-			a= MenuUI.arbol;
-			elim= new EliminaRelacionUI();
-			DefaultListModel<String> modeloPadre = new DefaultListModel<>();
-			DefaultListModel<String> modelo2 = new DefaultListModel<>();
+			
+			//elim= new EliminaRelacionUI();
+			//modeloPadre = new DefaultListModel<>();
+			//modelo2 = new DefaultListModel<>();
 			ArrayList<Nodo> padres = a.obtenerPadres();
 			
 			for (Nodo p: padres)
@@ -39,6 +42,24 @@ public class EliminaRelacion {
 			
 			elim.SetPadre(modeloPadre);
 			elim.setVisible(true);
+		
+			return;
+			
+		}
+		
+		
+		public void recargaPantalla ()
+		{
+			ArrayList<Nodo> padres = a.obtenerPadres();
+			//modeloPadre = new DefaultListModel<>();
+			for (Nodo p: padres)
+			{
+				String pDesc =p.getDescripcion();
+				modeloPadre.addElement(pDesc);
+			}
+			
+			elim.SetPadre(modeloPadre);
+			//elim.setVisible(true);
 		
 			return;
 			
@@ -66,7 +87,6 @@ public class EliminaRelacion {
 		
 		Nodo nodo = new Nodo();
 		nodo.eliminarRelacion(padre, hijo);
-		JOptionPane.showMessageDialog(null, "Borrado con exito");
-		this.InicializarPadre();
+
 	}
 }
