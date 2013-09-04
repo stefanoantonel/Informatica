@@ -22,6 +22,8 @@ import javax.swing.event.ListSelectionListener;
 import modelo.Remito;
 import persistencia.RemitoDAO;
 import javax.swing.JTextArea;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class RemitoUI extends JFrame {
 
@@ -63,7 +65,7 @@ public class RemitoUI extends JFrame {
 		codigo.setColumns(20);
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(290, 35, 82, 23);
+		btnAgregar.setBounds(271, 35, 101, 23);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -153,7 +155,7 @@ public class RemitoUI extends JFrame {
 				
 			}
 		});
-		btnFinalizar.setBounds(485, 218, 89, 23);
+		btnFinalizar.setBounds(485, 218, 114, 23);
 		contentPane.add(btnFinalizar);
 		
 		JButton btnDescartar = new JButton("Descartar");
@@ -171,18 +173,19 @@ public class RemitoUI extends JFrame {
 				
 			}
 		});
-		btnDescartar.setBounds(485, 173, 89, 23);
+		btnDescartar.setBounds(485, 173, 114, 23);
 		contentPane.add(btnDescartar);
 		
-		JLabel lblElRemitoDebe = new JLabel("El remito debe contener");
-		lblElRemitoDebe.setBounds(433, 49, 166, 14);
+		JLabel lblElRemitoDebe = new JLabel("El remito debe contener los articulos: ");
+		lblElRemitoDebe.setBounds(433, 49, 255, 14);
 		contentPane.add(lblElRemitoDebe);
 		
-		
-		textArea.setEnabled(false);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(433, 76, 255, 69);
+		contentPane.add(scrollPane_1);
+		scrollPane_1.setViewportView(textArea);
+		textArea.setBackground(SystemColor.menu);
 		textArea.setEditable(false);
-		textArea.setBounds(433, 76, 255, 69);
-		contentPane.add(textArea);
 		
 		setLocationRelativeTo(null);
 	}

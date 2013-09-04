@@ -239,9 +239,9 @@ public class Remito {
 	public String getPlanoCantiReqString(){
 		StringBuilder sb=new StringBuilder();
 		for(int j=0;j<planoRequerido.size();j++){
-			sb.append("Articulo: "+descripcionRequerido.get(j));
-			sb.append("\n");
-			sb.append("Cantidad: "+cantRequerido.get(j));
+			sb.append(descripcionRequerido.get(j));
+//			sb.append("\n");
+			sb.append(", Cantidad: "+cantRequerido.get(j));
 			sb.append("\n");
 			
 			
