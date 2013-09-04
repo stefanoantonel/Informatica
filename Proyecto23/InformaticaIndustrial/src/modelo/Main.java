@@ -1,11 +1,13 @@
 package modelo;
- import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 
-import persistencia.Conexion;
-import ui.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+
+
 
 //import sql.Conexion;
 
@@ -19,60 +21,29 @@ public class Main {
 //	static ArrayList<String> um=new ArrayList<>(), material,tipo;
 	public static void main(String[] args) {
 		
-//		Arbol ma = new Arbol();
-//		ma.getNodoByDescripcion ("Madera cuadrada para pata");
-//		EliminaRelacion elimina=new EliminaRelacion();
-//		elimina.InicializarPadre();
-//		AgregaRelacion ag=new AgregaRelacion();
-//		ag.InicilizarUI();
-		
-		
-		
-//		Connection con;
-//		ResultSet rs;
 //		
-//		
-//		//----------------------------------------------ARRAY PARA LAS UNIDADES DE MEDIDA	
-//				try {
-//					Conexion cn2 = new Conexion();
-//					con = cn2.getConexion();
-//					StringBuilder sb = new StringBuilder();
-//					sb.append("SELECT um.id [um id],d.descripcion_str ");
-//					sb.append("FROM [Unidad Medida] um ");
-//					sb.append("inner join Descripcion d on um.descripcion_id=d.id ");
-//					
-//					PreparedStatement stm;
-//					stm = con.prepareStatement(sb.toString());
-//					rs = stm.executeQuery();
-//				
-//					while (rs.next()) {
-//						try {
-//							System.out.println(rs.getInt(1));
-//							String a=rs.getString(2);
-//							System.out.println(a);
-//							um.add(a);
-//							
-//						} catch (Exception e) {
-//							System.out.println("error new nodo padre");
-//							e.printStackTrace();
-//						}
-//					}
-//					
-//				}
-//				catch (Exception e) {
-//					System.out.println("error reporta conexion" );
-//					e.printStackTrace();
-//				}
-//				
-				
-		//AgregaArticulo aa=new AgregaArticulo();
-		//aa.InicializarUI();
-		String a="111122222223";
-		System.out.println("1: "+a.substring(0, 3));
-		System.out.println("2: "+a.substring(4, 10));
-		System.out.println("3: "+a.substring(11, 12));
-	
+		System.out.println();
+		String strFecha="2013-7-6";
+		String fecha=strFecha;
+		String [] a=strFecha.split("-");
+		int [] b=new int[3];
+		int j=0;
+		for (String string : a) {
+			b[j]=Integer.parseInt(string);
+			j++;
+		}
 		
+//		Calendar calendar= new GregorianCalendar(intYear, intMonth - 1, intDay);
+		Calendar calendar= new GregorianCalendar();
+		calendar.set(b[0], b[1], b[2]);
+//		Date d=new Date();
+//		d.setTime(calendar.getTime().getTime());
+//		System.out.println("d "+d);
+		System.out.println(calendar.get(Calendar.DAY_OF_MONTH));
+		System.out.println(calendar.get(Calendar.MONDAY));
+		System.out.println(calendar.get(Calendar.YEAR));
+//		return calendar;
+
 	}
 	
 

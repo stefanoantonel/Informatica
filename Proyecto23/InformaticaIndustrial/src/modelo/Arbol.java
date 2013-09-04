@@ -130,14 +130,14 @@ public class Arbol {
 	
 		//transformo fecha en un objeto tipo Date y lo paso por parametro
 		
-		Jtree j=new Jtree(padresPrincipales, date.obtenerFecha(fecha));
+		Jtree j=new Jtree(padresPrincipales, fecha);
 	}
 	
 	
 	public void MostrarArbol(Nodo a,float cant,String fecha){
 		//explosiona el nodo
 		
-		Jtree j=new Jtree(a,cant,date.obtenerFecha(fecha));
+		Jtree j=new Jtree(a,cant,fecha);
 	}
 	
 

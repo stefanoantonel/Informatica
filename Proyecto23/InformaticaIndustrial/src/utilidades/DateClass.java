@@ -5,48 +5,32 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class DateClass {
 
-	SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
-	 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	 String hoy= df.format(new java.util.Date()); 
+	
 	public DateClass(){
 	}
 	
-	
-	public Date obtenerFecha(String strFecha)
+	private Calendar obtenerFecha(String strFecha)
 	{
-		//String strFecha = "2007-12-25";
-		//System.out.println("strFecha: "+strFecha+" vs hoy: "+hoy);
-		Date fecha = null;
-		try {
-			if (strFecha==null)
-				strFecha=hoy;
-		fecha = formatoDelTexto.parse(strFecha);
-
-		} catch (ParseException ex) {
-
-		ex.printStackTrace();
-
+		String [] a=strFecha.split("-");
+		int [] b=new int[3];
+		int j=0;
+		for (String string : a) {
+			b[j]=Integer.parseInt(string);
+			j++;
 		}
-		//System.out.println("FECHA OBTENERFECHA: "+ fecha);
-		return fecha;
+		Calendar calendar= new GregorianCalendar();
+		calendar.set(b[0], b[1], b[2]); //seteo año mes dia
+		return calendar;
 	}
-//	
-//	public Date toDate(Date dateFormat) {
-//
-//		System.out.println(dateFormat);        
-//
-//		Calendar cal = Calendar.getInstance();
-//		cal.setTime(dateFormat);
-//		String formatedDate = cal.get(Calendar.YEAR) +"-"+ (cal.get(Calendar.MONTH) + 1)+"-"+ cal.get(Calendar.DATE);  
-//		System.out.println("formatedDate : " + formatedDate);
-//		
-//        return obtenerFecha(formatedDate);
-//        
-//    }
-//	
-	
+
+	public int compararFecha(String fecha1, String fecha2){
+		Calendar c1=obtenerFecha(fecha1);
+		Calendar c2=obtenerFecha(fecha2);
+		return c1.compareTo(c2);
+	}
 	
 }
