@@ -23,6 +23,21 @@ public class Remito {
 	String plano,serie,verificador;
 	int cantidadEleccion, planoEleccion;
 	ArrayList<Integer> planoRequerido, cantRequerido;
+	
+	
+	public ArrayList<Integer> getPlanoRequerido() {
+		return planoRequerido;
+	}
+	public void setPlanoRequerido(ArrayList<Integer> planoRequerido) {
+		this.planoRequerido = planoRequerido;
+	}
+	public ArrayList<Integer> getCantRequerido() {
+		return cantRequerido;
+	}
+	public void setCantRequerido(ArrayList<Integer> cantRequerido) {
+		this.cantRequerido = cantRequerido;
+	}
+	ArrayList<String> descripcionRequerido;
 	int idRemito, estado;
 	
 
@@ -31,15 +46,19 @@ public class Remito {
 		planoRequerido=plano;
 		estado=10;
 		cantRequerido=cant;
+		descripcionRequerido=dao.getDescripcionEleccion();
+		idRemito=dao.obtenerUltimoRemito();
 
 	}
-	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ,int id,RemitoDAO d){
+	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ,int id, ArrayList<String> descripcion,RemitoDAO d){
 		idRemito=id;
 		dao=d;
 		planoRequerido=plano;
 		cantRequerido=cant;
-		cargarUI();
+		
 		estado=11;
+		descripcionRequerido=descripcion;
+		cargarUI();
 
 	}
 	
@@ -99,7 +118,6 @@ public class Remito {
 		dao.ponerEspera(pla, ser, ver);
 	}
 	
-	
 	public boolean comprobarPyC(ArrayList<Integer> p, ArrayList<Integer> c){
 		ArrayList<Integer> planoDao=dao.getPlano();
 		ArrayList<Integer> cantDao=dao.getCantidad();
@@ -115,22 +133,7 @@ public class Remito {
 		}
 		return true;
 	}
-		
-		
-//		for(int j=0;j<c;j++){
-//			plano=JOptionPane.showInputDialog("Ingrese codigo articulo ");
-//			cant=JOptionPane.showInputDialog("Ingrese cantidad ");
-//			
-//			c=-1;
-//			try {
-//				c=Integer.parseInt(cant);
-//				p=Integer.parseInt(plano);
-//				
-//			} catch (Exception e) {
-//				JOptionPane.showMessageDialog(null, "ingrese datos correctos");
-//				return;
-//			}
-//		}
+
 	public void inicializarUI(){
 		RemitoUI rui=new RemitoUI(this);
 		rui.setVisible(true);
@@ -150,12 +153,15 @@ public class Remito {
 //		
 //	}
 	
+	public ArrayList<String> getDescripcionRequerido() {
+		return descripcionRequerido;
+	}
 	public boolean verificarFinalizacionPedido(ArrayList<String> listaDespachar){
 		int j=0;
 		int cont=0;
-		for(Integer i:planoRequerido){
-			for(String li:listaDespachar){
-				if(i.toString().equals(li.substring(0, 4))){
+		for(Integer requiere:planoRequerido){
+			for(String tengo:listaDespachar){
+				if(requiere.toString().equals(tengo.substring(0, 4))){
 					cont++;
 				}
 			}
@@ -172,18 +178,18 @@ public class Remito {
 	public int getIdRemito() {
 		return idRemito;
 	}
-	public void guardarRemito(ArrayList<String> listaPara){
-		dao.guardarRemito(listaPara);
+	public void guardarRemito(ArrayList<String> listaPara,ArrayList<Integer> planosRequeridos,ArrayList<Integer> cantidadesRequeridas ){
+		dao.guardarRemito(listaPara, planosRequeridos,cantidadesRequeridas,idRemito);
 	}
 	public void guardarRemitoEspera(){
-		dao.guardarRemitoEspera();
+		dao.guardarRemitoEspera(idRemito);
 	}
 	public void guardarRemitoDespachado(){
-		dao.guardarRemitoDespachado();
+		dao.guardarRemitoDespachado(idRemito);
 	}
 	public void guardarRemitoActivo(){
 		
-		dao.guardarRemitoActivo();
+		dao.guardarRemitoActivo(idRemito);
 	}
 	
 	public ArrayList<String> getArticulosCargados(){
@@ -196,7 +202,7 @@ public class Remito {
 		String v=codigoCompleto.substring(11,12);
 		int p1=Integer.parseInt(p);
 		if(planoRequerido.contains(p1)){
-			System.out.println("si contiene");
+			System.out.println("si la eleccion del remito y el ingresado");
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "Ingrese articulo correcto para este remito");
@@ -225,5 +231,9 @@ public class Remito {
 	
 	public void updateRemito(ArrayList<String> listaParaDespachar,int remitoId){
 		dao.guardarRemito(listaParaDespachar, remitoId);
+	}
+	public String getDescripcionByCodigo(String codigo){
+		String des=dao.getDescripcionByCodigo(codigo);
+		return des;
 	}
 }

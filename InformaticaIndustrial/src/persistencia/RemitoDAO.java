@@ -14,12 +14,25 @@ import org.omg.CORBA.ULongLongSeqHelper;
 public class RemitoDAO {
 
 	ArrayList<String> listaCodigosExistentes;
-	ArrayList<Integer> plano;
-	ArrayList<Integer> cantidad;
+	ArrayList<Integer> planos;
+	ArrayList<Integer> cantidades;
 	int ultimoNumeroRemito;
 	CargaStockDAO stock=new CargaStockDAO();
 	ArrayList<Integer> idRemitosPendientes;
 	ArrayList<String> fechaRemitoPendiente;
+	ArrayList<Integer> planoEleccion;
+	ArrayList<Integer> cantidadEleccion;
+	ArrayList<Integer> remitoEleccion = new ArrayList<>();
+	ArrayList<String> descripciones = new ArrayList<>();
+	ArrayList<String> descripcionesEleccion;
+
+	public ArrayList<String> getDescripcionEleccion() {
+		return descripciones;
+	}
+
+	public void setDescripcionEleccion(ArrayList<String> descripcionEleccion) {
+		this.descripciones = descripcionEleccion;
+	}
 
 	public ArrayList<Integer> getIdRemitosPendientes() {
 		return idRemitosPendientes;
@@ -39,15 +52,16 @@ public class RemitoDAO {
 
 	public RemitoDAO() {
 		cargar(); //carga la lista de codigos completos
-		getPlanoCantidad(); //carga lista de planos y cantidades
+		getPlanoCantidadDesc(); //carga lista de planos y cantidades
+		
 	}
 
 	public ArrayList<Integer> getPlano() {
-		return plano;
+		return planos;
 	}
 
 	public ArrayList<Integer> getCantidad() {
-		return cantidad;
+		return cantidades;
 	}
 
 	public int getUltimoRemito() {
@@ -70,16 +84,17 @@ public class RemitoDAO {
 		stock.ponerEsperaArticulos(plano, serie, verificacion);
 	}
 
-	public void getPlanoCantidad() {
-		stock.getPlanoCantidad(); //carga las cosas
-		plano=stock.getCodigoPlano();
-		cantidad=stock.getCantidad();
+	public void getPlanoCantidadDesc() {
+		stock.cargarPlanoCantidadesDescripciones(); //carga las cosas
+		planos=stock.getcodigosPlanos();
+		cantidades=stock.getcantidadeseses();
+		descripciones=stock.getdescripciones();
 	}
 
-	public Remito getElecciones(int idRemito) {
-		ArrayList<Integer> planoEleccion = new ArrayList<>();
-		ArrayList<Integer> cantidadEleccion = new ArrayList<>();
-		ArrayList<Integer> remitoEleccion = new ArrayList<>();
+	public void getElecciones(int idRemito) {
+		cantidadEleccion=new ArrayList<>();
+		descripcionesEleccion=new ArrayList<>();
+		planoEleccion=new ArrayList<>();
 		Remito r = null;
 		Connection con;
 		ResultSet rs = null;
@@ -87,9 +102,11 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT remito_id,codigo_plano,cantidad  ");
-			sb.append("FROM [EleccionPyC] e ");
+			sb.append("SELECT remito_id,a.codigo_plano,cantidad ,d.descripcion_str  ");
+			sb.append("FROM [EleccionPyC] e ");			
 			sb.append("INNER JOIN [Stock Productos Serializados] sps on sps.id=e.sps_id ");
+			sb.append("INNER JOIN Articulo a on sps.codigo_plano=a.codigo_plano ");
+			sb.append("INNER JOIN Descripcion d on d.id=a.descripcion_id ");
 			sb.append("WHERE remito_id= " + idRemito + "");
 			
 			// PREPARAR CONSULTA
@@ -100,15 +117,16 @@ public class RemitoDAO {
 				remitoEleccion.add(rs.getInt(1));
 				planoEleccion.add(rs.getInt(2));
 				cantidadEleccion.add(rs.getInt(3));
+				descripcionesEleccion.add(rs.getString("descripcion_str"));
 			}
-			r = new Remito(planoEleccion, cantidadEleccion,	remitoEleccion.get(0), this);
+			r = new Remito(planoEleccion, cantidadEleccion,	remitoEleccion.get(0), descripciones, this);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"error en la carga de elecciones");
 		}
-		return r;
+		//return r;
 	}
 
 	public ArrayList<String> getArticulosCargados(int idRemito) {
@@ -146,11 +164,12 @@ public class RemitoDAO {
 		return articulos;
 	}
 
-	public void guardarRemito(ArrayList<String> listaPara) {
+	public void guardarRemito(ArrayList<String> listaPara,ArrayList<Integer> planosRequeridos,ArrayList<Integer> cantidadesRequeridas, int idRemito ) {
 
 		insertarRemito();
-		ultimoNumeroRemito = obtenerUltimoRemito();
-		guardarElecciones();
+//		ultimoNumeroRemito = obtenerUltimoRemito();
+		ultimoNumeroRemito=idRemito;
+		guardarElecciones(planosRequeridos, cantidadesRequeridas);
 		ArrayList<Integer> idsps = obtenerIdByCodigo(listaPara);
 		guardarListaArticulos(idsps);
 
@@ -188,7 +207,7 @@ public class RemitoDAO {
 
 	}
 
-	private int obtenerUltimoRemito() {
+	public int obtenerUltimoRemito() {
 
 		int ultimoNumeroRemito;
 		Connection con;
@@ -218,7 +237,7 @@ public class RemitoDAO {
 		return ultimoNumeroRemito;
 	}
 
-	private void guardarElecciones() {
+	private void guardarElecciones(ArrayList<Integer> planoRequerido,ArrayList<Integer> cantidadRequerido) {
 		Connection con;
 		ResultSet rs = null;
 		rs = null;
@@ -237,12 +256,11 @@ public class RemitoDAO {
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			int j = 0;
-			for (Integer i : plano) {
+			for (Integer i : planoRequerido) {
 				stm.setInt(1, i);
-				stm.setInt(2, cantidad.get(j));
+				stm.setInt(2, cantidadRequerido.get(j));
 				stm.setInt(3, ultimoNumeroRemito);
 				stm.executeUpdate();
-
 				j++;
 			}
 
@@ -290,7 +308,7 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("IF NOT EXISTS(SELECT * FROM [Remito-SPS] WHERE sps_id=?)");
+			sb.append("IF NOT EXISTS(SELECT * FROM [Remito-SPS] WHERE sps_id=? AND remito_id=?)");
 			sb.append("BEGIN ");
 			sb.append("INSERT INTO [Remito-SPS] (remito_id,sps_id) ");
 			sb.append("VALUES (?,?) ");
@@ -303,7 +321,8 @@ public class RemitoDAO {
 			for (Integer i : idsps) {
 				stm.setInt(1, i);
 				stm.setInt(2, remitoId);
-				stm.setInt(3, i);
+				stm.setInt(3, remitoId);
+				stm.setInt(4, i);
 				stm.executeUpdate();
 			}
 		} catch (Exception e) {
@@ -346,7 +365,7 @@ public class RemitoDAO {
 		return idsps;
 	}
 
-	public void guardarRemitoEspera() {
+	public void guardarRemitoEspera(int idRemito) {
 		Connection con;
 		ResultSet rs = null;
 		try {// ---------------------------------select todos en stock
@@ -359,7 +378,7 @@ public class RemitoDAO {
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
-			stm.setInt(1, ultimoNumeroRemito);
+			stm.setInt(1, idRemito);
 			stm.executeUpdate();
 //			JOptionPane.showMessageDialog(null,
 //					"Puesto en espera dso de guardado");
@@ -369,7 +388,7 @@ public class RemitoDAO {
 		}
 	}
 	
-	public void guardarRemitoActivo() {
+	public void guardarRemitoActivo(int idRemito) {
 		Connection con;
 		ResultSet rs = null;
 		try {// ---------------------------------select todos en stock
@@ -382,7 +401,7 @@ public class RemitoDAO {
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
-			stm.setInt(1, ultimoNumeroRemito);
+			stm.setInt(1, idRemito);
 			stm.executeUpdate();
 //			JOptionPane.showMessageDialog(null,
 //					"Puesto en espera dso de guardado");
@@ -392,7 +411,7 @@ public class RemitoDAO {
 		}
 	}
 
-	public void guardarRemitoDespachado() {
+	public void guardarRemitoDespachado(int idRemito) {
 		Connection con;
 		ResultSet rs = null;
 		try {// ---------------------------------select todos en stock
@@ -405,7 +424,7 @@ public class RemitoDAO {
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
-			stm.setInt(1, ultimoNumeroRemito);
+			stm.setInt(1, idRemito);
 			stm.executeUpdate();
 //			JOptionPane.showMessageDialog(null,
 //					"Puesto en despachado al remito que estaba guardado");
@@ -471,5 +490,12 @@ public class RemitoDAO {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "error libera articuloa");
 		}
+	}
+	public String getDescripcionByCodigo(String codigo){
+//		String cod=stock.getdescripcionesByCodigo(codigo);
+		int co=Integer.parseInt(codigo.substring(0,4).trim());
+		int indice=planos.indexOf(co);
+		String desc=descripciones.get(indice);
+		return desc;
 	}
 }

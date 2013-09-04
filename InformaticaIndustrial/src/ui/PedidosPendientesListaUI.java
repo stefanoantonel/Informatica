@@ -48,6 +48,7 @@ public class PedidosPendientesListaUI extends JFrame {
 					int remitoId=Integer.parseInt(split[1].trim());
 					
 					dao.getElecciones(remitoId);
+					PedidosPendientesListaUI.this.setVisible(false);
 				}
 				
 			}

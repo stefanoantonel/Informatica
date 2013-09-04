@@ -8,37 +8,50 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class CargaStockDAO {
-	ArrayList<Integer> codigoPlano;
-	ArrayList<Integer> cantidad;
+	ArrayList<Integer> codigosPlanos;
+	ArrayList<Integer> cantidades;
+	ArrayList<String> descripciones;
 	
-	public ArrayList<Integer> getCodigoPlano() {
-		return codigoPlano;
+	public ArrayList<String> getdescripciones() {
+		return descripciones;
 	}
 
-	public ArrayList<Integer> getCantidad() {
-		return cantidad;
+	public ArrayList<Integer> getcodigosPlanos() {
+		return codigosPlanos;
 	}
 
-	public void getPlanoCantidad() {
-		codigoPlano = new ArrayList<>();
-		cantidad = new ArrayList<>();
+	public ArrayList<Integer> getcantidadeseses() {
+		return cantidades;
+	}
 
+	public void cargarPlanoCantidadesDescripciones() {
+		codigosPlanos = new ArrayList<>();
+		cantidades = new ArrayList<>();
+		descripciones=new ArrayList<>();
 		Connection con;
 		ResultSet rs = null;
 		try {// ---------------------------------select todos en stock
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT codigo_plano,COUNT (*)");
-			sb.append("FROM [Stock Productos Serializados]");
-			sb.append("GROUP BY codigo_plano");
+//			sb.append("SELECT codigo_plano,COUNT (*)");
+//			sb.append("FROM [Stock Productos Serializados]");
+//			sb.append("GROUP BY codigo_plano");
+			sb.append("SELECT s.codigo_plano,COUNT (*),d.descripcion_str ");
+			sb.append("FROM [Stock Productos Serializados] s ");
+			sb.append("INNER JOIN Articulo a on a.codigo_plano=s.codigo_plano ");
+			sb.append("INNER JOIN Descripcion d on d.id=a.descripcion_id ");
+			sb.append("GROUP BY s.codigo_plano,d.descripcion_str ");
+			
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			rs = stm.executeQuery();
 			while (rs.next()) {
-				codigoPlano.add(rs.getInt(1));
-				cantidad.add(rs.getInt(2));
+				codigosPlanos.add(rs.getInt("codigo_plano"));
+				cantidades.add(rs.getInt(2));
+				String a=rs.getString(3);
+				descripciones.add(a);
 				// StringBuilder sb1=new StringBuilder();
 				// sb1.append(rs.getString(1));
 				// sb1.append(rs.getString(2).trim());
@@ -54,7 +67,7 @@ public class CargaStockDAO {
 		}
 	}
 	
-	public void insertarStock(int codigoPlano,ArrayList<String> serie, ArrayList<Integer> verificador){
+	public boolean insertarStock(int codigosPlanos,ArrayList<String> serie, ArrayList<Integer> verificador){
 	
 		Connection con;
 		ResultSet rs=null;
@@ -72,17 +85,19 @@ public class CargaStockDAO {
 			stm = con.prepareStatement(sb.toString());
 			//PONER VALORES
 			for(int i=0;i<serie.size();i++){
-				stm.setInt(1, codigoPlano);
+				stm.setInt(1, codigosPlanos);
 				stm.setString(2,serie.get(i));
 				stm.setInt(3,verificador.get(i));
-				stm.setString(4,"cargo serie de producto "+codigoPlano);
+				stm.setString(4,"cargo serie de producto "+codigosPlanos);
 				
 				stm.executeUpdate();
 				
 			}
+			return true;
 			
 		}catch (Exception e){e.printStackTrace(); System.out.println("error insertar");
-		JOptionPane.showMessageDialog(null, "error ingresar serie");}
+		JOptionPane.showMessageDialog(null, "error ingresar serie");
+		return false;}
 		
 	}
 	
@@ -132,7 +147,7 @@ public class CargaStockDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 	
-			sb.append("SELECt distinct a.codigo_plano , d.descripcion_str ");
+			sb.append("SELECT distinct a.codigo_plano , d.descripcion_str ");
 			sb.append("FROM [Stock Productos Serializados] s ");
 			sb.append("INNER JOIN Articulo a on a.codigo_plano=s.codigo_plano ");
 			sb.append("INNER JOIN Descripcion d on d.id=a.descripcion_id ");
@@ -147,7 +162,7 @@ public class CargaStockDAO {
 					fila.add(String.valueOf(rs.getString(1)));
 					fila.add(rs.getString(2));
 					articuloCodigo.add(fila);
-//					nodo.setDescripcion();
+//					nodo.setdescripciones();
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("error obtener articulo stock ");
@@ -156,7 +171,7 @@ public class CargaStockDAO {
 //				// String a = rs.getString(2);
 //
 //				try {
-//					modelo1.addElement(nodo.getDescripcion());
+//					modelo1.addElement(nodo.getdescripciones());
 //					
 //				} catch (Exception e) {
 //					System.out.println("erros add eleme");
@@ -254,6 +269,13 @@ public class CargaStockDAO {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "error poner espera stock");
 			}
-		}
+	}
+	public String getdescripcionesByCodigo(String codigo){
+		String plano=codigo.substring(0, 4);
+		Integer p=Integer.parseInt(plano);
+		int indice=codigosPlanos.indexOf(p);
+		String desc=descripciones.get(indice);
+		return desc;
+	}
 	
 }

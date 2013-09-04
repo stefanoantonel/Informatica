@@ -14,23 +14,10 @@ import ui.TablaCargaRemitoUI;
 public class TablaCargaRemito {
 	int filas;
 	ArrayList<Integer> planoInt,cantInt;
-	RemitoDAO dao=new RemitoDAO(); //es solo para comprobar que lo que ingrese ne la tabla este en el articulo
+	//RemitoDAO dao=new RemitoDAO(); //es solo para comprobar que lo que ingrese ne la tabla este en el articulo
 	ArrayList<ArrayList<String>> articuloCodigo = new ArrayList<>();
 	CargaStockDAO stockDao = new CargaStockDAO();
-//	ArrayList<String> cantFilas=new ArrayList<>();
-	
-//	public int preguntarCarga(){
-//		String cant=JOptionPane.showInputDialog("Cuantos articulos distintos desea ingresar?");
-//		filas=-1;
-//		try {
-//			filas=Integer.parseInt(cant);
-//		} catch (Exception e) {
-//			JOptionPane.showMessageDialog(null, "ingrese datos correctos");
-//			return -1;
-//		}
-//		return filas;
-//		
-//	}
+
 	
 	public void recorrerTabla(TableModel t){
 		
@@ -45,13 +32,13 @@ public class TablaCargaRemito {
 				String p=t.getValueAt(i, 0).toString();
 				int pl=Integer.valueOf(p);
 				plano.add(pl);
-				if(dao.getPlano().contains(pl)){	//si esta en lo que elegi para el remito
-					
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "articulo: "+plano+" no disponible en stock");
-					return;
-				}
+//				if(dao.getPlano().contains(pl)){	//si esta en lo que elegi para el remito
+//					
+//				}
+//				else{
+//					JOptionPane.showMessageDialog(null, "articulo: "+plano+" no disponible en stock");
+//					return;
+//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, " datos incorrectos en la tabla");
@@ -88,13 +75,10 @@ public class TablaCargaRemito {
 	public ArrayList<String> cargaArticulosLista(){
 		
 		ArrayList<String> articuloDescripcion = new ArrayList<>();
-		
 		articuloCodigo=stockDao.obtenerArticulosStock();
-		for (ArrayList<String> art: articuloCodigo)
-		{
+		for (ArrayList<String> art: articuloCodigo){
 			articuloDescripcion.add(art.get(1));
 		}
-		
 		return articuloDescripcion;
 	}
 	public ArrayList<String> obtenerCodigoPlano(ArrayList<String> descArt){

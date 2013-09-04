@@ -102,9 +102,12 @@ public class CargaStock {
 		//-----------------------mando para el instertar
 		
 		
-		cs.insertarStock(codigoPlano, serie, verificador);
+		boolean a=cs.insertarStock(codigoPlano, serie, verificador);
+		if(a==true){
+			cargarModeloTabla();
+		}
 		
-		cargarModeloTabla();
+		
 	}
 	
 	private void cargarModeloTabla(){

@@ -62,27 +62,7 @@ public class MenuUI extends JFrame {
 	public MenuUI() {
 		setTitle("Informatica Industrial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 683, 476);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
-		
-		JMenuItem mntmRemitosPendientes = new JMenuItem("Remitos pendientes");
-		mntmRemitosPendientes.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				System.out.println("geniale!");
-			}
-		});
-		mntmRemitosPendientes.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				System.out.println("geniale!");
-			}
-		});
-		menuBar.add(mntmRemitosPendientes);
+		setBounds(100, 100, 747, 483);
 		
 		contentPane = new JPanel();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -103,7 +83,7 @@ public class MenuUI extends JFrame {
 //			}
 //		});
 		
-		JButton btnNewButton_1 = new JButton("Eliminar Relac");
+		JButton btnNewButton_1 = new JButton("Eliminar Relacion");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EliminaRelacion elim=new EliminaRelacion();
@@ -111,10 +91,10 @@ public class MenuUI extends JFrame {
 //				MenuUI.this.setVisible(false);
 			}
 		});
-		btnNewButton_1.setBounds(341, 318, 141, 67);
+		btnNewButton_1.setBounds(341, 318, 159, 67);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Agregar Relac");
+		JButton btnNewButton_2 = new JButton("Agregar Relacion");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregaRelacion ag=new AgregaRelacion();
@@ -122,7 +102,7 @@ public class MenuUI extends JFrame {
 //				MenuUI.this.setVisible(false);
 			}
 		});
-		btnNewButton_2.setBounds(339, 240, 143, 67);
+		btnNewButton_2.setBounds(339, 240, 161, 67);
 		contentPane.add(btnNewButton_2);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -184,7 +164,7 @@ public class MenuUI extends JFrame {
 				arbol.MostrarArbol();
 			}
 		});
-		button.setBounds(341, 162, 143, 67);
+		button.setBounds(341, 162, 159, 67);
 		contentPane.add(button);
 		
 		JButton btnNewButton = new JButton("Agrega Articulo");
@@ -195,7 +175,7 @@ public class MenuUI extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(341, 83, 141, 67);
+		btnNewButton.setBounds(341, 83, 159, 67);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_3 = new JButton("Cargar Stock");
@@ -205,7 +185,7 @@ public class MenuUI extends JFrame {
 				CargaStockUI.main(null);
 			}
 		});
-		btnNewButton_3.setBounds(496, 82, 141, 68);
+		btnNewButton_3.setBounds(512, 82, 159, 68);
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Genera Remito");
@@ -215,7 +195,7 @@ public class MenuUI extends JFrame {
 				
 			}
 		});
-		btnNewButton_4.setBounds(496, 162, 141, 67);
+		btnNewButton_4.setBounds(512, 162, 159, 67);
 		contentPane.add(btnNewButton_4);
 		
 		JButton btnRemitosPendientes = new JButton("Remitos Pendientes ");
@@ -226,7 +206,7 @@ public class MenuUI extends JFrame {
 				pp.inicializarUI();
 			}
 		});
-		btnRemitosPendientes.setBounds(494, 240, 143, 67);
+		btnRemitosPendientes.setBounds(510, 240, 161, 67);
 		contentPane.add(btnRemitosPendientes);
 		setLocationRelativeTo(null);
 	}

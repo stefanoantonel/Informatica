@@ -31,27 +31,7 @@ public class RemitoUI extends JFrame {
 //	static RemitoDAO remDao;
 	static Remito remitop;
 
-	
-//	public static void main() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					RemitoUI frame = new RemitoUI();
-//					
-//					remitop=new Remito(plano, cant);
-//					//remitop.preguntarCarga();
-//					frame.setVisible(true);
-//
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	/**
-	 * Create the frame. final ArrayList<Integer> plano, final ArrayList<Integer> cant
-	 */
 	public RemitoUI(Remito r) {
 		remitop=r;
 		
@@ -63,7 +43,7 @@ public class RemitoUI extends JFrame {
 			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		}
 		
-		setBounds(100, 100, 386, 315);
+		setBounds(100, 100, 614, 351);
 		contentPane = new JPanel();
 //		contentPane.
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,15 +60,15 @@ public class RemitoUI extends JFrame {
 		codigo.setColumns(20);
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(278, 35, 82, 23);
+		btnAgregar.setBounds(290, 35, 82, 23);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String comp=codigo.getText();
+				String comp=codigo.getText(); //separo el codigo de la descripcion;
 				String co=remitop.rellenar(comp); //para que si o si el codigo sea de 12 digitos
 				boolean concordancia=remitop.verificarConcordancia(co); //que lo que ingrese este en lo que pidio
 				if(concordancia==true){
-					boolean b=remitop.verificarExistencia(co);	//que este disponible segun el estado del articulo
+					boolean b=remitop.verificarExistencia(co);	//que este disponible segun el estado del articulo en stock
 					if(b==true){
 						System.out.println("si esta");
 						agregarALista(co);
@@ -106,7 +86,7 @@ public class RemitoUI extends JFrame {
 		contentPane.add(btnAgregar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(82, 79, 166, 162);
+		scrollPane.setBounds(82, 79, 365, 162);
 		contentPane.add(scrollPane);
 		
 		
@@ -137,12 +117,14 @@ public class RemitoUI extends JFrame {
 				for(int i=0;i<tam;i++){
 					listaParaDespachar.add(m.getElementAt(i));
 				}
+				
 				if(remitop.getEstado()==11){
 					remitop.updateRemito(listaParaDespachar,remitop.getIdRemito());
 				}
 				else{
-					remitop.guardarRemito(listaParaDespachar);
+					remitop.guardarRemito(listaParaDespachar,remitop.getPlanoRequerido(),remitop.getCantRequerido());
 				}
+				
 				int resp=JOptionPane.showConfirmDialog(null, "Desea despacharlo?");
 				if(resp==0){
 //					JOptionPane.showMessageDialog(null, "sii");
@@ -150,6 +132,8 @@ public class RemitoUI extends JFrame {
 					if(remitop.verificarFinalizacionPedido(listaParaDespachar)==true){ //coincide lo pedido con lo ingresado en el PIP..
 						remitop.guardarRemitoDespachado();
 						remitop.despachado(listaParaDespachar);
+						RemitoUI.this.setVisible(false);
+						return;
 					}
 					
 				}
@@ -166,7 +150,7 @@ public class RemitoUI extends JFrame {
 				
 			}
 		});
-		btnFinalizar.setBounds(271, 218, 89, 23);
+		btnFinalizar.setBounds(485, 218, 89, 23);
 		contentPane.add(btnFinalizar);
 		
 		JButton btnDescartar = new JButton("Descartar");
@@ -178,12 +162,13 @@ public class RemitoUI extends JFrame {
 				}
 				else{
 					remitop.guardarRemitoActivo();
+//					PedidosPendientesListaUI.this.setVisible(false);
 					RemitoUI.this.setVisible(false);
 				}
 				
 			}
 		});
-		btnDescartar.setBounds(271, 173, 89, 23);
+		btnDescartar.setBounds(485, 173, 89, 23);
 		contentPane.add(btnDescartar);
 		
 		setLocationRelativeTo(null);
@@ -205,24 +190,32 @@ public class RemitoUI extends JFrame {
 		list.setModel(mod);
 	}
 	private void agregarALista(String codigo){
+		
+		String desc=remitop.getDescripcionByCodigo(codigo);
 		DefaultListModel<String> mod=new DefaultListModel<>();
 		ListModel<String> m=list.getModel();
 		int tam=m.getSize();
 		for(int i=0;i<tam;i++){
-			if(!m.getElementAt(i).equals(codigo)){
+			if(!m.getElementAt(i).split("-")[0].trim().equals(codigo)){
+				
+//				mod.addElement();
 				mod.addElement(m.getElementAt(i));
 			}
-			
 		}
-		mod.addElement(codigo);
+		String comp=codigo+" - "+desc;
+		mod.addElement(comp);
 		list.setModel(mod);
 	}
 	
 	public void agregarCargados(){
 		ArrayList<String> e=remitop.getArticulosCargados();
 		DefaultListModel<String> d=new DefaultListModel<>();
-		for(String s:e){
-			d.addElement(s);
+		int i=0;
+		for(String articulo:e){
+			
+			String a=articulo+" - "+remitop.getDescripcionByCodigo(articulo);
+			i++;
+			d.addElement(a);
 		}
 		list.setModel(d);
 	}
