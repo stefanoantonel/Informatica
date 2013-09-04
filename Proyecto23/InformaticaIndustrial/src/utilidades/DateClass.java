@@ -15,6 +15,13 @@ public class DateClass {
 	
 	private Calendar obtenerFecha(String strFecha)
 	{
+		if(strFecha==null){
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			System.out.println();
+			strFecha=dateFormat.format(cal.getTime());
+		}
+		
 		String [] a=strFecha.split("-");
 		int [] b=new int[3];
 		int j=0;
