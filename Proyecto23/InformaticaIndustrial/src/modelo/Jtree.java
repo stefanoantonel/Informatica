@@ -82,6 +82,7 @@ import utilidades.DateClass;
 			while (ListaHijos.hasNext())
 			{
 			    Nodo nodoH = (Nodo)ListaHijos.next();
+			    
 				DateClass date=new DateClass();
 				int comparacionInicio= date.compararFecha(nodoH.getFecha_inicio(), fecha);
 				int comparacionFin= date.compararFecha(nodoH.getFecha_fin(), fecha);
