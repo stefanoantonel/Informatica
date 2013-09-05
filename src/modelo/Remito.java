@@ -26,19 +26,6 @@ public class Remito {
 	ArrayList<String> descripcionRequerido;
 	int idRemito, estado;
 	
-	public ArrayList<Integer> getPlanoRequerido() {
-		return planoRequerido;
-	}
-	public void setPlanoRequerido(ArrayList<Integer> planoRequerido) {
-		this.planoRequerido = planoRequerido;
-	}
-	public ArrayList<Integer> getCantRequerido() {
-		return cantRequerido;
-	}
-	public void setCantRequerido(ArrayList<Integer> cantRequerido) {
-		this.cantRequerido = cantRequerido;
-	}
-
 	
 
 	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ){
@@ -61,6 +48,22 @@ public class Remito {
 		cargarUI();
 
 	}
+	
+	public ArrayList<Integer> getPlanoRequerido() {
+		return planoRequerido;
+	}
+	public void setPlanoRequerido(ArrayList<Integer> planoRequerido) {
+		this.planoRequerido = planoRequerido;
+	}
+	public ArrayList<Integer> getCantRequerido() {
+		return cantRequerido;
+	}
+	public void setCantRequerido(ArrayList<Integer> cantRequerido) {
+		this.cantRequerido = cantRequerido;
+	}
+
+	
+
 	
 	public int getEstado() {
 		return estado;

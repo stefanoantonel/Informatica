@@ -192,7 +192,7 @@ public class RemitoDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO Remito (estado_id,fecha_inicio) ");
-			sb.append("VALUES ('10', getDate()) ");
+			sb.append("VALUES ('10', GETDATE()) ");
 			// sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
 			// PREPARAR CONSULTA
 			PreparedStatement stm;
@@ -234,7 +234,7 @@ public class RemitoDAO {
 			return 0;
 		}
 
-		return ultimoNumeroRemito;
+		return ultimoNumeroRemito+1;
 	}
 
 	private void guardarElecciones(ArrayList<Integer> planoRequerido,ArrayList<Integer> cantidadRequerido) {
