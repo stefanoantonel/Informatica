@@ -498,4 +498,14 @@ public class RemitoDAO {
 		String desc=descripciones.get(indice);
 		return desc;
 	}
+	public ArrayList<String> getDescripcionesByCodigosList(ArrayList<Integer> planoBuscar){
+		ArrayList<String> descrip=new ArrayList<>();
+		StringBuilder sb=new StringBuilder();
+		for(int j=0;j<planoBuscar.size();j++){
+			int indice=planos.indexOf(planoBuscar.get(j));
+			String desc=this.descripciones.get(indice);
+			descrip.add(desc);
+		}
+		return descrip;
+	}
 }

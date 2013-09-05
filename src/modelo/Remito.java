@@ -33,7 +33,7 @@ public class Remito {
 		planoRequerido=plano;
 		estado=10;
 		cantRequerido=cant;
-		descripcionRequerido=dao.getDescripcionEleccion();
+		descripcionRequerido=dao.getDescripcionesByCodigosList(planoRequerido);
 		idRemito=dao.obtenerUltimoRemito();
 
 	}
