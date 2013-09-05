@@ -24,6 +24,9 @@ public class TablaCargaRemito {
 		ArrayList<Integer> plano=new ArrayList<>();
 		ArrayList<Integer> cant=new ArrayList<>();
 //		TableModel t=tablaCarga.getModel();
+		if(filas<1){
+			return;
+		}
 		for (int i=1;i<filas+1;i++){
 			System.out.println(t.getValueAt(i, 0)+" "+t.getValueAt(i, 1));
 			try {
@@ -32,6 +35,10 @@ public class TablaCargaRemito {
 				String p=t.getValueAt(i, 0).toString();
 				int pl=Integer.valueOf(p);
 				plano.add(pl);
+				if(cant.get(i-1)<1){ //si la cantidad es 0
+					JOptionPane.showMessageDialog(null, "Ingrese cantidad valida");
+					return;
+				}
 //				if(dao.getPlano().contains(pl)){	//si esta en lo que elegi para el remito
 //					
 //				}

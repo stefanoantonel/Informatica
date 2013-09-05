@@ -216,8 +216,9 @@ public class RemitoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT MAX(id) ");
-			sb.append("FROM Remito ");
+//			sb.append("SELECT MAX(id) ");
+//			sb.append("FROM Remito ");
+			sb.append("SELECT IDENT_CURRENT('Remito')");
 			// sb.append("VALUES ('10') ");
 			// sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
 			// PREPARAR CONSULTA
@@ -419,7 +420,7 @@ public class RemitoDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 			sb.append("UPDATE [Remito] ");
-			sb.append("SET estado_id=12,fecha_despacho=GETDATE() ");
+			sb.append("SET estado_id=12,fecha_fin=GETDATE() ");
 			sb.append("WHERE id=? ");
 			// PREPARAR CONSULTA
 			PreparedStatement stm;

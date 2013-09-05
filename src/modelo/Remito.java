@@ -35,18 +35,15 @@ public class Remito {
 		cantRequerido=cant;
 		descripcionRequerido=dao.getDescripcionesByCodigosList(planoRequerido);
 		idRemito=dao.obtenerUltimoRemito();
-
 	}
 	public Remito (ArrayList<Integer> plano, ArrayList<Integer> cant ,int id, ArrayList<String> descripcion,RemitoDAO d){
 		idRemito=id;
 		dao=d;
 		planoRequerido=plano;
 		cantRequerido=cant;
-		
 		estado=11;
 		descripcionRequerido=descripcion;
 		cargarUI();
-
 	}
 	
 	public ArrayList<Integer> getPlanoRequerido() {
