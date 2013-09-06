@@ -60,7 +60,6 @@ public class CargaStock {
 			int acumulador=11;
 			while(acumulador>=10){
 				acumulador=0;
-				
 				for(String cadaUno:unido){
 					if(!cadaUno.equals("")&&bandera==true){
 						acumulador+=Integer.parseInt(cadaUno);
@@ -71,13 +70,10 @@ public class CargaStock {
 						acumulador+=Integer.parseInt(cadaUno);
 						bandera=true;
 					}
-					
 				}
 				unido=String.valueOf(acumulador).split(""); //del resultado lo vuelvo a split
 			}
-//			System.out.println("acumulador: "+acumulador);
 			verificador.add(acumulador);
-			
 		}
 		
 		StringBuilder sb1=new StringBuilder();
