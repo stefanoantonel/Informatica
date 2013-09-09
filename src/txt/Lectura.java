@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.SimpleFormatter;
 
 import javax.swing.JOptionPane;
@@ -14,42 +15,53 @@ import javax.swing.JOptionPane;
 import modelo.Main;
 
 public class Lectura {
+	
 	static String pie = null;
-	static String linea; // contiene la linea
+	static String linea=""; // contiene la linea
 	static String cabecera;
+	static ArrayList<String> txtCompleto=new ArrayList<>();
+	
 	public static void main(String[] args) {
+		
+		loadFile();
+		procesar();
+		
+	}
 
-		StringBuilder retornar = new StringBuilder(); // va acumulando todo
-		
-		
+	private static void loadFile(){
 		File archivo = new File("D:\\Escritorio\\leer.txt");
 		FileReader fileReader = null; // abre el archivo en disco
 		BufferedReader br = null; // buffer de todo el archivo
-		int contadorLinea = 0;
-
 		try {
 			fileReader = new FileReader(archivo);
 			br = new BufferedReader(fileReader);
-			
-			cabecera = br.readLine();
-			leerCabecera(cabecera);
-
-			while ((linea = br.readLine()) != null) {
-			
-				leerCuerpo(linea);
-				pie = linea;
+			while (linea != null) {
+				if(!linea.equals(""))
+					txtCompleto.add(linea);
+				linea = br.readLine();
 			}
-
-			leerPie(pie);
+//			do {
+//				linea = br.readLine();
+//				if(linea!=null||!linea.equals(""))
+//				txtCompleto.add(linea);
+//			} while (linea!=null);
 			fileReader.close();
 
 		} catch (IOException e) {JOptionPane.showMessageDialog(null,"ERROR \nCree un archivo 'leer.txt' en C: ");}
+		
 	}
-
+	
+	private static boolean procesar(){
+		leerCabecera(txtCompleto.get(0));
+		for(int j=1;j<txtCompleto.size()-1;j++){
+			leerCuerpo(txtCompleto.get(j));
+		}
+		leerPie(txtCompleto.get(txtCompleto.size()-1)); //obteno el ultimo
+		return true;
+	}
 	private static void leerCabecera(String cabecera) {
 		
 		String tipo,proveedor,fecha_despacho,fecha_arribo,file,puesto,filler;
-		
 		tipo=cabecera.substring(0, 2);
 		proveedor=cabecera.substring(2, 8);
 		fecha_despacho=getDate(cabecera.substring(8, 16));
@@ -57,14 +69,6 @@ public class Lectura {
 		file=cabecera.substring(24, 34);
 		puesto=cabecera.substring(34, 35);
 		filler=cabecera.substring(35, 50);
-		
-//		System.out.println("tipo: "+tipo);
-//		System.out.println("prov: "+proveedor);
-//		System.out.println("despacho: "+fecha_despacho);
-//		System.out.println("arribo: "+fecha_arribo);
-//		System.out.println("file: "+file);
-//		System.out.println("puesto: "+puesto);
-//		System.out.println("filler: "+filler);
 		System.out.println("cabecera: " + cabecera);
 	}
 
@@ -85,7 +89,6 @@ public class Lectura {
 	}
 	private static void leerCuerpo(String cuerpo) {
 		
-		//lo hago porque no puedo cortar el while penultimo para no guardar el pie
 		String file, proveedor,producto,cantidad,lote,filler;
 		file=cuerpo.substring(0, 10);
 		proveedor=cuerpo.substring(10, 16);
@@ -94,9 +97,6 @@ public class Lectura {
 		lote=cuerpo.substring(42, 46);
 		filler=cuerpo.substring(46, 50);
 		System.out.println("cuerpo: " + cuerpo);
-		
-
-		
 		
 	}
 	
