@@ -24,6 +24,7 @@ public class Lectura {
 	public static void main(String[] args) {
 		
 		loadFile();
+		comprobarLineas();
 		procesar();
 		
 	}
@@ -40,15 +41,8 @@ public class Lectura {
 					txtCompleto.add(linea);
 				linea = br.readLine();
 			}
-//			do {
-//				linea = br.readLine();
-//				if(linea!=null||!linea.equals(""))
-//				txtCompleto.add(linea);
-//			} while (linea!=null);
 			fileReader.close();
-
 		} catch (IOException e) {JOptionPane.showMessageDialog(null,"ERROR \nCree un archivo 'leer.txt' en C: ");}
-		
 	}
 	
 	private static boolean procesar(){
@@ -106,5 +100,14 @@ public class Lectura {
 		lineas=pie.substring(10, 13);
 		file=pie.substring(13, 50);
 		System.out.println("pie: " + pie);
+	}
+	private static void comprobarLineas(){
+		int cantidadLineas=txtCompleto.size()-2;
+		String lPie=txtCompleto.get(txtCompleto.size()-1).substring(10, 13); //la cantidad de filas que me dice el pie
+		int lineasPie=Integer.parseInt(lPie);
+		if(cantidadLineas!=lineasPie){
+			System.out.println("cantidad de lineas errones");
+		}
+		else{ System.out.println("cantidad lineas comprobacion OK");}
 	}
 }
