@@ -1,10 +1,15 @@
 package modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import persistencia.CargaStockDAO;
+import persistencia.Conexion;
 import ui.CodigoDeArticulosUI;
 
 public class CargaStock {
@@ -97,6 +102,7 @@ public class CargaStock {
 		
 		boolean a=cs.insertarStock(codigoPlano, serie, verificador);
 		if(a==true){
+			
 			cargarModeloTabla();
 		}
 		
@@ -116,4 +122,5 @@ public class CargaStock {
 		}
 		CodigoDeArticulosUI ca=new CodigoDeArticulosUI(modelo1);
 	}
+	
 }
