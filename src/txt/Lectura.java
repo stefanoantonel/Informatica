@@ -133,7 +133,27 @@ public class Lectura {
 		if(!puestoCabecera.toLowerCase().equals("o") && !puestoCabecera.toLowerCase().equals("c") && !puestoCabecera.toLowerCase().equals("p") && !puestoCabecera.toLowerCase().equals("u"))
 		return false;
 		
-		
+		Ver como se resuelve lo de origen y destino en pantalla java. 
+			poenr combo que se filtren po si mismo. 
+			controlar que haya stock
+			si es una compra el origen no tiene. 
+
+		Ver como es mi de los lotes porque nunca cargamos lotes en las series. 
+			Con los códigos de barra cuando los genera es un lote de una
+		Los productos son por serie o es lo mismo
+				Es lo mismo cualquiera solo que tengo que ver el aeticulo del lote. 
+		poner el CP
+			si o si lo tiene que tener.
+		lista de clase que este los numeros de los archvos que estan leidos..
+			tabal de archivos leidos con un campo para ver si vino fallado o no. 
+		puede hacber un almacen que no pertenezca a ninguna sucursal. 
+			Todos los almacenes pertenecen a solo una sucursar. 
+
+		el origen es de almacenes o de las ubicacines dentro de almacenes?
+			
+		los lotes es cuando generamos todo el codigo de barra de los articulos??
+			Si
+
 		return true;
 	}
 }
