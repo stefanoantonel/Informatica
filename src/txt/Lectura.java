@@ -23,20 +23,48 @@ public class Lectura {
 	static String tipoCabecera,proveedorCabecera,fecha_despachoCabecera,fecha_arriboCabecera,fileCabecera,puestoCabecera,fillerCabecera; //para la cabecera
 	static ArrayList<String> fileCuerpo, proveedorCuerpo,productoCuerpo,cantidadCuerpo,loteCuerpo,fillerCuerpo;
 	static String filePie,lineasPie,fillerPie; //lineas solo el numero de cuerpos
+	static LecturaDAO dao;
+	
 	
 	public static void main(String[] args) {
+		Lectura l=new Lectura();
 		
+	}
+	public Lectura(){
+		dao=new LecturaDAO();
+		boolean cifrado=false;
 		loadFile();
 		if(comprobarLineas()==true){
-			procesar();
-			if(comprobaciones()==true){
-				System.out.println("todo OK");
+			if(comprobacionArchivoLeido()==false){ //NO SE LEYO
+				procesar();
+				if(comprobaciones()==true){
+					System.out.println("todo OK");
+					cifrado=false;
+					int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
+					dao.insertarArchivoLeido(archivo, cifrado);
+				}
+				else{
+					System.out.println("mal las comptobaciones finales");
+					cifrado=true;
+					int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
+					dao.insertarArchivoLeido(archivo, cifrado);
+				}
 			}
-			else 
-				System.out.println("mal las comprobaciones");
+			
+			else{
+				System.out.println("archivo ya fue leido ok");
+				
+			}
 		}
-		else
+		else{
 			JOptionPane.showMessageDialog(null, "Error Procesar Archivo");
+			cifrado=true;
+			int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
+			dao.insertarArchivoLeido(archivo, cifrado);
+		}
+			
+		
+		
 	}
 	private static void loadFile(){
 		File archivo = new File("D:\\Escritorio\\leer.txt");
@@ -54,6 +82,15 @@ public class Lectura {
 		} catch (IOException e) {JOptionPane.showMessageDialog(null,"ERROR \nCree un archivo 'leer.txt' en Escritorio: ");}
 	}
 	private static boolean procesar(){
+		
+		fileCuerpo=new ArrayList<>();
+		proveedorCuerpo=new ArrayList<>();
+		productoCuerpo=new ArrayList<>();
+		cantidadCuerpo=new ArrayList<>();
+		loteCuerpo=new ArrayList<>();
+		fillerCuerpo =new ArrayList<>();
+		
+		
 		leerCabecera(txtCompleto.get(0));
 		for(int j=1;j<txtCompleto.size()-1;j++){
 			leerCuerpo(txtCompleto.get(j));
@@ -89,12 +126,7 @@ public class Lectura {
 	}
 	private static void leerCuerpo(String cuerpo) {
 		
-		fileCuerpo=new ArrayList<>();
-		proveedorCuerpo=new ArrayList<>();
-		productoCuerpo=new ArrayList<>();
-		cantidadCuerpo=new ArrayList<>();
-		loteCuerpo=new ArrayList<>();
-		fillerCuerpo =new ArrayList<>();
+	
 		
 		fileCuerpo.add(cuerpo.substring(0, 10));
 		proveedorCuerpo.add(cuerpo.substring(10, 16));
@@ -140,16 +172,19 @@ public class Lectura {
 		if(!puestoCabecera.toLowerCase().equals("o") && !puestoCabecera.toLowerCase().equals("c") && !puestoCabecera.toLowerCase().equals("p") && !puestoCabecera.toLowerCase().equals("u"))
 		return false;
 		
+		if (!tipoCabecera.equals("CP"))
+			return false;
 	
-		poner el CP
-			si o si lo tiene que tener.
-		lista de clase que este los numeros de los archvos que estan leidos..
-			tabal de archivos leidos con un campo para ver si vino fallado o no. 
-		
-
-		arraylist de los cuerpos 
 		
 		return true;
+	}
+	
+	public boolean comprobacionArchivoLeido(){
+		String archivo=txtCompleto.get(0).substring(24, 34); 
+		int numeroArchivo=Integer.parseInt(archivo);
+		return dao.fueLeido(numeroArchivo);
+//		comprobar que no este.
+		
 	}
 }
 	
