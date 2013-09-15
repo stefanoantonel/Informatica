@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class CargaStockDAO {
+public class StockSerializadoDAO {
 	ArrayList<Integer> codigosPlanos;
 	ArrayList<Integer> cantidades;
 	ArrayList<String> descripciones;

@@ -63,7 +63,7 @@ public class ArbolDAO {
 		}
 	
 	}
-	public ArbolDAO(String fecha)
+/*	public ArbolDAO(String fecha)
 	{
 		StringBuilder select = new StringBuilder();
 		select.append("Select padre,hijo,cantidad,d.descripcion_str,a.tipo_id, generico_id ");
@@ -77,7 +77,7 @@ public class ArbolDAO {
 		sb.append(" padre not in (select hijo from BOM)and");
 		sb.append(" borrado=0 and fecha_inicio<="+fecha+" and (fecha_fin>="+fecha+" or fecha_fin is NULL)");
 		selectPadres = sb.toString();
-	}
+	}*/
 	
 	public  ArrayList<Nodo> obtenerPadresPrincipales()
 	{
