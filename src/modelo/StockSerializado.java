@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-<<<<<<< HEAD:src/modelo/StockSerializado.java
 import persistencia.StockSerializadoDAO;
-=======
-import persistencia.CargaStockDAO;
-import persistencia.Conexion;
->>>>>>> 29a16c681eb76599cb9a4dd7f35acea87a2a16c3:src/modelo/CargaStock.java
+
+//import persistencia.CargaStockDAO;
+//import persistencia.Conexion;
+
 import ui.CodigoDeArticulosUI;
 
 public class StockSerializado {
