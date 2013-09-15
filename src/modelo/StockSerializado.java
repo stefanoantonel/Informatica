@@ -1,10 +1,19 @@
 package modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
+<<<<<<< HEAD:src/modelo/StockSerializado.java
 import persistencia.StockSerializadoDAO;
+=======
+import persistencia.CargaStockDAO;
+import persistencia.Conexion;
+>>>>>>> 29a16c681eb76599cb9a4dd7f35acea87a2a16c3:src/modelo/CargaStock.java
 import ui.CodigoDeArticulosUI;
 
 public class StockSerializado {
@@ -97,6 +106,7 @@ public class StockSerializado {
 		
 		boolean a=cs.insertarStock(codigoPlano, serie, verificador);
 		if(a==true){
+			
 			cargarModeloTabla();
 		}
 		
@@ -116,4 +126,5 @@ public class StockSerializado {
 		}
 		CodigoDeArticulosUI ca=new CodigoDeArticulosUI(modelo1);
 	}
+	
 }

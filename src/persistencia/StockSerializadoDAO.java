@@ -67,10 +67,45 @@ public class StockSerializadoDAO {
 		}
 	}
 	
+	
+	public int obtenerUltimoLote() {
+
+		int ultimoNumeroLote;
+		Connection con;
+		ResultSet rs = null;
+		try {// --------------------------------
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+//			sb.append("SELECT MAX(id) ");
+//			sb.append("FROM Remito ");
+			sb.append("SELECT MAX(lote) FROM [Stock Productos Serializados]");
+			// sb.append("VALUES ('10') ");
+			// sb.append("WHERE [codigo_plano]=? AND [numero_serie]=? AND [verificador]=? ");
+			// PREPARAR CONSULTA
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			rs = stm.executeQuery();
+			rs.next();
+			ultimoNumeroLote= rs.getInt(1);
+			
+			
+			// JOptionPane.showMessageDialog(null, "Despachado Correctamente");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "error ver ultomo id remito");
+			return 0;
+		}
+
+		return ultimoNumeroLote+1;
+	}
+	
 	public boolean insertarStock(int codigosPlanos,ArrayList<String> serie, ArrayList<Integer> verificador){
 	
 		Connection con;
 		ResultSet rs=null;
+		int ultimoLote=obtenerUltimoLote();
 		
 		
 		try{//---------------------------------ID UM
@@ -78,8 +113,14 @@ public class StockSerializadoDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO [Informatica].[dbo].[Stock Productos Serializados]");
-			sb.append("([codigo_plano],[numero_serie],[verificador],[estado_id],[desc_upd])");
-			sb.append("VALUES (?,?,?,'1',?)");
+			sb.append("([codigo_plano],[numero_serie],[verificador],[estado_id],[desc_upd],[lote])");
+			sb.append("VALUES (?,?,?,'1',?,"+ultimoLote+")");
+			
+			
+			
+			
+			
+			
 			//PREPARAR CONSULTA
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
