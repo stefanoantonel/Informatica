@@ -1,20 +1,20 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import modelo.Movimiento;
 
 public class MovimientoStockUI extends JFrame {
 
@@ -23,26 +23,16 @@ public class MovimientoStockUI extends JFrame {
 	private JTextField textField_2;
 	private JComboBox origenSucursal;
 	private final JComboBox cuasaCombo;
+	private Movimiento m;
+	private String sucursal;
+	private String almacen;
+	private String ubicacion;
+	private JComboBox origenAlmacen;
+	private JComboBox origenUbicacion;
+	private JComboBox destinoSucursal;
+	private JComboBox destinoAlmacen;
+	private JComboBox destinoUbicacion;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MovimientoStockUI frame = new MovimientoStockUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public MovimientoStockUI() {
 		setTitle("Movimiento de Stock");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +47,7 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(lblCantidadAMover);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(412, 193, 107, 43);
+		textField_2.setBounds(442, 193, 77, 43);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -97,53 +87,73 @@ public class MovimientoStockUI extends JFrame {
 		origenSucursal = new JComboBox();
 		origenSucursal.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
+				sucursal= arg0.getItem().toString();
+				InicializaAlmacen(sucursal, origenAlmacen);
 			}
 		});
 		origenSucursal.setBounds(104, 85, 204, 32);
 		contentPane.add(origenSucursal);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(318, 86, 204, 30);
-		contentPane.add(comboBox_1);
+		origenAlmacen = new JComboBox();
+		origenAlmacen.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				almacen= e.getItem().toString();
+				InicializaUbicacion(almacen, origenUbicacion);
+			}
+		});
+		origenAlmacen.setBounds(318, 86, 204, 30);
+		contentPane.add(origenAlmacen);
 		
 		JLabel lblOrigen = new JLabel("Origen");
 		lblOrigen.setBounds(5, 94, 46, 14);
 		contentPane.add(lblOrigen);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(532, 86, 204, 30);
-		contentPane.add(comboBox_3);
+		origenUbicacion = new JComboBox();
+		origenUbicacion.setBounds(532, 86, 204, 30);
+		contentPane.add(origenUbicacion);
 		
 		JLabel lblDestino_1 = new JLabel("Destino");
 		lblDestino_1.setBounds(5, 145, 46, 14);
 		contentPane.add(lblDestino_1);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(104, 136, 204, 32);
-		contentPane.add(comboBox_2);
+		destinoSucursal= new JComboBox();
+		destinoSucursal.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				sucursal= arg0.getItem().toString();
+				InicializaAlmacen(sucursal, destinoAlmacen);
+			}
+		});
+		destinoSucursal.setBounds(104, 136, 204, 32);
+		contentPane.add(destinoSucursal);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(318, 137, 204, 30);
-		contentPane.add(comboBox_4);
+		destinoAlmacen = new JComboBox();
+		destinoAlmacen.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				almacen= e.getItem().toString();
+				InicializaUbicacion(almacen, destinoUbicacion);
+			}
+		});
+		destinoAlmacen.setBounds(318, 137, 204, 30);
+		contentPane.add(destinoAlmacen);
 		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setBounds(532, 137, 204, 30);
-		contentPane.add(comboBox_5);
+		destinoUbicacion= new JComboBox();
+		destinoUbicacion.setBounds(532, 137, 204, 30);
+		contentPane.add(destinoUbicacion);
 		
 		JComboBox comboBox_6 = new JComboBox();
 		comboBox_6.setBounds(577, 198, 134, 32);
 		contentPane.add(comboBox_6);
 		
 		JLabel lblSucursal = new JLabel("Sucursal:");
-		lblSucursal.setBounds(104, 56, 58, 18);
+		lblSucursal.setBounds(104, 56, 89, 18);
 		contentPane.add(lblSucursal);
 		
 		JLabel lblAlmacen = new JLabel("Almacen:");
-		lblAlmacen.setBounds(318, 61, 46, 14);
+		lblAlmacen.setBounds(318, 61, 77, 14);
 		contentPane.add(lblAlmacen);
 		
 		JLabel lblUbicacin = new JLabel("Ubicaci\u00F3n:");
-		lblUbicacin.setBounds(537, 61, 53, 14);
+		lblUbicacin.setBounds(537, 61, 84, 14);
 		contentPane.add(lblUbicacin);
 		
 		cuasaCombo= new JComboBox();
@@ -161,8 +171,61 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(label);
 		
 		
+		Inicializa();
+		
+	
+	}
+	
+	public void Inicializa ()
+	{
+		m = new Movimiento();
+		
+		ArrayList<String> causas = m.getCausas();
+		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
+		for(String cau:causas){
+			modelo.addElement(cau);
+		}
+		
+		cuasaCombo.setModel(modelo);
 		
 		
 		
+		ArrayList<String> sucursales = m.getSucursales();
+		modelo=new DefaultComboBoxModel<>();
+		for(String suc:sucursales){
+			modelo.addElement(suc);
+		}
+		
+		origenSucursal.setModel(modelo);
+		destinoSucursal.setModel(modelo);
+		
+		
+		
+	}
+	
+	private void InicializaAlmacen (String alm, JComboBox almacen)
+	{
+		m = new Movimiento();
+		ArrayList<String> almacenes = m.getAlmacenes(alm);
+		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
+		for(String a:almacenes){
+			modelo.addElement(a);
+		}
+		
+		almacen.setModel(modelo);
+	}
+	
+	private void InicializaUbicacion (String alm, JComboBox ubicacion)
+	{
+		m = new Movimiento();
+		ArrayList<String> ubicaciones = m.getUbicacion(alm);
+		if(ubicaciones!=null){
+		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
+		for(String ub:ubicaciones){
+			modelo.addElement(ub);
+		}
+		
+		ubicacion.setModel(modelo);
+		}
 	}
 }
