@@ -1,12 +1,10 @@
 package ui;
 
-import java.awt.EventQueue;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import modelo.Articulos;
 import modelo.Movimiento;
 
 public class MovimientoStockUI extends JFrame {
@@ -32,6 +31,9 @@ public class MovimientoStockUI extends JFrame {
 	private JComboBox destinoSucursal;
 	private JComboBox destinoAlmacen;
 	private JComboBox destinoUbicacion;
+	private JComboBox articuloCombo;
+	private JComboBox loteCombo;
+	private JLabel cantMax ;
 
 	public MovimientoStockUI() {
 		setTitle("Movimiento de Stock");
@@ -47,21 +49,21 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(lblCantidadAMover);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(442, 193, 77, 43);
+		textField_2.setBounds(438, 198, 68, 32);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JLabel lblProducto = new JLabel("Producto");
+		JLabel lblProducto = new JLabel("Articulo");
 		lblProducto.setBounds(5, 193, 68, 43);
 		contentPane.add(lblProducto);
 		
 		JLabel lblLote = new JLabel("Lote");
-		lblLote.setBounds(537, 193, 53, 43);
+		lblLote.setBounds(571, 193, 53, 43);
 		contentPane.add(lblLote);
 		
-		JComboBox causas = new JComboBox();
-		causas.setBounds(104, 198, 209, 32);
-		contentPane.add(causas);
+		articuloCombo = new JComboBox();
+		articuloCombo.setBounds(104, 198, 209, 32);
+		contentPane.add(articuloCombo);
 		
 		JLabel lblNota = new JLabel("Nota");
 		lblNota.setBounds(5, 265, 97, 43);
@@ -89,6 +91,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				sucursal= arg0.getItem().toString();
 				InicializaAlmacen(sucursal, origenAlmacen);
+				System.out.println("origenAlmacen");
 			}
 		});
 		origenSucursal.setBounds(104, 85, 204, 32);
@@ -99,6 +102,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				almacen= e.getItem().toString();
 				InicializaUbicacion(almacen, origenUbicacion);
+			    InicializaArticulo(almacen);
 			}
 		});
 		origenAlmacen.setBounds(318, 86, 204, 30);
@@ -121,6 +125,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				sucursal= arg0.getItem().toString();
 				InicializaAlmacen(sucursal, destinoAlmacen);
+				System.out.println("destinoAlmacen");
 			}
 		});
 		destinoSucursal.setBounds(104, 136, 204, 32);
@@ -129,8 +134,8 @@ public class MovimientoStockUI extends JFrame {
 		destinoAlmacen = new JComboBox();
 		destinoAlmacen.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				almacen= e.getItem().toString();
-				InicializaUbicacion(almacen, destinoUbicacion);
+				String al= e.getItem().toString();
+				InicializaUbicacion(al, destinoUbicacion);
 			}
 		});
 		destinoAlmacen.setBounds(318, 137, 204, 30);
@@ -140,9 +145,19 @@ public class MovimientoStockUI extends JFrame {
 		destinoUbicacion.setBounds(532, 137, 204, 30);
 		contentPane.add(destinoUbicacion);
 		
-		JComboBox comboBox_6 = new JComboBox();
-		comboBox_6.setBounds(577, 198, 134, 32);
-		contentPane.add(comboBox_6);
+		loteCombo = new JComboBox();
+		loteCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				String item="1";
+				item= arg0.getItem().toString();
+				System.out.println("item" + item);
+				if(item!=null && item!="")
+				{Integer cantidadMaxima= m.getCantidadXlote(Integer.parseInt(item));
+				cantMax.setText("("+cantidadMaxima+")");}
+			}
+		});
+		loteCombo.setBounds(634, 198, 89, 32);
+		contentPane.add(loteCombo);
 		
 		JLabel lblSucursal = new JLabel("Sucursal:");
 		lblSucursal.setBounds(104, 56, 89, 18);
@@ -169,6 +184,10 @@ public class MovimientoStockUI extends JFrame {
 		JLabel label = new JLabel("Causa");
 		label.setBounds(5, 11, 77, 43);
 		contentPane.add(label);
+		
+		cantMax = new JLabel("( )");
+		cantMax.setBounds(516, 207, 46, 14);
+		contentPane.add(cantMax);
 		
 		
 		Inicializa();
@@ -197,10 +216,13 @@ public class MovimientoStockUI extends JFrame {
 		}
 		
 		origenSucursal.setModel(modelo);
+		modelo=new DefaultComboBoxModel<>();
+		for(String suc:sucursales){
+			modelo.addElement(suc);
+		}
+
 		destinoSucursal.setModel(modelo);
-		
-		
-		
+
 	}
 	
 	private void InicializaAlmacen (String alm, JComboBox almacen)
@@ -226,6 +248,26 @@ public class MovimientoStockUI extends JFrame {
 		}
 		
 		ubicacion.setModel(modelo);
+		}
+	}
+	
+	private void InicializaArticulo (String alm)
+	{
+		System.out.println("alm : "+alm);
+		m = new Movimiento();
+		ArrayList<Articulos> arts = m.getArticulosXalmacen(alm);
+		if(arts!=null){
+		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
+		DefaultComboBoxModel<String> modeloLote=new DefaultComboBoxModel<>();
+		modelo.addElement("");
+		modeloLote.addElement("");
+		for(Articulos art:arts){
+			modelo.addElement(art.getDesc());
+			modeloLote.addElement(art.getLote().toString());
+		}
+		
+		articuloCombo.setModel(modelo);
+		loteCombo.setModel(modeloLote);
 		}
 	}
 }

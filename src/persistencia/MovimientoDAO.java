@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import modelo.Articulos;
+
 public class MovimientoDAO {
 	
 	Connection con;
@@ -162,6 +164,8 @@ public class MovimientoDAO {
 		return id;
 	}
 	
+	
+	//sp_rename Moviminetos, Movimientos
 	public ArrayList<String> getCausas()
 	{
 		ArrayList<String> causas=new ArrayList<>();
@@ -182,5 +186,64 @@ public class MovimientoDAO {
 			System.out.println("error en getCausas");
 		}
 		return causas;
+	}
+	
+	public ArrayList<Articulos> getArticuloXalmacen(String alm)
+	{
+		
+		ArrayList<Articulos> arts=null;
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("select ar.id,d.descripcion_str as descripcion, sps.lote");
+			sb.append(" from Almacenes a");
+			sb.append(" inner join Ubicaciones u on a.id=u.almacenes_id");
+			sb.append(" inner join Stock s on u.id=s.ubicaciones_id");
+			sb.append(" inner join Articulo ar on ar.id=s.articuo_id");
+			sb.append(" inner join Descripcion d on d.id=ar.descripcion_id");
+			sb.append(" inner join [Stock Productos Serializados] sps on sps.codigo_plano=ar.codigo_plano");
+			sb.append(" where a.descripcion like '");
+			sb.append(alm);
+			sb.append("'");
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			//stm.setString(1, alm);
+			rs = stm.executeQuery();
+			if(rs.next())
+			{arts=new ArrayList<>();
+				do {
+					Articulos a= new Articulos(rs.getInt("id"));
+					a.setDesc(rs.getString("descripcion"));
+					a.setLote(rs.getInt("lote"));
+					arts.add(a);
+				}while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error en getCausas");
+		}
+		return arts;
+	}
+
+	public Integer getCantidadXlote(Integer lote)
+	{
+		Integer cant=null;
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("select COUNT(*) as cant from [Stock Productos Serializados] where lote="+lote);
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			//stm.setString(1, alm);
+			rs = stm.executeQuery();
+
+			while (rs.next()) {
+				cant =rs.getInt("cant");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error en getCantidadxLote");
+		}
+		return cant;
+		
 	}
 }

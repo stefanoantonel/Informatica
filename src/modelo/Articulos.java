@@ -12,6 +12,8 @@ import persistencia.Conexion;
 public class Articulos {
 
 	private Integer valor;
+	private Integer lote;
+	private String descripcion;
 	
 	public Articulos(){
 		
@@ -26,7 +28,25 @@ public class Articulos {
 		return valor;
 	}
 	
+	public void setLote(Integer l)
+	{
+		lote=l;
+	}
 	
+	public Integer getLote()
+	{
+		return lote;
+	}
+	
+	public void setDesc(String desc)
+	{
+		descripcion=desc;
+	}
+	
+	public String getDesc()
+	{
+		return descripcion;
+	}
 	public ArrayList<String> ObtenerArticulos(){
 		
 		Connection con;
