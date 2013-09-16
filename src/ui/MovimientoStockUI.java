@@ -8,20 +8,24 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Articulos;
 import modelo.Movimiento;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MovimientoStockUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_2;
+	private JTextField txtCantidad;
 	private JComboBox origenSucursal;
-	private final JComboBox cuasaCombo;
+	private final JComboBox causaCombo;
 	private Movimiento m;
 	private String sucursal;
 	private String almacen;
@@ -34,11 +38,14 @@ public class MovimientoStockUI extends JFrame {
 	private JComboBox articuloCombo;
 	private JComboBox loteCombo;
 	private JLabel cantMax ;
+	private String lote;
+	private Integer cantidadMaxima;
+	private String causaElegida;
 
 	public MovimientoStockUI() {
 		setTitle("Movimiento de Stock");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 758, 387);
+		setBounds(100, 100, 774, 428);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -48,10 +55,10 @@ public class MovimientoStockUI extends JFrame {
 		lblCantidadAMover.setBounds(323, 193, 107, 43);
 		contentPane.add(lblCantidadAMover);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(438, 198, 68, 32);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		txtCantidad = new JTextField();
+		txtCantidad.setBounds(438, 198, 68, 32);
+		contentPane.add(txtCantidad);
+		txtCantidad.setColumns(10);
 		
 		JLabel lblProducto = new JLabel("Articulo");
 		lblProducto.setBounds(5, 193, 68, 43);
@@ -62,6 +69,11 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(lblLote);
 		
 		articuloCombo = new JComboBox();
+		articuloCombo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				cantMax.setText("Max()");
+			}
+		});
 		articuloCombo.setBounds(104, 198, 209, 32);
 		contentPane.add(articuloCombo);
 		
@@ -77,14 +89,6 @@ public class MovimientoStockUI extends JFrame {
 		JLabel label_4 = new JLabel("");
 		label_4.setBounds(5, 308, 359, 43);
 		contentPane.add(label_4);
-		
-		JLabel label_5 = new JLabel("");
-		label_5.setBounds(364, 308, 359, 43);
-		contentPane.add(label_5);
-		
-		JLabel label_6 = new JLabel("");
-		label_6.setBounds(5, 351, 359, 43);
-		contentPane.add(label_6);
 		
 		origenSucursal = new JComboBox();
 		origenSucursal.addItemListener(new ItemListener() {
@@ -148,12 +152,17 @@ public class MovimientoStockUI extends JFrame {
 		loteCombo = new JComboBox();
 		loteCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				String item="1";
-				item= arg0.getItem().toString();
-				System.out.println("item" + item);
-				if(item!=null && item!="")
-				{Integer cantidadMaxima= m.getCantidadXlote(Integer.parseInt(item));
-				cantMax.setText("("+cantidadMaxima+")");}
+				lote= arg0.getItem().toString();
+				System.out.println("lote" + lote);
+				if(lote!=null && lote!="")
+				{if(!lote.equals("indistinto"))			
+					{
+					cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote));
+					cantMax.setText("Max("+cantidadMaxima+")");
+					}
+				else
+					cantidadMaxima=null;
+				}
 			}
 		});
 		loteCombo.setBounds(634, 198, 89, 32);
@@ -171,15 +180,30 @@ public class MovimientoStockUI extends JFrame {
 		lblUbicacin.setBounds(537, 61, 84, 14);
 		contentPane.add(lblUbicacin);
 		
-		cuasaCombo= new JComboBox();
-		cuasaCombo.addItemListener(new ItemListener() {
+		causaCombo= new JComboBox();
+		causaCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				e.getItem();
 				System.out.println(e.getItem().toString());
+				String causa=e.getItem().toString();
+				String selec;
+				//if(causa.contains("\\)"))
+				{
+				selec=(causa.split("\\)"))[0];
+				System.out.println("selec: "+selec);
+				causaElegida=selec;
+				origenSucursal.setEnabled(true);
+				loteCombo.setEnabled(true);
+				InicializaSuc();
+				if (causaElegida.equals("1"))
+				 {
+					InicializaArticulo(null);
+				 }
+				}
 			}
 		});
-		cuasaCombo.setBounds(104, 16, 204, 32);
-		contentPane.add(cuasaCombo);
+		causaCombo.setBounds(104, 16, 204, 32);
+		contentPane.add(causaCombo);
 		
 		JLabel label = new JLabel("Causa");
 		label.setBounds(5, 11, 77, 43);
@@ -189,11 +213,32 @@ public class MovimientoStockUI extends JFrame {
 		cantMax.setBounds(516, 207, 46, 14);
 		contentPane.add(cantMax);
 		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(checkContenido()==false)
+					{JOptionPane.showMessageDialog(null, "Debe completar los campos");
+					return;
+					}
+				Integer cantIngresada=Integer.parseInt(txtCantidad.getText());
+				if(cantidadMaxima!=null)
+				{	if( cantIngresada>cantidadMaxima)
+					{
+						JOptionPane.showMessageDialog(null, "No hay suficientes articulos para ese lote");
+						return;
+					}
+				}
+			}
+		});
+		btnAceptar.setBounds(607, 340, 116, 39);
+		contentPane.add(btnAceptar);
+		
 		
 		Inicializa();
 		
 	
 	}
+	
 	
 	public void Inicializa ()
 	{
@@ -201,29 +246,42 @@ public class MovimientoStockUI extends JFrame {
 		
 		ArrayList<String> causas = m.getCausas();
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
+		modelo.addElement("");
 		for(String cau:causas){
 			modelo.addElement(cau);
 		}
-		
-		cuasaCombo.setModel(modelo);
-		
-		
+		causaCombo.setModel(modelo);
+	}	
+	
+	public void InicializaSuc ()
+	{
+		m = new Movimiento();
 		
 		ArrayList<String> sucursales = m.getSucursales();
-		modelo=new DefaultComboBoxModel<>();
-		for(String suc:sucursales){
-			modelo.addElement(suc);
+		DefaultComboBoxModel<String> modelo;
+		if(causaElegida.equals("1") ||causaElegida.equals("2") ||causaElegida.equals("3") || causaElegida.equals("4"))
+		{
+			origenSucursal.setEnabled(false);
+			System.out.println("causa 1,2,3 o 4");
 		}
+		else
+		{
+			    modelo=new DefaultComboBoxModel<>();
+				for(String suc:sucursales){
+					modelo.addElement(suc);
+				}
+				
+				origenSucursal.setModel(modelo);
+		}
+		   
+		modelo=new DefaultComboBoxModel<>();
+			for(String suc:sucursales){
+				modelo.addElement(suc);
+			}
+			destinoSucursal.setModel(modelo);
 		
-		origenSucursal.setModel(modelo);
-		modelo=new DefaultComboBoxModel<>();
-		for(String suc:sucursales){
-			modelo.addElement(suc);
-		}
-
-		destinoSucursal.setModel(modelo);
-
 	}
+
 	
 	private void InicializaAlmacen (String alm, JComboBox almacen)
 	{
@@ -255,19 +313,44 @@ public class MovimientoStockUI extends JFrame {
 	{
 		System.out.println("alm : "+alm);
 		m = new Movimiento();
-		ArrayList<Articulos> arts = m.getArticulosXalmacen(alm);
-		if(arts!=null){
+		ArrayList<Articulos> arts;
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
-		DefaultComboBoxModel<String> modeloLote=new DefaultComboBoxModel<>();
-		modelo.addElement("");
-		modeloLote.addElement("");
-		for(Articulos art:arts){
-			modelo.addElement(art.getDesc());
-			modeloLote.addElement(art.getLote().toString());
-		}
 		
-		articuloCombo.setModel(modelo);
-		loteCombo.setModel(modeloLote);
+		if(!causaElegida.equals("1"))
+		{
+			arts = m.getArticulosXalmacen(alm);
+			if(arts!=null){
+			DefaultComboBoxModel<String> modeloLote=new DefaultComboBoxModel<>();
+			modelo.addElement("");
+			modeloLote.addElement("");
+			modeloLote.addElement("Indistinto");
+			for(Articulos art:arts){
+				modelo.addElement(art.getDesc());
+				modeloLote.addElement(art.getLote().toString());
+			}
+			
+			articuloCombo.setModel(modelo);
+			loteCombo.setModel(modeloLote);
+			}	
 		}
+		else
+		{
+			arts= m.getArticulos();
+			for(Articulos art:arts){
+				modelo.addElement(art.getDesc());
+			}
+			articuloCombo.setModel(modelo);
+			loteCombo.setEnabled(false);
+			System.out.println("lote combo flase");
+		}
+	}
+
+	private Boolean checkContenido()
+	{
+		 if((causaElegida.equals("1") && txtCantidad.getText()!=null) || (txtCantidad.getText()!=null && lote!=null))
+			return true;
+		else
+			return false;
+		 
 	}
 }

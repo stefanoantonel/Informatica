@@ -171,14 +171,14 @@ public class MovimientoDAO {
 		ArrayList<String> causas=new ArrayList<>();
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("select Descripcion from Causa");
+			sb.append("select id,Descripcion from Causa");
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			//stm.setString(1, alm);
 			rs = stm.executeQuery();
 
 			while (rs.next()) {
-				causas.add(rs.getString("descripcion"));
+				causas.add(rs.getInt("id")+")"+rs.getString("descripcion"));
 			}
 			
 		} catch (Exception e) {
@@ -194,16 +194,14 @@ public class MovimientoDAO {
 		ArrayList<Articulos> arts=null;
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("select ar.id,d.descripcion_str as descripcion, sps.lote");
+			sb.append("select distinct ar.id,d.descripcion_str as descripcion, sps.lote");
 			sb.append(" from Almacenes a");
 			sb.append(" inner join Ubicaciones u on a.id=u.almacenes_id");
 			sb.append(" inner join Stock s on u.id=s.ubicaciones_id");
 			sb.append(" inner join Articulo ar on ar.id=s.articuo_id");
 			sb.append(" inner join Descripcion d on d.id=ar.descripcion_id");
 			sb.append(" inner join [Stock Productos Serializados] sps on sps.codigo_plano=ar.codigo_plano");
-			sb.append(" where a.descripcion like '");
-			sb.append(alm);
-			sb.append("'");
+			sb.append(" where a.descripcion like '"+alm+"'");
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			//stm.setString(1, alm);
@@ -212,14 +210,15 @@ public class MovimientoDAO {
 			{arts=new ArrayList<>();
 				do {
 					Articulos a= new Articulos(rs.getInt("id"));
-					a.setDesc(rs.getString("descripcion"));
+					a.setDesc(rs.getObject("descripcion").toString());
 					a.setLote(rs.getInt("lote"));
 					arts.add(a);
 				}while (rs.next());
 			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("error en getCausas");
+			System.out.println("error en getArticuloXAlmacen");
 		}
 		return arts;
 	}
@@ -245,5 +244,32 @@ public class MovimientoDAO {
 		}
 		return cant;
 		
+	}
+	
+	public ArrayList<Articulos> getArticulos()
+	{
+		ArrayList<Articulos> artic = new ArrayList<>();
+
+		 try {
+				StringBuilder sb = new StringBuilder();
+				sb.append(" select a.id,d.descripcion_str as descr");
+				sb.append(" from Articulo a");
+				sb.append("  inner join Descripcion d on d.id=a.descripcion_id");
+				PreparedStatement stm;
+				stm = con.prepareStatement(sb.toString());
+				//stm.setString(1, alm);
+				rs = stm.executeQuery();
+
+				while (rs.next()) {
+					Articulos a= new Articulos(rs.getInt("id")); 
+					a.setDesc(rs.getObject("descr").toString());
+					artic.add(a);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("error en getCantidadxLote");
+			}
+			return artic;
 	}
 }

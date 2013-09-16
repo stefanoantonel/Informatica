@@ -46,8 +46,14 @@ public class Movimiento {
 		return mDao.getArticuloXalmacen(alm);
 	}
 	
+	public ArrayList<Articulos> getArticulos()
+	{
+		return mDao.getArticulos();
+	}
 	public Integer getCantidadXlote(Integer lote)
 	{
 		return mDao.getCantidadXlote(lote);
 	}
+
+	
 }
