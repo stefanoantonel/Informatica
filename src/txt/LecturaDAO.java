@@ -1,5 +1,6 @@
 package txt;
 
+import java.beans.FeatureDescriptor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,7 +75,7 @@ public class LecturaDAO {
 		return false;
 	}
 	
-	public int insertarMovimiento(int almacenDestino, ArrayList<Integer> articulos, ArrayList<Integer> cantidades){
+	public int insertarMovimiento(int almacenDestino, ArrayList<Integer> articulos, ArrayList<Integer> cantidades,String fecha){
 		
 		Connection con;
 		
@@ -84,8 +85,8 @@ public class LecturaDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("insert into Movimientos (almacen_destino,articulo_id,cantidad,causa_id,sucursal_destino,um_id,lugar_upd) ");
-			sb.append("values (?,?,?,1,5,1,'casa') ");
+			sb.append("insert into Movimientos (almacen_destino,articulo_id,cantidad,causa_id,sucursal_destino,um_id,lugar_upd,fecha) ");
+			sb.append("values (?,?,?,1,5,1,'casa',?) ");
 
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
@@ -93,6 +94,7 @@ public class LecturaDAO {
 				stm.setInt(1,almacenDestino );
 				stm.setInt(2, articulos.get(j));
 				stm.setInt(3, cantidades.get(j));
+				stm.setString(4, fecha);
 				stm.executeUpdate();
 			}
 			

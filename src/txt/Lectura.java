@@ -183,8 +183,8 @@ public class Lectura {
 	public boolean comprobacionArchivoLeido(){
 		String archivo=txtCompleto.get(0).substring(24, 34); 
 		int numeroArchivo=Integer.parseInt(archivo);
-		return false;
-//		return dao.fueLeido(numeroArchivo);
+//		return false;
+		return dao.fueLeido(numeroArchivo);
 //		comprobar que no este.
 		
 	}
@@ -198,7 +198,7 @@ public class Lectura {
 		lote=convertirInt(loteCuerpo);
 		prov=convertirInt(proveedorCuerpo);
 		int almacenDestino=dao.getAlmacenDestino(puestoCabecera);
-		int id=dao.insertarMovimiento(almacenDestino, art, cant);
+		int id=dao.insertarMovimiento(almacenDestino, art, cant,fecha_despachoCabecera);
 		
 		dao.insertarOrdenCompra(prov,art,cant,lote,fecha_despachoCabecera,fecha_arriboCabecera);
 		return true;
