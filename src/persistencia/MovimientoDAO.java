@@ -202,6 +202,7 @@ public class MovimientoDAO {
 			sb.append(" inner join Descripcion d on d.id=ar.descripcion_id");
 			sb.append(" inner join [Stock Productos Serializados] sps on sps.codigo_plano=ar.codigo_plano");
 			sb.append(" where a.descripcion like '"+alm+"'");
+			sb.append(" order by ar.id");
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			//stm.setString(1, alm);
@@ -209,9 +210,13 @@ public class MovimientoDAO {
 			if(rs.next())
 			{arts=new ArrayList<>();
 				do {
-					Articulos a= new Articulos(rs.getInt("id"));
+					Integer id = rs.getInt("id");
+					Articulos a= new Articulos(id);
 					a.setDesc(rs.getObject("descripcion").toString());
-					a.setLote(rs.getInt("lote"));
+					do{
+						a.setLote(rs.getInt("lote"));
+					}while (id==rs.getInt("id"));
+					
 					arts.add(a);
 				}while (rs.next());
 			}

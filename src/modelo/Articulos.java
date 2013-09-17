@@ -12,7 +12,7 @@ import persistencia.Conexion;
 public class Articulos {
 
 	private Integer valor;
-	private Integer lote;
+	private ArrayList<Integer> lote;
 	private String descripcion;
 	
 	public Articulos(){
@@ -30,10 +30,10 @@ public class Articulos {
 	
 	public void setLote(Integer l)
 	{
-		lote=l;
+		lote.add(l);
 	}
 	
-	public Integer getLote()
+	public ArrayList<Integer> getLote()
 	{
 		return lote;
 	}
