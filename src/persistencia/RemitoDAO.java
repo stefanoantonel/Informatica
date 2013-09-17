@@ -17,7 +17,7 @@ public class RemitoDAO {
 	ArrayList<Integer> planos;
 	ArrayList<Integer> cantidades;
 	int ultimoNumeroRemito;
-	CargaStockDAO stock=new CargaStockDAO();
+	StockSerializadoDAO stock=new StockSerializadoDAO();
 	ArrayList<Integer> idRemitosPendientes;
 	ArrayList<String> fechaRemitoPendiente;
 	ArrayList<Integer> planoEleccion;
@@ -242,7 +242,7 @@ public class RemitoDAO {
 		Connection con;
 		ResultSet rs = null;
 		rs = null;
-		CargaStockDAO car=new CargaStockDAO();
+		StockSerializadoDAO car=new StockSerializadoDAO();
 		
 		try {// --------------------------------
 			Conexion cn1 = new Conexion();

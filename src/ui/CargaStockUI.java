@@ -22,7 +22,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
-import modelo.CargaStock;
+import modelo.StockSerializado;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
@@ -86,7 +86,7 @@ public class CargaStockUI extends JFrame {
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(controlar()==true){
-					CargaStock cs=new CargaStock(cant, codigoPlano);
+					StockSerializado cs=new StockSerializado(cant, codigoPlano);
 				}
 				
 				

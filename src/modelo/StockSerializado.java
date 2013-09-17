@@ -8,19 +8,22 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-import persistencia.CargaStockDAO;
-import persistencia.Conexion;
+import persistencia.StockSerializadoDAO;
+
+//import persistencia.CargaStockDAO;
+//import persistencia.Conexion;
+
 import ui.CodigoDeArticulosUI;
 
-public class CargaStock {
+public class StockSerializado {
 	
 	int cantidad;
 	int codigoPlano;
 	ArrayList<String> serie=new ArrayList<>();
 	ArrayList<Integer> verificador=new ArrayList<>();
-	CargaStockDAO cs=new CargaStockDAO();
+	StockSerializadoDAO cs=new StockSerializadoDAO();
 	
-	public CargaStock(int cant, int plano){
+	public StockSerializado(int cant, int plano){
 		this.cantidad=cant;
 		this.codigoPlano=plano;
 		obtenerSerie();

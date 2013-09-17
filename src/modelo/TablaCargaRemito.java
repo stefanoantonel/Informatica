@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
-import persistencia.CargaStockDAO;
+import persistencia.StockSerializadoDAO;
 import persistencia.RemitoDAO;
 
 import ui.RemitoUI;
@@ -16,7 +16,7 @@ public class TablaCargaRemito {
 	ArrayList<Integer> planoInt,cantInt;
 	//RemitoDAO dao=new RemitoDAO(); //es solo para comprobar que lo que ingrese ne la tabla este en el articulo
 	ArrayList<ArrayList<String>> articuloCodigo = new ArrayList<>();
-	CargaStockDAO stockDao = new CargaStockDAO();
+	StockSerializadoDAO stockDao = new StockSerializadoDAO();
 
 	
 	public void recorrerTabla(TableModel t){
