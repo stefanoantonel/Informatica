@@ -32,22 +32,23 @@ public class Lectura {
 	}
 	public Lectura(){
 		dao=new LecturaDAO();
-		boolean cifrado=false;
+		boolean corrupto=false;
 		loadFile();
 		if(comprobarLineas()==true){
 			if(comprobacionArchivoLeido()==false){ //NO SE LEYO
 				procesar();
 				if(comprobaciones()==true){
 					System.out.println("todo OK");
-					cifrado=false;
+					insertarMovimiento();
+					corrupto=false;
 					int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
-					dao.insertarArchivoLeido(archivo, cifrado);
+					dao.insertarArchivoLeido(archivo, corrupto);
 				}
 				else{
 					System.out.println("mal las comptobaciones finales");
-					cifrado=true;
+					corrupto=true;
 					int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
-					dao.insertarArchivoLeido(archivo, cifrado);
+					dao.insertarArchivoLeido(archivo, corrupto);
 				}
 			}
 			
@@ -58,16 +59,16 @@ public class Lectura {
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "Error Procesar Archivo");
-			cifrado=true;
+			corrupto=true;
 			int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
-			dao.insertarArchivoLeido(archivo, cifrado);
+			dao.insertarArchivoLeido(archivo, corrupto);
 		}
 			
 		
 		
 	}
 	private static void loadFile(){
-		File archivo = new File("D:\\Escritorio\\leer.txt");
+		File archivo = new File("D:\\Escritorio\\leer2.txt");
 		FileReader fileReader = null; // abre el archivo en disco
 		BufferedReader br = null; // buffer de todo el archivo
 		try {
@@ -182,9 +183,33 @@ public class Lectura {
 	public boolean comprobacionArchivoLeido(){
 		String archivo=txtCompleto.get(0).substring(24, 34); 
 		int numeroArchivo=Integer.parseInt(archivo);
-		return dao.fueLeido(numeroArchivo);
+		return false;
+//		return dao.fueLeido(numeroArchivo);
 //		comprobar que no este.
 		
+	}
+	public boolean insertarMovimiento(){
+		ArrayList<Integer> art=new ArrayList<>(); 
+		ArrayList<Integer> cant=new ArrayList<>();
+		ArrayList<Integer> lote=new ArrayList<>();
+		ArrayList<Integer> prov=new ArrayList<>();
+		art=convertirInt(productoCuerpo);
+		cant=convertirInt(cantidadCuerpo);
+		lote=convertirInt(loteCuerpo);
+		prov=convertirInt(proveedorCuerpo);
+		int almacenDestino=dao.getAlmacenDestino(puestoCabecera);
+		int id=dao.insertarMovimiento(almacenDestino, art, cant);
+		
+		dao.insertarOrdenCompra(prov,art,cant,lote,fecha_despachoCabecera,fecha_arriboCabecera);
+		return true;
+	}
+	public ArrayList<Integer> convertirInt(ArrayList<String> str){
+		
+		ArrayList<Integer> e=new ArrayList<>();
+		for(String s:str){
+			e.add(Integer.parseInt(s));
+		}
+		return e;
 	}
 }
 	
