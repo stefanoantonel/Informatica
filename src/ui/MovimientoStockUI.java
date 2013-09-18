@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 public class MovimientoStockUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtNota;
 	private JTextField txtCantidad;
 	private JComboBox origenSucursal;
 	private final JComboBox causaCombo;
@@ -45,22 +45,30 @@ public class MovimientoStockUI extends JFrame {
 	private Integer cantidadMaxima;
 	public String causaElegida;
 	public Integer cantIngresada;
+	private ArrayList<Articulos> artsCompra;
+	private ArrayList<Articulos> arts;
+	private JLabel lbUm;
+	public String articulo;
+	private JLabel lblFecha;
+	private JTextField txtFecha;
+	public String fecha;
+	public String nota;
 
 	public MovimientoStockUI() {
 		setTitle("Movimiento de Stock");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 774, 428);
+		setBounds(100, 100, 844, 428);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblCantidadAMover = new JLabel("Cantidad a mover");
-		lblCantidadAMover.setBounds(266, 193, 107, 43);
+		lblCantidadAMover.setBounds(288, 193, 107, 43);
 		contentPane.add(lblCantidadAMover);
 		
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(369, 198, 68, 32);
+		txtCantidad.setBounds(398, 198, 68, 32);
 		contentPane.add(txtCantidad);
 		txtCantidad.setColumns(10);
 		
@@ -69,38 +77,37 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(lblProducto);
 		
 		JLabel lblLote = new JLabel("Lote");
-		lblLote.setBounds(592, 193, 53, 43);
+		lblLote.setBounds(641, 193, 53, 43);
 		contentPane.add(lblLote);
 		
 		articuloCombo = new JComboBox();
 		articuloCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				cantMax.setText("Max()");
+				articulo=arg0.getItem().toString();
+				System.out.println("artElegido: "+articulo);
 				inicializaLote(arg0.getItem().toString());
+				inicializaUM(arg0.getItem().toString());
 			}
 		});
-		articuloCombo.setBounds(104, 198, 152, 32);
+		articuloCombo.setBounds(104, 198, 174, 32);
 		contentPane.add(articuloCombo);
 		
 		JLabel lblNota = new JLabel("Nota");
 		lblNota.setBounds(5, 265, 97, 43);
 		contentPane.add(lblNota);
 		
-		textField = new JTextField();
-		textField.setBounds(104, 265, 619, 43);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JLabel label_4 = new JLabel("");
-		label_4.setBounds(5, 308, 359, 43);
-		contentPane.add(label_4);
+		txtNota = new JTextField();
+		txtNota.setBounds(104, 265, 668, 43);
+		contentPane.add(txtNota);
+		txtNota.setColumns(10);
 		
 		origenSucursal = new JComboBox();
 		origenSucursal.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				sucursalOrigen= arg0.getItem().toString();
 				InicializaAlmacen(sucursalOrigen, origenAlmacen);
-				System.out.println("origenAlmacen");
+				System.out.println("origenAlmacen" + sucursalOrigen);
 			}
 		});
 		origenSucursal.setBounds(104, 85, 204, 32);
@@ -111,6 +118,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				almacenOrigen= e.getItem().toString();
 				InicializaUbicacion(almacenOrigen, origenUbicacion);
+				System.out.println("almacenOrigen: "+ almacenOrigen);
 			    InicializaArticulo(almacenOrigen);
 			}
 		});
@@ -127,7 +135,7 @@ public class MovimientoStockUI extends JFrame {
 				ubicacionOrigen= e.getItem().toString();
 			}
 		});
-		origenUbicacion.setBounds(532, 86, 204, 30);
+		origenUbicacion.setBounds(532, 86, 240, 30);
 		contentPane.add(origenUbicacion);
 		
 		JLabel lblDestino_1 = new JLabel("Destino");
@@ -139,7 +147,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				sucursalDestino= arg0.getItem().toString();
 				InicializaAlmacen(sucursalDestino, destinoAlmacen);
-				System.out.println("destinoAlmacen");
+				//System.out.println("destinoAlmacen");
 			}
 		});
 		destinoSucursal.setBounds(104, 136, 204, 32);
@@ -161,14 +169,14 @@ public class MovimientoStockUI extends JFrame {
 				ubicacionDestino=e.getItem().toString();
 			}
 		});
-		destinoUbicacion.setBounds(532, 137, 204, 30);
+		destinoUbicacion.setBounds(532, 137, 240, 30);
 		contentPane.add(destinoUbicacion);
 		
 		loteCombo = new JComboBox();
 		loteCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				lote= arg0.getItem().toString();
-				System.out.println("lote" + lote);
+				//System.out.println("lote" + lote);
 				if(lote!=null && lote!="")
 				{if(!lote.equals("indistinto"))			
 					{
@@ -180,7 +188,7 @@ public class MovimientoStockUI extends JFrame {
 				}
 			}
 		});
-		loteCombo.setBounds(655, 198, 68, 32);
+		loteCombo.setBounds(704, 198, 68, 32);
 		contentPane.add(loteCombo);
 		
 		JLabel lblSucursal = new JLabel("Sucursal:");
@@ -199,13 +207,11 @@ public class MovimientoStockUI extends JFrame {
 		causaCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				e.getItem();
-				System.out.println(e.getItem().toString());
+				//System.out.println(e.getItem().toString());
 				String causa=e.getItem().toString();
 				String selec;
-				//if(causa.contains("\\)"))
-				{
 				selec=(causa.split("\\)"))[0];
-				System.out.println("selec: "+selec);
+				//System.out.println("selec: "+selec);
 				causaElegida=selec;
 				origenSucursal.setEnabled(true);
 				loteCombo.setEnabled(true);
@@ -214,7 +220,6 @@ public class MovimientoStockUI extends JFrame {
 				 {
 					InicializaArticulo(null);
 				 }
-				}
 			}
 		});
 		causaCombo.setBounds(104, 16, 204, 32);
@@ -225,7 +230,7 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(label);
 		
 		cantMax = new JLabel("( )");
-		cantMax.setBounds(447, 207, 46, 14);
+		cantMax.setBounds(575, 207, 46, 14);
 		contentPane.add(cantMax);
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -235,7 +240,7 @@ public class MovimientoStockUI extends JFrame {
 					{JOptionPane.showMessageDialog(null, "Debe completar los campos");
 					return;
 					}
-				System.out.println("txtCantidad"+txtCantidad.getText());
+				//System.out.println("txtCantidad"+txtCantidad.getText());
 				cantIngresada=Integer.parseInt(txtCantidad.getText());
 				if(cantidadMaxima!=null)
 				{	if( cantIngresada>cantidadMaxima)
@@ -244,15 +249,27 @@ public class MovimientoStockUI extends JFrame {
 						return;
 					}
 				}
+				fecha= txtFecha.getText();
+				nota=txtNota.getText();
+				m.insertarMovimiento(MovimientoStockUI.this);
 				
 			}
 		});
-		btnAceptar.setBounds(607, 340, 116, 39);
+		btnAceptar.setBounds(656, 340, 116, 39);
 		contentPane.add(btnAceptar);
 		
-		JComboBox umCombo = new JComboBox();
-		umCombo.setBounds(498, 198, 68, 32);
-		contentPane.add(umCombo);
+		lbUm = new JLabel("New label");
+		lbUm.setBounds(476, 207, 89, 14);
+		contentPane.add(lbUm);
+		
+		lblFecha = new JLabel("fecha");
+		lblFecha.setBounds(5, 352, 46, 14);
+		contentPane.add(lblFecha);
+		
+		txtFecha = new JTextField();
+		txtFecha.setBounds(104, 337, 135, 32);
+		contentPane.add(txtFecha);
+		txtFecha.setColumns(10);
 		
 		
 		Inicializa();
@@ -276,14 +293,14 @@ public class MovimientoStockUI extends JFrame {
 	
 	public void InicializaSuc ()
 	{
-		m = new Movimiento();
+		//m = new Movimiento();
 		
 		ArrayList<String> sucursales = m.getSucursales();
 		DefaultComboBoxModel<String> modelo;
 		if(causaElegida.equals("1") ||causaElegida.equals("2") ||causaElegida.equals("3") || causaElegida.equals("4"))
 		{
 			origenSucursal.setEnabled(false);
-			System.out.println("causa 1,2,3 o 4");
+			//System.out.println("causa 1,2,3 o 4");
 		}
 		else
 		{
@@ -306,11 +323,12 @@ public class MovimientoStockUI extends JFrame {
 	
 	private void InicializaAlmacen (String alm, JComboBox almacen)
 	{
-		m = new Movimiento();
-		ArrayList<String> almacenes = m.getAlmacenes(alm);
+		//m = new Movimiento();
+		ArrayList<ArrayList<String>> almacenes = m.getAlmacenes(alm);
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
-		for(String a:almacenes){
-			modelo.addElement(a);
+		for(ArrayList<String> a:almacenes){
+			//obtengo la descripcion
+			modelo.addElement(a.get(1));
 		}
 		
 		almacen.setModel(modelo);
@@ -318,14 +336,14 @@ public class MovimientoStockUI extends JFrame {
 	
 	private void InicializaUbicacion (String alm, JComboBox ubicacion)
 	{
-		m = new Movimiento();
+		//m = new Movimiento();
 		ArrayList<String> ubicaciones = m.getUbicacion(alm);
 		if(ubicaciones!=null){
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
 		for(String ub:ubicaciones){
 			modelo.addElement(ub);
 		}
-		
+		System.out.println(ubicaciones.get(0));
 		ubicacion.setModel(modelo);
 		}
 	}
@@ -333,12 +351,12 @@ public class MovimientoStockUI extends JFrame {
 	private void InicializaArticulo (String alm)
 	{
 		System.out.println("alm : "+alm);
-		m = new Movimiento();
-		ArrayList<Articulos> arts;
+		//m = new Movimiento();
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
 		
 		if(!causaElegida.equals("1"))
 		{
+			System.out.println("causa: "+ causaElegida);
 			arts = m.getArticulosXalmacen(alm);
 			if(arts!=null){
 			
@@ -346,16 +364,18 @@ public class MovimientoStockUI extends JFrame {
 			
 			for(Articulos art:arts){
 				modelo.addElement(art.getDesc());
+				System.out.println("artDEsc"+art.getDesc());
 			}
 			
 			articuloCombo.setModel(modelo);
-			
+			System.out.println("artcombo");
 			}	
 		}
 		else
 		{
-			arts= m.getArticulos();
-			for(Articulos art:arts){
+			//si la causa es 1: son los articulos de compra
+			artsCompra= m.getArticulosCompra();
+			for(Articulos art:artsCompra){
 				modelo.addElement(art.getDesc());
 			}
 			articuloCombo.setModel(modelo);
@@ -366,21 +386,32 @@ public class MovimientoStockUI extends JFrame {
 	
 	private void inicializaLote(String art)
 	{
+		System.out.println("art IL: "+art);
 		Articulos a= m.getArtByDesc(art);
 		DefaultComboBoxModel<String> modeloLote=new DefaultComboBoxModel<>();
 		modeloLote.addElement("");
 		modeloLote.addElement("Indistinto");
-		if(!causaElegida.equals("1"))
-		{for(Integer lote:a.getLote()){
+		if(!causaElegida.equals("1") && a!=null)
+		{
+			System.out.println("a!=null");
+			for(Integer lote:a.getLote()){
 			modeloLote.addElement(lote.toString());
 		}
 		loteCombo.setModel(modeloLote);
 		}
 	}
+	
+	private void inicializaUM(String art)
+	{
+		Articulos a= m.getArtByDesc(art);
+		if(a!=null)
+		{String desc= a.getUM().getDesc();
+		 lbUm.setText(desc);}
+	}
 
 	private Boolean checkContenido()
 	{
-		 if((causaElegida.equals("1") && txtCantidad.getText()!="") || (txtCantidad.getText()!="" && lote!=null))
+		 if((causaElegida.equals("1") && !txtCantidad.getText().equals("")) || (!txtCantidad.getText().equals("") && lote!=null))
 			return true;
 		else
 			return false;

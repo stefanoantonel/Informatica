@@ -14,13 +14,15 @@ public class Articulos {
 	private Integer valor;
 	private ArrayList<Integer> lote;
 	private String descripcion;
+	private UnidadMedida um;
 	
 	public Articulos(){
-		
+		lote = new ArrayList<>();
 	}
 	
 	public Articulos(Integer id){
 		valor=id;
+		lote = new ArrayList<>();
 	}
 	
 	public Integer getValor()
@@ -36,6 +38,17 @@ public class Articulos {
 	public ArrayList<Integer> getLote()
 	{
 		return lote;
+	}
+	
+	
+	public void setUM(UnidadMedida u)
+	{
+		um=u;
+	}
+	
+	public UnidadMedida getUM()
+	{
+		return um;
 	}
 	
 	public void setDesc(String desc)
