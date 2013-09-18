@@ -75,7 +75,7 @@ public class LecturaDAO {
 		return false;
 	}
 	
-	public int insertarMovimiento(int almacenDestino, ArrayList<Integer> articulos, ArrayList<Integer> cantidades,String fecha_despacho,String fecha_estim_arribo){
+	public int insertarMovimiento(int ubicacionDestino, int almacenDestino, ArrayList<Integer> articulos, ArrayList<Integer> cantidades,String fecha_despacho,String fecha_estim_arribo){
 		
 		Connection con;
 		
@@ -85,17 +85,18 @@ public class LecturaDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("insert into Movimientos (almacen_destino,articulo_id,cantidad,causa_id,sucursal_destino,um_id,lugar_upd,fecha,fecha_despacho,fecha_estim_arribo) ");
-			sb.append("values (?,?,?,1,5,1,'casa',GETDATE(),?,?) ");
+			sb.append("insert into Movimientos (ubicacion_destino,almacen_destino,articulo_id,cantidad,causa_id,sucursal_destino,um_id,lugar_upd,fecha,fecha_despacho,fecha_estim_arribo) ");
+			sb.append("values (?,?,?,?,1,5,1,'casa',GETDATE(),?,?) ");
 
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			for (int j=0;j<articulos.size();j++){
-				stm.setInt(1,almacenDestino );
-				stm.setInt(2, articulos.get(j));
-				stm.setInt(3, cantidades.get(j));
-				stm.setString(4, fecha_despacho);
-				stm.setString(5, fecha_estim_arribo);
+				stm.setInt(1, ubicacionDestino);
+				stm.setInt(2,almacenDestino );
+				stm.setInt(3, articulos.get(j));
+				stm.setInt(4, cantidades.get(j));
+				stm.setString(5, fecha_despacho);
+				stm.setString(6, fecha_estim_arribo);
 				stm.executeUpdate();
 			}
 			
@@ -150,6 +151,36 @@ public class LecturaDAO {
 		return idAlmacen;
 		
 	}
+public int getUbicacionDestino(int almId){
+	
+		
+		int idUbicacion=-1; 
+		
+		Connection con;
+		ResultSet rs = null;
+		try {// --------------------------------
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT id FROM Ubicaciones WHERE Ubicaciones.almacenes_id=? ");
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());	
+			stm.setInt(1, almId);
+			rs = stm.executeQuery();
+			if(rs.next()){
+				idUbicacion=rs.getInt("id");
+			}
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "error insert archivos leidos. ");
+
+		}
+		
+		return idUbicacion;
+		
+	}
 	public void insertarOrdenCompra(ArrayList<Integer> proveedor,ArrayList<Integer> articulos,ArrayList<Integer> cantidades,ArrayList<Integer> lotes,String fecha_despacho, String fecha_arribo){
 		Connection con;
 		ResultSet rs = null;
@@ -168,6 +199,31 @@ public class LecturaDAO {
 				stm.setInt(4,lotes.get(j));
 				stm.setString(5,fecha_despacho);
 				stm.setString(6,fecha_arribo);
+				stm.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "error insert archivos leidos. ");
+
+		}
+		
+	}
+	public void insertarStock(ArrayList<Integer> articulos,ArrayList<Integer> cantidades,int ubicacionId){
+		Connection con;
+		ResultSet rs = null;
+		try {
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("INSERT INTO Stock (articuo_id,cantidad,ubicaciones_id,um_id)");
+			sb.append("VALUES (?, ?, ?, 1)");
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());	
+			for (int j=0;j<articulos.size();j++){
+				stm.setInt(1, articulos.get(j));
+				stm.setInt(2,cantidades.get(j));
+				stm.setInt(3,ubicacionId);
 				stm.executeUpdate();
 			}
 			
