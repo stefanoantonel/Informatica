@@ -68,7 +68,7 @@ public class Lectura {
 		
 	}
 	private static void loadFile(){
-		File archivo = new File("D:\\Escritorio\\leer2.txt");
+		File archivo = new File("D:\\Escritorio\\leer3.txt");
 		FileReader fileReader = null; // abre el archivo en disco
 		BufferedReader br = null; // buffer de todo el archivo
 		try {
@@ -198,7 +198,7 @@ public class Lectura {
 		lote=convertirInt(loteCuerpo);
 		prov=convertirInt(proveedorCuerpo);
 		int almacenDestino=dao.getAlmacenDestino(puestoCabecera);
-		int id=dao.insertarMovimiento(almacenDestino, art, cant,fecha_despachoCabecera);
+		int id=dao.insertarMovimiento(almacenDestino, art, cant,fecha_despachoCabecera,fecha_arriboCabecera);
 		
 		dao.insertarOrdenCompra(prov,art,cant,lote,fecha_despachoCabecera,fecha_arriboCabecera);
 		return true;

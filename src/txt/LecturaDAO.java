@@ -75,7 +75,7 @@ public class LecturaDAO {
 		return false;
 	}
 	
-	public int insertarMovimiento(int almacenDestino, ArrayList<Integer> articulos, ArrayList<Integer> cantidades,String fecha){
+	public int insertarMovimiento(int almacenDestino, ArrayList<Integer> articulos, ArrayList<Integer> cantidades,String fecha_despacho,String fecha_estim_arribo){
 		
 		Connection con;
 		
@@ -85,8 +85,8 @@ public class LecturaDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("insert into Movimientos (almacen_destino,articulo_id,cantidad,causa_id,sucursal_destino,um_id,lugar_upd,fecha) ");
-			sb.append("values (?,?,?,1,5,1,'casa',?) ");
+			sb.append("insert into Movimientos (almacen_destino,articulo_id,cantidad,causa_id,sucursal_destino,um_id,lugar_upd,fecha,fecha_despacho,fecha_estim_arribo) ");
+			sb.append("values (?,?,?,1,5,1,'casa',GETDATE(),?,?) ");
 
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
@@ -94,7 +94,8 @@ public class LecturaDAO {
 				stm.setInt(1,almacenDestino );
 				stm.setInt(2, articulos.get(j));
 				stm.setInt(3, cantidades.get(j));
-				stm.setString(4, fecha);
+				stm.setString(4, fecha_despacho);
+				stm.setString(5, fecha_estim_arribo);
 				stm.executeUpdate();
 			}
 			
