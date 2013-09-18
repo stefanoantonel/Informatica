@@ -6,7 +6,7 @@
 *.exe
 *.o
 *.so
-Conexion.java
+
 
 
 # Packages #
@@ -37,4 +37,5 @@ Conexion.java
 .Trashes
 ehthumbs.db
 Thumbs.db
+*Conexion.java
 /bin
