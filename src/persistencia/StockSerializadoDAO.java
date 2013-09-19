@@ -112,7 +112,7 @@ public class StockSerializadoDAO {
 			Conexion cn1 = new Conexion();
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
-			sb.append("INSERT INTO [Informatica].[dbo].[Stock Productos Serializados]");
+			sb.append("INSERT INTO [Stock Productos Serializados]");
 			sb.append("([codigo_plano],[numero_serie],[verificador],[estado_id],[desc_upd],[lote])");
 			sb.append("VALUES (?,?,?,'1',?,"+ultimoLote+")");
 			
@@ -153,7 +153,7 @@ public class StockSerializadoDAO {
 			con = cn1.getConexion();
 			StringBuilder sb = new StringBuilder();
 			sb.append("SELECT COUNT(*) ");
-			sb.append("FROM [Informatica].[dbo].[Stock Productos Serializados] ");
+			sb.append("FROM [Stock Productos Serializados] ");
 //			int p=Integer.parseInt(plano);
 			sb.append("WHERE [codigo_plano]="+plano+" ");
 			//PREPARAR CONSULTA
@@ -318,5 +318,24 @@ public class StockSerializadoDAO {
 		String desc=descripciones.get(indice);
 		return desc;
 	}
+	
+	public void upStockId(String cantidad, String ubDestino, String idArt)
+	{
+		Conexion cn1 = new Conexion();
+		Connection con = cn1.getConexion();
+		try{
+			StringBuilder sb1=new StringBuilder();
+			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+idArt+")");
+			sb1.append("where stock_id is null");
+
+			System.out.println(sb1);
+			PreparedStatement ps=con.prepareStatement(sb1.toString());
+			ps.executeUpdate();			
+		
+		}catch (Exception e){e.printStackTrace(); System.out.println("error cambiar sps");}
+		
+		
+	}
+	
 	
 }

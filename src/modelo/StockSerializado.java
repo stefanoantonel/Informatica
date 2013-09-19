@@ -126,4 +126,12 @@ public class StockSerializado {
 		CodigoDeArticulosUI ca=new CodigoDeArticulosUI(modelo1);
 	}
 	
+	
+	public void upStockId(String cantidad, String ubDestino, String idArt)
+	{
+		
+		cs.upStockId(cantidad, ubDestino, idArt);
+		
+	}
+	
 }

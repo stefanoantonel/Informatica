@@ -4,6 +4,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+import javax.management.StringValueExp;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -77,7 +78,7 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(lblProducto);
 		
 		JLabel lblLote = new JLabel("Lote");
-		lblLote.setBounds(641, 193, 53, 43);
+		lblLote.setBounds(653, 193, 53, 43);
 		contentPane.add(lblLote);
 		
 		articuloCombo = new JComboBox();
@@ -85,7 +86,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				cantMax.setText("Max()");
 				articulo=arg0.getItem().toString();
-				System.out.println("artElegido: "+articulo);
+				System.out.println("articulo: "+articulo);
 				inicializaLote(arg0.getItem().toString());
 				inicializaUM(arg0.getItem().toString());
 			}
@@ -107,7 +108,6 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				sucursalOrigen= arg0.getItem().toString();
 				InicializaAlmacen(sucursalOrigen, origenAlmacen);
-				System.out.println("origenAlmacen" + sucursalOrigen);
 			}
 		});
 		origenSucursal.setBounds(104, 85, 204, 32);
@@ -118,8 +118,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				almacenOrigen= e.getItem().toString();
 				InicializaUbicacion(almacenOrigen, origenUbicacion);
-				System.out.println("almacenOrigen: "+ almacenOrigen);
-			    InicializaArticulo(almacenOrigen);
+			  
 			}
 		});
 		origenAlmacen.setBounds(318, 86, 204, 30);
@@ -133,6 +132,7 @@ public class MovimientoStockUI extends JFrame {
 		origenUbicacion.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				ubicacionOrigen= e.getItem().toString();
+				InicializaArticulo(ubicacionOrigen);
 			}
 		});
 		origenUbicacion.setBounds(532, 86, 240, 30);
@@ -147,7 +147,6 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				sucursalDestino= arg0.getItem().toString();
 				InicializaAlmacen(sucursalDestino, destinoAlmacen);
-				//System.out.println("destinoAlmacen");
 			}
 		});
 		destinoSucursal.setBounds(104, 136, 204, 32);
@@ -158,6 +157,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				almacenDestino= e.getItem().toString();
 				InicializaUbicacion(almacenDestino, destinoUbicacion);
+				
 			}
 		});
 		destinoAlmacen.setBounds(318, 137, 204, 30);
@@ -167,6 +167,8 @@ public class MovimientoStockUI extends JFrame {
 		destinoUbicacion.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				ubicacionDestino=e.getItem().toString();
+				if(causaElegida.equals("2")||causaElegida.equals("4"))
+					InicializaArticulo(ubicacionDestino);
 			}
 		});
 		destinoUbicacion.setBounds(532, 137, 240, 30);
@@ -176,11 +178,19 @@ public class MovimientoStockUI extends JFrame {
 		loteCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				lote= arg0.getItem().toString();
-				//System.out.println("lote" + lote);
 				if(lote!=null && lote!="")
-				{if(!lote.equals("indistinto"))			
+				{if(!lote.equals("Indistinto") && !causaElegida.equals("3"))			
 					{
-					cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote));
+					if(causaElegida.equals("2")||causaElegida.equals("4")) //destruccion o ajuste negativo
+					    {	System.out.println("almacen para CM:"+almacenDestino);
+						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), almacenDestino, articulo);
+					    }
+					else
+						{
+						System.out.println("alm para CM:"+almacenOrigen);
+						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), almacenOrigen, articulo);
+						}
+					System.out.println("cant max:"+cantidadMaxima);
 					cantMax.setText("Max("+cantidadMaxima+")");
 					}
 				else
@@ -207,15 +217,16 @@ public class MovimientoStockUI extends JFrame {
 		causaCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				e.getItem();
-				//System.out.println(e.getItem().toString());
 				String causa=e.getItem().toString();
 				String selec;
 				selec=(causa.split("\\)"))[0];
-				//System.out.println("selec: "+selec);
 				causaElegida=selec;
 				origenSucursal.setEnabled(true);
+				origenAlmacen.setEnabled(true);
+				origenUbicacion.setEnabled(true);
 				loteCombo.setEnabled(true);
 				InicializaSuc();
+				System.out.println("causaElegida: "+causaElegida);
 				if (causaElegida.equals("1"))
 				 {
 					InicializaArticulo(null);
@@ -230,7 +241,7 @@ public class MovimientoStockUI extends JFrame {
 		contentPane.add(label);
 		
 		cantMax = new JLabel("( )");
-		cantMax.setBounds(575, 207, 46, 14);
+		cantMax.setBounds(563, 207, 78, 14);
 		contentPane.add(cantMax);
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -240,7 +251,6 @@ public class MovimientoStockUI extends JFrame {
 					{JOptionPane.showMessageDialog(null, "Debe completar los campos");
 					return;
 					}
-				//System.out.println("txtCantidad"+txtCantidad.getText());
 				cantIngresada=Integer.parseInt(txtCantidad.getText());
 				if(cantidadMaxima!=null)
 				{	if( cantIngresada>cantidadMaxima)
@@ -250,7 +260,7 @@ public class MovimientoStockUI extends JFrame {
 					}
 				}
 				fecha= txtFecha.getText();
-				nota=txtNota.getText();
+				nota="'"+txtNota.getText()+"'";
 				m.insertarMovimiento(MovimientoStockUI.this);
 				
 			}
@@ -300,7 +310,8 @@ public class MovimientoStockUI extends JFrame {
 		if(causaElegida.equals("1") ||causaElegida.equals("2") ||causaElegida.equals("3") || causaElegida.equals("4"))
 		{
 			origenSucursal.setEnabled(false);
-			//System.out.println("causa 1,2,3 o 4");
+			origenAlmacen.setEnabled(false);
+			origenUbicacion.setEnabled(false);
 		}
 		else
 		{
@@ -343,62 +354,65 @@ public class MovimientoStockUI extends JFrame {
 		for(String ub:ubicaciones){
 			modelo.addElement(ub);
 		}
-		System.out.println(ubicaciones.get(0));
 		ubicacion.setModel(modelo);
 		}
 	}
 	
-	private void InicializaArticulo (String alm)
+	private void InicializaArticulo (String ub)
 	{
-		System.out.println("alm : "+alm);
 		//m = new Movimiento();
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
 		
 		if(!causaElegida.equals("1"))
 		{
 			System.out.println("causa: "+ causaElegida);
-			arts = m.getArticulosXalmacen(alm);
+			arts = m.getArticulosXubicacion(ub);
 			if(arts!=null){
-			
 			modelo.addElement("");
 			
 			for(Articulos art:arts){
 				modelo.addElement(art.getDesc());
-				System.out.println("artDEsc"+art.getDesc());
 			}
 			
 			articuloCombo.setModel(modelo);
-			System.out.println("artcombo");
 			}	
 		}
 		else
 		{
+			System.out.println("entro al else ");
 			//si la causa es 1: son los articulos de compra
 			artsCompra= m.getArticulosCompra();
+			modelo.addElement("");
 			for(Articulos art:artsCompra){
+				System.out.println("articulo compra: "+art.getDesc());
 				modelo.addElement(art.getDesc());
 			}
 			articuloCombo.setModel(modelo);
 			loteCombo.setEnabled(false);
-			System.out.println("lote combo flase");
 		}
 	}
 	
 	private void inicializaLote(String art)
 	{
-		System.out.println("art IL: "+art);
 		Articulos a= m.getArtByDesc(art);
 		DefaultComboBoxModel<String> modeloLote=new DefaultComboBoxModel<>();
 		modeloLote.addElement("");
 		modeloLote.addElement("Indistinto");
-		if(!causaElegida.equals("1") && a!=null)
+		if(!causaElegida.equals("1") && a!=null && a.getLote()!=null)
 		{
-			System.out.println("a!=null");
 			for(Integer lote:a.getLote()){
 			modeloLote.addElement(lote.toString());
-		}
+			System.out.println("lote no es nulo");
+		   }
+		}	
+		if(causaElegida.equals("3"))//ajuste positivo: cualquier lote
+			{
+				for(Integer i=1;i<15;i++){
+				modeloLote.addElement(i.toString());
+			    }
+			}	
 		loteCombo.setModel(modeloLote);
-		}
+		
 	}
 	
 	private void inicializaUM(String art)
@@ -411,10 +425,16 @@ public class MovimientoStockUI extends JFrame {
 
 	private Boolean checkContenido()
 	{
-		 if((causaElegida.equals("1") && !txtCantidad.getText().equals("")) || (!txtCantidad.getText().equals("") && lote!=null))
-			return true;
-		else
+		 if(!causaElegida.equals("1") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("") || (lote==null || lote.equals(""))))
 			return false;
+
+		 if (causaElegida.equals("1") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("")))
+			return false;
+		
+		 if (causaElegida.equals("5") && ubicacionOrigen.equals(""))
+				return false;
+			
+		 return true;
 		 
 	}
 }

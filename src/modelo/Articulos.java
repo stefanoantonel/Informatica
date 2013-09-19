@@ -34,6 +34,10 @@ public class Articulos {
 	{
 		lote.add(l);
 	}
+	public void setValor(Integer v)
+	{
+		valor=v;
+	}
 	
 	public ArrayList<Integer> getLote()
 	{
