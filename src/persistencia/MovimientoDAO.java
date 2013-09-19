@@ -450,39 +450,39 @@ public class MovimientoDAO {
 		
 	//	upCantidad(cantidad,ubicacionDestino,art.getValor().toString());
 		
-		try{
-			StringBuilder sb1=new StringBuilder();
-			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubicacionDestino+" and articuo_id="+art.getValor()+")");
-			sb1.append("where stock_id in (select id from Stock where ubicaciones_id="+ubicacionOrigen+" and articuo_id="+art.getValor()+")");
+//		try{
+//			StringBuilder sb1=new StringBuilder();
+//			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubicacionDestino+" and articuo_id="+art.getValor()+")");
+//			sb1.append("where stock_id in (select id from Stock where ubicaciones_id="+ubicacionOrigen+" and articuo_id="+art.getValor()+")");
+//
+//			System.out.println(sb1);
+//			PreparedStatement ps=con.prepareStatement(sb1.toString());
+//			ps.executeUpdate();			
+//		
+//		}catch (Exception e){e.printStackTrace(); System.out.println("error cambiar sps");}
+//		
 
-			System.out.println(sb1);
-			PreparedStatement ps=con.prepareStatement(sb1.toString());
-			ps.executeUpdate();			
-		
-		}catch (Exception e){e.printStackTrace(); System.out.println("error cambiar sps");}
-		
-		
 		
 		updateCantidad(cantidad,art.getValor().toString(),causa,ubicacionOrigen,ubicacionDestino);
 		
 	}
 	
 	
-	public void upStockSerializado(String cantidad, String ubDestino, String idArt)
-	{
-		try{
-			StringBuilder sb1=new StringBuilder();
-			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+idArt+")");
-			sb1.append("where stock_id is null");
-
-			System.out.println(sb1);
-			PreparedStatement ps=con.prepareStatement(sb1.toString());
-			ps.executeUpdate();			
-		
-		}catch (Exception e){e.printStackTrace(); System.out.println("error cambiar sps");}
-		
-		
-	}
+//	public void upStockSerializado(String cantidad, String ubDestino, String idArt)
+//	{
+//		try{
+//			StringBuilder sb1=new StringBuilder();
+//			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+idArt+")");
+//			sb1.append("where stock_id is null");
+//
+//			System.out.println(sb1);
+//			PreparedStatement ps=con.prepareStatement(sb1.toString());
+//			ps.executeUpdate();			
+//		
+//		}catch (Exception e){e.printStackTrace(); System.out.println("error cambiar sps");}
+//		
+//		
+//	}
 
 	public boolean controlDestino (String art, String ubDestino)
 	{
