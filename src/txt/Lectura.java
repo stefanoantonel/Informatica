@@ -46,13 +46,13 @@ public class Lectura {
 					insertarMovimiento();
 					corrupto=false;
 					int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
-					dao.insertarArchivoLeido(archivo, corrupto);
+					dao.insertarArchivoLeido(archivo, corrupto,proveedorCabecera);
 				}
 				else{
 					System.out.println("mal las comptobaciones finales");
 					corrupto=true;
 					int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
-					dao.insertarArchivoLeido(archivo, corrupto);
+					dao.insertarArchivoLeido(archivo, corrupto,proveedorCabecera);
 				}
 			}
 			
@@ -65,7 +65,7 @@ public class Lectura {
 			JOptionPane.showMessageDialog(null, "Error Procesar Archivo");
 			corrupto=true;
 			int archivo=Integer.parseInt(txtCompleto.get(0).substring(24, 34)); //numero del archivo
-			dao.insertarArchivoLeido(archivo, corrupto);
+			dao.insertarArchivoLeido(archivo, corrupto,proveedorCabecera);
 		}
 			
 		

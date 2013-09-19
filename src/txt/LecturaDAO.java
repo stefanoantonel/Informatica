@@ -14,7 +14,7 @@ public class LecturaDAO {
 	
 	int idMovimiento=-1;
 	
-	public boolean insertarArchivoLeido(int archivo,boolean corrupto){
+	public boolean insertarArchivoLeido(int archivo,boolean corrupto, String externoId){
 		Connection con;
 		ResultSet rs = null;
 		try {// --------------------------------
@@ -24,14 +24,15 @@ public class LecturaDAO {
 //			sb.append("SELECT MAX(id) ");
 //			sb.append("FROM Remito ");
 			sb.append("INSERT INTO [Archivos Leidos] ");
-			sb.append("(numero,corrupto) ");
-			sb.append("VALUES (?,?)");
+			sb.append("(numero,corrupto,externo_id) ");
+			sb.append("VALUES (?,?,?)");
 		
 			PreparedStatement stm;
 			stm = con.prepareStatement(sb.toString());
 			stm.setInt(1, archivo);
 			stm.setBoolean(2, corrupto);
 //			stm.setInt(3, idMovimiento);
+			stm.setString(3, externoId);
 			stm.executeUpdate();
 			
 			// JOptionPane.showMessageDialog(null, "Despachado Correctamente");
