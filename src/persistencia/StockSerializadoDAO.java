@@ -114,11 +114,8 @@ public class StockSerializadoDAO {
 			StringBuilder sb = new StringBuilder();
 			sb.append("INSERT INTO [Stock Productos Serializados]");
 			sb.append("([codigo_plano],[numero_serie],[verificador],[estado_id],[desc_upd],[lote])");
-			sb.append("VALUES (?,?,?,'1',?,"+ultimoLote+")");
-			
-			
-			
-			
+//			sb.append("([codigo_plano],[numero_serie],[verificador],[estado_id],[desc_upd])");
+			sb.append("VALUES (?,?,?,'1',?,?)");
 			
 			
 			//PREPARAR CONSULTA
@@ -130,7 +127,7 @@ public class StockSerializadoDAO {
 				stm.setString(2,serie.get(i));
 				stm.setInt(3,verificador.get(i));
 				stm.setString(4,"cargo serie de producto "+codigosPlanos);
-				
+				stm.setInt(5,ultimoLote);
 				stm.executeUpdate();
 				
 			}
@@ -320,6 +317,23 @@ public class StockSerializadoDAO {
 	}
 	
 	public void upStockId(String cantidad, String ubDestino, String idArt)
+	{
+		Conexion cn1 = new Conexion();
+		Connection con = cn1.getConexion();
+		try{
+			StringBuilder sb1=new StringBuilder();
+			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+idArt+")");
+			sb1.append("where stock_id is null");
+
+			System.out.println(sb1);
+			PreparedStatement ps=con.prepareStatement(sb1.toString());
+			ps.executeUpdate();			
+		
+		}catch (Exception e){e.printStackTrace(); System.out.println("error cambiar sps");}
+		
+		
+	}
+	public void upStockId(int cantidad, int ubDestino, int idArt)
 	{
 		Conexion cn1 = new Conexion();
 		Connection con = cn1.getConexion();

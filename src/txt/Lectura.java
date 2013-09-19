@@ -12,7 +12,11 @@ import java.util.logging.SimpleFormatter;
 
 import javax.swing.JOptionPane;
 
+import persistencia.ArticuloDAO;
+import persistencia.StockSerializadoDAO;
+
 import modelo.Main;
+import modelo.StockSerializado;
 
 public class Lectura {
 	
@@ -193,6 +197,7 @@ public class Lectura {
 		ArrayList<Integer> cant=new ArrayList<>();
 		ArrayList<Integer> lote=new ArrayList<>();
 		ArrayList<Integer> prov=new ArrayList<>();
+		ArrayList<Integer> codigosPlanos=new ArrayList<>();
 		art=convertirInt(productoCuerpo); //array articulos en INteger
 		cant=convertirInt(cantidadCuerpo); //array cantidades en INteger
 		lote=convertirInt(loteCuerpo);
@@ -203,6 +208,18 @@ public class Lectura {
 		
 		dao.insertarOrdenCompra(prov,art,cant,lote,fecha_despachoCabecera,fecha_arriboCabecera);
 		dao.insertarStock(art,cant ,ubicacionDestino);
+		codigosPlanos=getCodigosPlanos(art);
+		
+		for (int j=0;j<art.size();j++){
+			StockSerializado ss=new StockSerializado(cant.get(j), codigosPlanos.get(j));
+		}
+		StockSerializadoDAO ssdao=new StockSerializadoDAO();
+		for (int j=0;j<art.size();j++){
+			ssdao.upStockId(cant.get(j), ubicacionDestino, art.get(j));
+		}
+		
+		
+		
 		return true;
 	}
 	public ArrayList<Integer> convertirInt(ArrayList<String> str){
@@ -213,5 +230,15 @@ public class Lectura {
 		}
 		return e;
 	}
+	public ArrayList<Integer> getCodigosPlanos(ArrayList<Integer> art){
+		
+		ArrayList<Integer> e=new ArrayList<>();
+		ArticuloDAO adao=new ArticuloDAO();
+		for(int articulo:art){
+			e.add(adao.obetenerCP(articulo));
+		}
+		return e;
+	}
+	
 }
 	
