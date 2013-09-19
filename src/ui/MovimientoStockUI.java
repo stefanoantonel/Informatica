@@ -438,4 +438,3 @@ public class MovimientoStockUI extends JFrame {
 		 
 	}
 }
-
