@@ -184,6 +184,7 @@ public class MovimientoStockUI extends JFrame {
 					if(causaElegida.equals("2")||causaElegida.equals("4")) //destruccion o ajuste negativo
 					    {	System.out.println("almacen para CM:"+almacenDestino);
 						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), almacenDestino, articulo);
+						System.out.println("cantdadMaxima: "+cantidadMaxima);
 					    }
 					else
 						{
@@ -425,6 +426,11 @@ public class MovimientoStockUI extends JFrame {
 
 	private Boolean checkContenido()
 	{
+		if (causaElegida.equals("1"))
+			{origenAlmacen.setSelectedIndex(0);
+			origenUbicacion.setSelectedIndex(0);
+			}
+		
 		 if(!causaElegida.equals("1") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("") || (lote==null || lote.equals(""))))
 			return false;
 

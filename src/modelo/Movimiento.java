@@ -70,12 +70,12 @@ public class Movimiento {
 		System.out.println("almacen:"+alm+" id="+a);
 		ArrayList<ArrayList<String>> matLoteXCantidad = mDao.getCantidadXlote();
 		//almcaen, lote ,articulo, cantidad
-		System.out.println("lote: "+lote+" alm:"+a);
+		System.out.println("lote: "+lote+" alm:"+a+" art:"+articulo.getValor());
 		
 		for (ArrayList<String> ar: matLoteXCantidad)
 		{
-			System.out.println("ar.alm:"+ar.get(0)+" ar.lote:"+ar.get(1));
-			if((ar.get(0).equals(a) && ar.get(1).equals(lote.toString()) && articulo.getValor()==Integer.parseInt(ar.get(2))) || (ar.get(0)==a && ar.get(1)==lote.toString()&& articulo.getValor()==Integer.parseInt(ar.get(2))))
+			System.out.println("ar.alm:"+ar.get(0)+" ar.lote:"+ar.get(1)+" ar.art:"+ar.get(2));
+			if((ar.get(0).equals(a) && ar.get(1).equals(lote.toString()) && ar.get(2).equals(articulo.getValor().toString())) || (ar.get(0)==a && ar.get(1)==lote.toString()&& articulo.getValor()==Integer.parseInt(ar.get(2))))
 				{
 				 System.out.println("cantXlote:" + ar.get(3));
 				 return Integer.parseInt(ar.get(3));
@@ -116,10 +116,10 @@ public class Movimiento {
 		mDao.insertarMovimiento(causa,sucursalOrigen,almacenOrigen,ubicacionOrigen,sucursalDestino,almacenDestino,ubicacionDestino,a,fecha,nota,cantidad);
 		
 		
-		if(causa.equals("2"))
+		if(causa.equals("1"))
 		{Integer cp=obtenerCodigoPlano(a.getValor().toString());
 		StockSerializado s = new StockSerializado(Integer.parseInt(cantidad),cp);
-		mDao.upStockSerializado(cantidad, ubicacionDestino, a.getValor().toString());
+		s.upStockId(cantidad, ubicacionDestino, a.getValor().toString());
 		}
 		
 	}

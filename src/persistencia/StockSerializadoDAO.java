@@ -334,6 +334,7 @@ public class StockSerializadoDAO {
 		
 		}catch (Exception e){e.printStackTrace(); System.out.println("error cambiar sps");}
 		
+		System.out.println("paso por upStockId");
 		
 	}
 	
