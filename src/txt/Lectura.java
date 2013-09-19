@@ -183,8 +183,8 @@ public class Lectura {
 	public boolean comprobacionArchivoLeido(){
 		String archivo=txtCompleto.get(0).substring(24, 34); 
 		int numeroArchivo=Integer.parseInt(archivo);
-		return false;
-//		return dao.fueLeido(numeroArchivo);
+//		return false;
+		return dao.fueLeido(numeroArchivo);
 //		comprobar que no este.
 		
 	}
@@ -193,14 +193,16 @@ public class Lectura {
 		ArrayList<Integer> cant=new ArrayList<>();
 		ArrayList<Integer> lote=new ArrayList<>();
 		ArrayList<Integer> prov=new ArrayList<>();
-		art=convertirInt(productoCuerpo);
-		cant=convertirInt(cantidadCuerpo);
+		art=convertirInt(productoCuerpo); //array articulos en INteger
+		cant=convertirInt(cantidadCuerpo); //array cantidades en INteger
 		lote=convertirInt(loteCuerpo);
 		prov=convertirInt(proveedorCuerpo);
 		int almacenDestino=dao.getAlmacenDestino(puestoCabecera);
-		int id=dao.insertarMovimiento(almacenDestino, art, cant);
+		int ubicacionDestino= dao.getUbicacionDestino(almacenDestino);
+		int id=dao.insertarMovimiento(ubicacionDestino,almacenDestino, art, cant,fecha_despachoCabecera,fecha_arriboCabecera);
 		
 		dao.insertarOrdenCompra(prov,art,cant,lote,fecha_despachoCabecera,fecha_arriboCabecera);
+		dao.insertarStock(art,cant ,ubicacionDestino);
 		return true;
 	}
 	public ArrayList<Integer> convertirInt(ArrayList<String> str){
