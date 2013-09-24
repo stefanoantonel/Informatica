@@ -18,6 +18,8 @@ public class AdministraAlternativo {
 	private String cant;
 	private String um;
 	private int codigoUm;
+	
+	
 	Connection con;
 	Conexion cn;
     String[][] conversion = new String[10][10];
