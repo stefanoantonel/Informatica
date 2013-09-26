@@ -15,6 +15,7 @@ public class Articulos {
 	private ArrayList<Integer> lote;
 	private String descripcion;
 	private UnidadMedida um;
+	private String cant;
 	
 	public Articulos(){
 		lote = new ArrayList<>();
@@ -54,6 +55,18 @@ public class Articulos {
 	{
 		return um;
 	}
+	
+	public void setCant(String c)
+	{
+		cant=c;
+	}
+	
+	public String getCant()
+	{
+		return cant;
+	}
+	
+	
 	
 	public void setDesc(String desc)
 	{

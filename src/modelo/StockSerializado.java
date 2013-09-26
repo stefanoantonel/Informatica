@@ -23,6 +23,9 @@ public class StockSerializado {
 	ArrayList<Integer> verificador=new ArrayList<>();
 	StockSerializadoDAO cs=new StockSerializadoDAO();
 	
+	public StockSerializado(){}
+	
+	
 	public StockSerializado(int cant, int plano){
 		this.cantidad=cant;
 		this.codigoPlano=plano;
@@ -127,10 +130,10 @@ public class StockSerializado {
 	}
 	
 	
-	public void upStockId(String cantidad, String ubDestino, String idArt)
+	public void upStockId(String cantidad, String ubDestino, String idArt, String ub, String lote)
 	{
 		
-		cs.upStockId(cantidad, ubDestino, idArt);
+		cs.upStockId(cantidad, ubDestino, idArt,ub,lote);
 		
 	}
 	
