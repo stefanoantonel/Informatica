@@ -155,7 +155,7 @@ public class Movimiento {
 	
 	public void gestionSps (String causa, String cantidad, String ubicacionDestino, String aId, String lote, String ubicacionOrigen)
 	{
-		if(causa.equals("1")) //COMPRA
+		if(causa.equals("1") || causa.equals("3")) //COMPRA
 		{Integer cp=obtenerCodigoPlano(aId);
 		StockSerializado s = new StockSerializado(Integer.parseInt(cantidad),cp);
 		s.upStockId(cantidad, ubicacionDestino, aId,null,null);

@@ -253,7 +253,7 @@ public class MovimientoDAO {
 				a.setUM(um);
 				if(!cant.equals(""))
 				{a.setCant(rs.getObject("cant").toString());
-					System.out.println("cantidad=== "+ a.getCant());
+					//System.out.println("cantidad=== "+ a.getCant());
 				}
 				arts.add(a);
 				while (rs.next()) {
@@ -282,7 +282,7 @@ public class MovimientoDAO {
 			sb.append(" inner join Stock s on s.id=sps.stock_id");
 
 			PreparedStatement stm;
-			System.out.println(sb);
+			//System.out.println(sb);
 			stm = con.prepareStatement(sb.toString());
 			//stm.setString(1, alm);
 			rs = stm.executeQuery();
@@ -295,7 +295,7 @@ public class MovimientoDAO {
 						 {
 							 Integer l= rs.getInt("lote");
 							 am.setLote(l);	
-							 System.out.println(id+" DAO tiene lote: "+l);
+							// System.out.println(id+" DAO tiene lote: "+l);
 						 }
 					}
 				}
@@ -512,6 +512,7 @@ public class MovimientoDAO {
 			sb.append(" inner join Ubicaciones u on s.ubicaciones_id=u.id");
 			sb.append(" where  articuo_id=? and ubicaciones_id=?");
 			PreparedStatement stm;
+			System.out.println("controlDestino: -----"+sb.toString());
 			stm = con.prepareStatement(sb.toString());
 			stm.setString(1, art);
 			stm.setString(2, ubDestino);
@@ -546,7 +547,7 @@ public class MovimientoDAO {
 			}
 
 		
-	
+	System.out.println("art:--"+art+"  destino:--"+ubDestino);
 		if(controlDestino(art, ubDestino))
 		{
 		try{
@@ -576,28 +577,28 @@ public class MovimientoDAO {
 			
 		}
 		
-		
-		if(ubOrigen!=null)
-		{
-			if(!ubOrigen.equals(""))	
-			{
-				String cantOrigen="";
-			
-			cantOrigen="cantidad-"+cantidad;
-			
-			try{
-				StringBuilder sb1=new StringBuilder();
-				sb1.append("update Stock set cantidad="+cantOrigen+", user_upd=2, descrpcion_upd='movimieneto stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
-	
-				System.out.println(sb1);
-				PreparedStatement ps=con.prepareStatement(sb1.toString());
-				ps.executeUpdate();			
-				
-			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad2");
-			JOptionPane.showMessageDialog(null, "ERROR: updateCantidad");}
-			}
-		
-		}
+//		
+//		if(ubOrigen!=null)
+//		{
+//			if(!ubOrigen.equals(""))	
+//			{
+//				String cantOrigen="";
+//			
+//			cantOrigen="cantidad-"+cantidad;
+//			
+//			try{
+//				StringBuilder sb1=new StringBuilder();
+//				sb1.append("update Stock set cantidad="+cantOrigen+", user_upd=2, descrpcion_upd='movimieneto stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
+//	
+//				System.out.println(sb1);
+//				PreparedStatement ps=con.prepareStatement(sb1.toString());
+//				ps.executeUpdate();			
+//				
+//			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad2");
+//			JOptionPane.showMessageDialog(null, "ERROR: updateCantidad");}
+//			}
+//		
+//		}
 
 	}
 	
@@ -614,7 +615,7 @@ public class MovimientoDAO {
 			sb.append(" inner join Causa c on c.id=m.causa_id");
 			sb.append(" inner join Articulo art on art.id=m.articulo_id");
 			sb.append(" inner join Descripcion d on art.descripcion_id=d.id");
-			sb.append(" where m.revertido=0");
+			sb.append(" where m.revertido=0 or m.revertido is null");
 			sb.append(" order by m.id desc");
 			PreparedStatement stm;
 			System.out.println("ultimos mov: "+sb.toString());

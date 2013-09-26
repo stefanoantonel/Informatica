@@ -419,7 +419,7 @@ public class MovimientoStockUI extends JFrame {
 			 ubicacion=ubicacionOrigen;
 		else
 			ubicacion=ubicacionDestino;
-		if(!causaElegida.equals("1") && a!=null && a.getLote()!=null)
+		if((!causaElegida.equals("1") && !causaElegida.equals("3")) && a!=null && a.getLote()!=null)
 		{
 			if(a.getLote().size()>0)
 			{
@@ -464,14 +464,19 @@ public class MovimientoStockUI extends JFrame {
 			origenUbicacion.setModel(new DefaultComboBoxModel<>());
 			}
 		
-		 if(causaElegida.equals("3") || causaElegida.equals("5") && (lote==null || lote.equals("")))
-			return false;
+		 if((causaElegida.equals("3") || causaElegida.equals("5")) && (lote==null || lote.equals("")))
+			{
+			 System.out.println("1");
+			 return false;}
 
 		 if ( txtCantidad.getText().equals("") || ubicacionDestino.equals(""))
-			return false;
+			{
+			 System.out.println("2");
+			 return false;}
 		
 		 if (causaElegida.equals("5") && ubicacionOrigen.equals(""))
-			return false;
+			{System.out.println("3");
+			 return false;}
 			
 		 return true;
 		 

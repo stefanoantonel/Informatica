@@ -323,15 +323,19 @@ public class StockSerializadoDAO {
 		Connection con = cn1.getConexion();
 		String condicion=" where stock_id is null";
 		System.out.println("LOTE: "+lote + "        ubOrigen: "+ubOrigen);
-		if((lote != null ) && (ubOrigen != null) )
-			{ if(!lote.equals("") && !ubOrigen.equals("") && !lote.equals("Indistinto"))
-			condicion= " where stock_id = (select distinct id from Stock where ubicaciones_id="+ubOrigen+" and articuo_id="+idArt+") and lote="+lote;}
-//		else
-//			condicion=" where stock_id is null";
+		if(lote != null) 
+		{	condicion=" where lote="+lote;
+			if(ubOrigen != null)	
+				condicion = condicion + " and stock_id=(select distinct id from Stock where ubicaciones_id="+ubOrigen+" and articuo_id="+idArt+")";
+		}
+		else if(ubOrigen != null)
+		{
+			condicion= " where stock_id=(select distinct id from Stock where ubicaciones_id="+ubOrigen+" and articuo_id="+idArt+")";
+		}
 		
 		try{
 			StringBuilder sb1=new StringBuilder();
-			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+idArt+")");
+			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct top(1) id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+idArt+" order by id desc)");
 			sb1.append(condicion);
 
 			System.out.println(sb1);
@@ -359,7 +363,7 @@ public class StockSerializadoDAO {
 		
 		try{
 			StringBuilder sb1=new StringBuilder();
-			sb1.append("Delete top("+cantidad+")[Stock Productos Serializados] where stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+a+")");
+			sb1.append("Delete top("+cantidad+")[Stock Productos Serializados] where stock_id=(select distinct top(1) id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+a+" order by id desc)");
 			sb1.append(condicion);
 
 			System.out.println(sb1);
