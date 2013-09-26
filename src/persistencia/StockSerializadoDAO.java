@@ -129,7 +129,6 @@ public class StockSerializadoDAO {
 				stm.setString(4,"cargo serie de producto "+codigosPlanos);
 				stm.setInt(5,ultimoLote);
 				stm.executeUpdate();
-				
 			}
 			return true;
 			
