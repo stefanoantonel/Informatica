@@ -179,6 +179,7 @@ public class MovimientoStockUI extends JFrame {
 		loteCombo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				lote= arg0.getItem().toString();
+				Articulos art = m.getArtByDesc(articulo);
 				if(lote!=null && lote!="")
 				{if(!lote.equals("Indistinto") && !causaElegida.equals("3"))			
 					{
@@ -194,13 +195,17 @@ public class MovimientoStockUI extends JFrame {
 						}
 					System.out.println("cant max:"+cantidadMaxima);
 					if(cantidadMaxima==null)
-						{Articulos art = m.getArtByDesc(articulo);
+						{
 						cantMax.setText("Max("+art.getCant()+")");}
 					else
 						cantMax.setText("Max("+cantidadMaxima+")");
 					}
-				else
-					cantidadMaxima=null;
+				else if(lote.equals("Indistinto"))
+						{
+					     cantidadMaxima=Integer.parseInt(art.getCant());
+					     cantMax.setText("Max("+art.getCant()+")");
+						}
+				else cantidadMaxima=null;
 				}
 			}
 		});

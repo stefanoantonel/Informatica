@@ -427,7 +427,7 @@ public class MovimientoDAO {
 	}
 	
 	public void insertarMovimiento(String causa,String sucOrigen,String almacenOrigen,String ubicacionOrigen,String sucDestino,
-			String almacenDestino, String ubicacionDestino,Articulos art,String fecha, String nota, String cantidad)
+			String almacenDestino, String ubicacionDestino,Articulos art,String fecha, String nota, String cantidad, String lote)
 	{
 		if(fecha==null||fecha.equals("")){
 			fecha="getDate() ";
@@ -481,7 +481,7 @@ public class MovimientoDAO {
 //		
 
 		
-		updateCantidad(cantidad,art.getValor().toString(),causa,ubicacionOrigen,ubicacionDestino);
+		updateCantidad(cantidad,art.getValor().toString(),causa,ubicacionOrigen,ubicacionDestino, lote);
 		
 	}
 	
@@ -530,7 +530,7 @@ public class MovimientoDAO {
 	}
 	
 	
-	public void updateCantidad(String cantidad, String art, String causa, String ubOrigen, String ubDestino)
+	public void updateCantidad(String cantidad, String art, String causa, String ubOrigen, String ubDestino, String lote)
 	{
 
 
@@ -577,28 +577,28 @@ public class MovimientoDAO {
 			
 		}
 		
-//		
-//		if(ubOrigen!=null)
-//		{
-//			if(!ubOrigen.equals(""))	
-//			{
-//				String cantOrigen="";
-//			
-//			cantOrigen="cantidad-"+cantidad;
-//			
-//			try{
-//				StringBuilder sb1=new StringBuilder();
-//				sb1.append("update Stock set cantidad="+cantOrigen+", user_upd=2, descrpcion_upd='movimieneto stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
-//	
-//				System.out.println(sb1);
-//				PreparedStatement ps=con.prepareStatement(sb1.toString());
-//				ps.executeUpdate();			
-//				
-//			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad2");
-//			JOptionPane.showMessageDialog(null, "ERROR: updateCantidad");}
-//			}
-//		
-//		}
+		
+		if(ubOrigen!=null && (lote==null || lote.equals("Indistinto")) )
+		{
+			if(!ubOrigen.equals(""))	
+			{
+				String cantOrigen="";
+			
+			cantOrigen="cantidad-"+cantidad;
+			
+			try{
+				StringBuilder sb1=new StringBuilder();
+				sb1.append("update Stock set cantidad="+cantOrigen+", user_upd=2, descrpcion_upd='movimieneto stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
+	
+				System.out.println(sb1);
+				PreparedStatement ps=con.prepareStatement(sb1.toString());
+				ps.executeUpdate();			
+				
+			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad2");
+			JOptionPane.showMessageDialog(null, "ERROR: updateCantidad");}
+			}
+		
+		}
 
 	}
 	
@@ -645,7 +645,7 @@ public class MovimientoDAO {
 		return ultMov;
 	}
 	
-	public void revertirCambio(String id, Movimiento m)
+	public void revertirCambio(String id, Movimiento m, String lote)
 	{
 		String origen=null;
 		String destino=null;
@@ -679,17 +679,17 @@ public class MovimientoDAO {
 		
 		if(causa.equals("1") || causa.equals("3"))  
 		{
-			updateCantidad(cantidad, art, "2", null, destino); //2 para que reste  //si quiero q sume 1
+			updateCantidad(cantidad, art, "2", null, destino, lote); //2 para que reste  //si quiero q sume 1
 			m.gestionSps("2",cantidad,origen,art,null,destino);
 		}
 		if(causa.equals("2") ||causa.equals("4"))  
 		{
-			updateCantidad(cantidad, art, "1", null, destino);// si quiero q sume 1
+			updateCantidad(cantidad, art, "1", null, destino, lote);// si quiero q sume 1
 			m.gestionSps("1",cantidad,origen,art,null,destino);
 		}
 		if(causa.equals("5"))  
 		{
-			updateCantidad(cantidad, art, "5",destino, origen); //si quiero q sume 1
+			updateCantidad(cantidad, art, "5",destino, origen, lote); //si quiero q sume 1
 			m.gestionSps(causa,cantidad,origen,art,null,destino);
 		}
 

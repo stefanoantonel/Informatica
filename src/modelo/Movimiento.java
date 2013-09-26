@@ -126,7 +126,7 @@ public class Movimiento {
 		if(lote==null ||lote.equals(""))
 			{lote=""; System.out.println("lote nulo");}
 		
-		mDao.insertarMovimiento(causa,sucursalOrigen,almacenOrigen,ubicacionOrigen,sucursalDestino,almacenDestino,ubicacionDestino,a,fecha,nota,cantidad);
+		mDao.insertarMovimiento(causa,sucursalOrigen,almacenOrigen,ubicacionOrigen,sucursalDestino,almacenDestino,ubicacionDestino,a,fecha,nota,cantidad, lote);
 		
 		
 //		if(causa.equals("1")) //COMPRA
@@ -166,6 +166,8 @@ public class Movimiento {
 		{
 			StockSerializado s = new StockSerializado();
 			System.out.println("lote ------------------"+ lote);
+			if(lote.equals("Indistinto"))
+				lote=null;
 			s.upStockId(cantidad, ubicacionDestino, aId,ubicacionOrigen,lote);
 		}
 		
@@ -234,7 +236,7 @@ public class Movimiento {
 	
 	public void revertirCambio(String id)
 	{
-		mDao.revertirCambio(id,this);
+		mDao.revertirCambio(id,this,null);
 		//gestionSps(causa,cantidad,ubicacionDestino,a,lote,ubicacionOrigen);
 	}
 	
