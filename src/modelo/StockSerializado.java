@@ -138,7 +138,7 @@ public class StockSerializado {
 	}
 	
 	
-	public void delStock(String cantidad, String ubDestino, Articulos a, String lote)
+	public void delStock(String cantidad, String ubDestino, String a, String lote)
 	{
 		cs.delStock(cantidad,ubDestino,a,lote);
 	}

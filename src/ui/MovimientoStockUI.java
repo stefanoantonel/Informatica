@@ -54,11 +54,12 @@ public class MovimientoStockUI extends JFrame {
 	private JTextField txtFecha;
 	public String fecha;
 	public String nota;
+	private JButton btnNewButton;
 
 	public MovimientoStockUI() {
 		setTitle("Movimiento de Stock");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 844, 428);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 848, 478);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,7 +87,7 @@ public class MovimientoStockUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				cantMax.setText("Max()");
 				articulo=arg0.getItem().toString();
-				System.out.println("articulo: "+articulo);
+				
 				inicializaLote(articulo);
 				inicializaUM(articulo);
 			}
@@ -182,7 +183,7 @@ public class MovimientoStockUI extends JFrame {
 				{if(!lote.equals("Indistinto") && !causaElegida.equals("3"))			
 					{
 					if(causaElegida.equals("2")||causaElegida.equals("4")) //destruccion o ajuste negativo
-					    {	System.out.println("almacen para CM:"+almacenDestino);
+					    {
 						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), ubicacionDestino, articulo);
 						System.out.println("cantdadMaxima: "+cantidadMaxima);
 					    }
@@ -231,7 +232,7 @@ public class MovimientoStockUI extends JFrame {
 				origenUbicacion.setEnabled(true);
 				loteCombo.setEnabled(true);
 				InicializaSuc();
-				System.out.println("causaElegida: "+causaElegida);
+				
 				if (causaElegida.equals("1"))
 				 {
 					InicializaArticulo(null);
@@ -270,7 +271,7 @@ public class MovimientoStockUI extends JFrame {
 				
 			}
 		});
-		btnAceptar.setBounds(656, 340, 116, 39);
+		btnAceptar.setBounds(653, 340, 116, 39);
 		contentPane.add(btnAceptar);
 		
 		lbUm = new JLabel("New label");
@@ -285,6 +286,16 @@ public class MovimientoStockUI extends JFrame {
 		txtFecha.setBounds(104, 337, 135, 32);
 		contentPane.add(txtFecha);
 		txtFecha.setColumns(10);
+		
+		btnNewButton = new JButton("Deshacer");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeshacerMovimientoUI dMov = new DeshacerMovimientoUI();
+				dMov.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(653, 390, 119, 39);
+		contentPane.add(btnNewButton);
 		
 		
 		Inicializa();
@@ -370,7 +381,7 @@ public class MovimientoStockUI extends JFrame {
 		cantidadMaxima=null;
 		if(!causaElegida.equals("1"))
 		{
-			System.out.println("causa: "+ causaElegida);
+			//System.out.println("causa: "+ causaElegida);
 			arts = m.getArticulosXubicacion(ub);
 			if(arts!=null){
 			modelo.addElement("");
@@ -384,12 +395,12 @@ public class MovimientoStockUI extends JFrame {
 		}
 		else
 		{
-			System.out.println("entro al else ");
+		
 			//si la causa es 1: son los articulos de compra
 			artsCompra= m.getArticulosCompra();
 			modelo.addElement("");
 			for(Articulos art:artsCompra){
-				System.out.println("articulo compra: "+art.getDesc());
+			
 				modelo.addElement(art.getDesc());
 			}
 			articuloCombo.setModel(modelo);
@@ -416,12 +427,12 @@ public class MovimientoStockUI extends JFrame {
 				for(Integer lote:a.getLote()){
 					if(m.controlLoteUbicacion(lote,ubicacion,a))
 						modeloLote.addElement(lote.toString());
-					System.out.println("lote no es nulo");
+					
 				}
 			}
 			else
 				{
-				 System.out.println("lote nulo");
+				
 				 loteCombo.setEnabled(false);
 				 cantMax.setText("Max("+a.getCant()+")");
 				 return;
@@ -465,4 +476,7 @@ public class MovimientoStockUI extends JFrame {
 		 return true;
 		 
 	}
+	
+
+	
 }

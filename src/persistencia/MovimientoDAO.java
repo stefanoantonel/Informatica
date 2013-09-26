@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import modelo.Articulos;
+import modelo.Movimiento;
 import modelo.UnidadMedida;
 
 public class MovimientoDAO {
@@ -411,7 +412,7 @@ public class MovimientoDAO {
 				artic = rs.getObject("art").toString();
 				aux.add(artic);
 				cant = rs.getObject("cant").toString();
-				System.out.println("cant: "+cant);
+				
 				aux.add(cant);
 				mat.add(aux);
 				
@@ -576,74 +577,140 @@ public class MovimientoDAO {
 		}
 		
 		
-		if(ubOrigen!=null || !ubOrigen.equals(""))
+		if(ubOrigen!=null)
 		{
-		String cantOrigen="";
-		
-//		if(causa.equals("2")||causa.equals("4"))//destruccion o ajuste negativo
-//			cantOrigen="cantidad-"+cantidad;
-//		if(causa.equals("1") ||causa.equals("5"))//ajuste positivo o compra
-//			cantOrigen="cantidad+"+cantidad;
-//		else 
-//			cantOrigen=cantidad;
-		cantOrigen="cantidad-"+cantidad;
-		
-		try{
-			StringBuilder sb1=new StringBuilder();
-			sb1.append("update Stock set cantidad="+cantOrigen+", user_upd=2, descrpcion_upd='movimieneto stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
-
-			System.out.println(sb1);
-			PreparedStatement ps=con.prepareStatement(sb1.toString());
-			ps.executeUpdate();			
+			if(!ubOrigen.equals(""))	
+			{
+				String cantOrigen="";
 			
-		}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad2");
-		JOptionPane.showMessageDialog(null, "ERROR: updateCantidad");}
+			cantOrigen="cantidad-"+cantidad;
+			
+			try{
+				StringBuilder sb1=new StringBuilder();
+				sb1.append("update Stock set cantidad="+cantOrigen+", user_upd=2, descrpcion_upd='movimieneto stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
+	
+				System.out.println(sb1);
+				PreparedStatement ps=con.prepareStatement(sb1.toString());
+				ps.executeUpdate();			
+				
+			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad2");
+			JOptionPane.showMessageDialog(null, "ERROR: updateCantidad");}
+			}
 		
 		}
 
+	}
+	
+	public ArrayList<String> obtenerUltimosMov()
+	{
+		ArrayList<String> ultMov = new ArrayList<>();
 		
-//		if(causa.equals("5")|| causa=="5" )//movimiento  restar en el origen y cambiar en sps
-//		{
-//			cantDestino="cantidad+"+cantidad;
-//			System.out.println("cantD: "+cantDestino);
-//			//restar en el origen
-//			try{
-//				StringBuilder sb1=new StringBuilder();
-//				sb1.append("update Stock set cantidad=cantidad-"+cantidad+", user_upd=2, descrpcion_upd='movimiento stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
-//
-//				System.out.println(sb1);
-//				PreparedStatement ps=con.prepareStatement(sb1.toString());
-//				ps.executeUpdate();			
-//				
-//			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad1");
-//			JOptionPane.showMessageDialog(null, "ERROR: updateCantidad en movimiento");}
-//			
-//			//update el SPS
-////			try{
-////				StringBuilder sb1=new StringBuilder();
-////				sb1.append("update [Stock Productos Serializados] set");
-////				sb1.append(" stock_id=(select distinct id from Stock where articuo_id=");
-////				sb1.append(art);
-////				sb1.append(" and ubicaciones_id=");
-////				sb1.append(ubDestino);
-////				sb1.append(") where stock_id=(select distinct id from Stock where articuo_id=");
-////				sb1.append(art);
-////				sb1.append(" and ubicaciones_id=");
-////				sb1.append(ubOrigen);
-////				sb1.append(")");
-////				System.out.println("actualzia sps "+ sb1);
-////				PreparedStatement ps=con.prepareStatement(sb1.toString());
-////				ps.executeUpdate();			
-////				
-////			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad1");
-////			JOptionPane.showMessageDialog(null, "ERROR: updateSPS");}
-//		}
-//		
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("select TOP(5) m.id mov, s.descripcion suc,a.descripcion al,c.descripcion causa,d.descripcion_str art, m.cantidad");
+			sb.append(" from Movimientos m");
+			sb.append(" inner join Sucursales s on s.id=m.sucursal_destino");
+			sb.append(" inner join Almacenes a on a.id=m.almacen_destino");
+			sb.append(" inner join Causa c on c.id=m.causa_id");
+			sb.append(" inner join Articulo art on art.id=m.articulo_id");
+			sb.append(" inner join Descripcion d on art.descripcion_id=d.id");
+			sb.append(" where m.revertido=0");
+			sb.append(" order by m.id desc");
+			PreparedStatement stm;
+			System.out.println("ultimos mov: "+sb.toString());
+			stm = con.prepareStatement(sb.toString());
+			rs = stm.executeQuery();
+
+			while (rs.next()) {
+			    StringBuilder resultado = new StringBuilder();
+			    resultado.append(rs.getObject("mov").toString());
+			    resultado.append(") ");
+			    resultado.append(rs.getObject("suc").toString());
+			    resultado.append(" - ");
+			    resultado.append(rs.getObject("al").toString());
+			    resultado.append(" - ");
+			    resultado.append(rs.getObject("causa").toString());
+			    resultado.append(" - ");
+			    resultado.append(rs.getObject("art").toString());
+			    resultado.append(" - ");
+			    resultado.append(rs.getObject("cantidad").toString());
+				ultMov.add(resultado.toString());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error en getSucursales");
+		}
+		return ultMov;
+	}
+	
+	public void revertirCambio(String id, Movimiento m)
+	{
+		String origen=null;
+		String destino=null;
+		String cantidad=null;
+		String art=null;
+		String causa=null;
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("select ubicacion_origen ubO ,ubicacion_destino ubD,articulo_id art,cantidad c, causa_id cau from Movimientos where id=");
+			sb.append(id);
+			PreparedStatement stm;
+			System.out.println("revertirCambio: "+sb.toString());
+			stm = con.prepareStatement(sb.toString());
+			rs = stm.executeQuery();
+
+			while (rs.next()) {
+				
+			    Object ori=(rs.getObject("ubO"));
+			    if (ori!=null)
+			    	origen= ori.toString();
+			    destino=(rs.getObject("ubD").toString());
+			    art=(rs.getObject("art").toString());
+			    cantidad=(rs.getObject("c").toString());
+			    causa=(rs.getObject("cau").toString());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error en revertir");
+		}
+		
+		if(causa.equals("1") || causa.equals("3"))  
+		{
+			updateCantidad(cantidad, art, "2", null, destino); //2 para que reste  //si quiero q sume 1
+			m.gestionSps("2",cantidad,origen,art,null,destino);
+		}
+		if(causa.equals("2") ||causa.equals("4"))  
+		{
+			updateCantidad(cantidad, art, "1", null, destino);// si quiero q sume 1
+			m.gestionSps("1",cantidad,origen,art,null,destino);
+		}
+		if(causa.equals("5"))  
+		{
+			updateCantidad(cantidad, art, "5",destino, origen); //si quiero q sume 1
+			m.gestionSps(causa,cantidad,origen,art,null,destino);
+		}
+
+		
+		
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("update Movimientos set revertido=1 where id=");
+			sb.append(id);
+			PreparedStatement stm;
+			System.out.println("revertirCambio: "+sb.toString());
+			stm = con.prepareStatement(sb.toString());
+			stm.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error en revertir");
+		}
 		
 		
 		
 	}
-	
 
 }
 

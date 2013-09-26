@@ -48,7 +48,7 @@ public class Movimiento {
 	public ArrayList<Articulos> getArticulosXubicacion(String ub)
 	{
 		String u= getFormatoUbicacion(ub);
-		System.out.println("ubicacion Movimiento:"+ u);
+		
 		arts= mDao.getArticuloXubicacion(u);
 		return arts;
 	}
@@ -72,14 +72,14 @@ public class Movimiento {
 		System.out.println("ubicacion:"+ubicacion+" id="+a);
 		ArrayList<ArrayList<String>> matLoteXCantidad = mDao.getCantidadXlote();
 		//almcaen, lote ,articulo, cantidad
-		System.out.println("lote: "+lote+" ub:"+a+" art:"+articulo.getValor());
+		
 		
 		for (ArrayList<String> ar: matLoteXCantidad)
 		{
-			System.out.println("ar.alm:"+ar.get(0)+" ar.lote:"+ar.get(1)+" ar.art:"+ar.get(2));
+			
 			if((ar.get(0).equals(a) && ar.get(1).equals(lote.toString()) && ar.get(2).equals(articulo.getValor().toString())) || (ar.get(0)==a && ar.get(1)==lote.toString()&& articulo.getValor()==Integer.parseInt(ar.get(2))))
 				{
-				 System.out.println("cantXlote:" + ar.get(3));
+				
 				 return Integer.parseInt(ar.get(3));
 				}
 		}	
@@ -129,26 +129,54 @@ public class Movimiento {
 		mDao.insertarMovimiento(causa,sucursalOrigen,almacenOrigen,ubicacionOrigen,sucursalDestino,almacenDestino,ubicacionDestino,a,fecha,nota,cantidad);
 		
 		
+//		if(causa.equals("1")) //COMPRA
+//		{Integer cp=obtenerCodigoPlano(a.getValor().toString());
+//		StockSerializado s = new StockSerializado(Integer.parseInt(cantidad),cp);
+//		s.upStockId(cantidad, ubicacionDestino, a.getValor().toString(),null,null);
+//		}
+//		
+//		if(causa.equals("5"))
+//		{
+//			StockSerializado s = new StockSerializado();
+//			System.out.println("lote ------------------"+ lote);
+//			s.upStockId(cantidad, ubicacionDestino, a.getValor().toString(),ubicacionOrigen,lote);
+//		}
+//		
+//		if(causa.equals("2")|| causa.equals("4"))
+//		{
+//		   StockSerializado s = new StockSerializado();
+//		   s.delStock(cantidad,ubicacionDestino,a,lote);
+//		}
+		
+		gestionSps(causa,cantidad,ubicacionDestino,a.getValor().toString(),lote,ubicacionOrigen);
+		
+	}
+	
+	
+	public void gestionSps (String causa, String cantidad, String ubicacionDestino, String aId, String lote, String ubicacionOrigen)
+	{
 		if(causa.equals("1")) //COMPRA
-		{Integer cp=obtenerCodigoPlano(a.getValor().toString());
+		{Integer cp=obtenerCodigoPlano(aId);
 		StockSerializado s = new StockSerializado(Integer.parseInt(cantidad),cp);
-		s.upStockId(cantidad, ubicacionDestino, a.getValor().toString(),null,null);
+		s.upStockId(cantidad, ubicacionDestino, aId,null,null);
+		System.out.println("compro");
 		}
 		
 		if(causa.equals("5"))
 		{
 			StockSerializado s = new StockSerializado();
 			System.out.println("lote ------------------"+ lote);
-			s.upStockId(cantidad, ubicacionDestino, a.getValor().toString(),ubicacionOrigen,lote);
+			s.upStockId(cantidad, ubicacionDestino, aId,ubicacionOrigen,lote);
 		}
 		
 		if(causa.equals("2")|| causa.equals("4"))
 		{
 		   StockSerializado s = new StockSerializado();
-		   s.delStock(cantidad,ubicacionDestino,a,lote);
+		   s.delStock(cantidad,ubicacionDestino,aId,lote);
 		}
-		
 	}
+	
+	
 	public Articulos getArtByDesc (String desc)
 	{
 		for (Articulos a:arts)
@@ -197,6 +225,17 @@ public class Movimiento {
 		}
 		return "";
 
+	}
+	
+	public ArrayList<String> obtenerUltimosMov()
+	{
+		return mDao.obtenerUltimosMov();
+	}
+	
+	public void revertirCambio(String id)
+	{
+		mDao.revertirCambio(id,this);
+		//gestionSps(causa,cantidad,ubicacionDestino,a,lote,ubicacionOrigen);
 	}
 	
 	

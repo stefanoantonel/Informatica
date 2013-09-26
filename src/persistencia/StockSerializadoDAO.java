@@ -346,7 +346,7 @@ public class StockSerializadoDAO {
 	}
 	
 	
-	public void delStock(String cantidad, String ubDestino, Articulos a, String lote)
+	public void delStock(String cantidad, String ubDestino,String a, String lote)
 	{
 		Conexion cn1 = new Conexion();
 		Connection con = cn1.getConexion();
@@ -360,7 +360,7 @@ public class StockSerializadoDAO {
 		
 		try{
 			StringBuilder sb1=new StringBuilder();
-			sb1.append("Delete top("+cantidad+")[Stock Productos Serializados] where stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+a.getValor()+")");
+			sb1.append("Delete top("+cantidad+")[Stock Productos Serializados] where stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+a+")");
 			sb1.append(condicion);
 
 			System.out.println(sb1);
