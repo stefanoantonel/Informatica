@@ -29,19 +29,24 @@ import modelo.Nodo;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MenuKeyEvent;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.text.SimpleAttributeSet;
 
 import persistencia.RemitoDAO;
+import txt.Lectura;
 
 public class MenuUI extends JFrame {
 
@@ -68,7 +73,7 @@ public class MenuUI extends JFrame {
 	public MenuUI() {
 		setTitle("Informatica Industrial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 747, 483);
+		setBounds(100, 100, 907, 483);
 		
 		contentPane = new JPanel();
 //		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -224,6 +229,16 @@ public class MenuUI extends JFrame {
 		});
 		btnNewButton_5.setBounds(510, 318, 161, 67);
 		contentPane.add(btnNewButton_5);
+		
+		JButton leerTXT = new JButton("Leer TXT");
+		leerTXT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Lectura l=new Lectura();
+				
+			}
+		});
+		leerTXT.setBounds(681, 83, 159, 67);
+		contentPane.add(leerTXT);
 		setLocationRelativeTo(null);
 
 	}
