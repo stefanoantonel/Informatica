@@ -316,14 +316,22 @@ public class StockSerializadoDAO {
 		return desc;
 	}
 	
-	public void upStockId(String cantidad, String ubDestino, String idArt)
+	public void upStockId(String cantidad, String ubDestino, String idArt, String ubOrigen, String lote)
 	{
 		Conexion cn1 = new Conexion();
 		Connection con = cn1.getConexion();
+		String condicion=" where stock_id is null";
+		System.out.println("LOTE: "+lote + "        ubOrigen: "+ubOrigen);
+		if((lote != null ) && (ubOrigen != null) )
+			{ if(!lote.equals("") && !ubOrigen.equals(""))
+			condicion= " where stock_id = (select distinct id from Stock where ubicaciones_id="+ubOrigen+" and articuo_id="+idArt+") and lote="+lote;}
+//		else
+//			condicion=" where stock_id is null";
+		
 		try{
 			StringBuilder sb1=new StringBuilder();
 			sb1.append("update top("+cantidad+")[Stock Productos Serializados] set stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+idArt+")");
-			sb1.append("where stock_id is null");
+			sb1.append(condicion);
 
 			System.out.println(sb1);
 			PreparedStatement ps=con.prepareStatement(sb1.toString());

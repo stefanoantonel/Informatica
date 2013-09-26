@@ -204,21 +204,25 @@ public class MovimientoDAO {
 		
 		ArrayList<Articulos> arts=null;
 		String ubic="";
+		String cant="";
 		//System.out.println("ub:"+ub);
 		if (ub==null)
-			ubic="";
+			{ubic="";			
+			}
 		else
 			{if(ub.equals("")|| ub.equals(" "))
 			ubic="";
 		    else
 			   {
 		    	System.out.println("ub: "+ub);
-		    	ubic=" where u.id="+ub;
+		    	ubic=" and u.id="+ub;
+		    	cant=", s.cantidad cant";
 		    	}
 		   }
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("select distinct ar.id,d.descripcion_str as descripcion, um.id um, d2.descripcion_str descrip"); //, sps.lote");
+			sb.append(cant);
 			sb.append(" from Ubicaciones u");
 			sb.append(" inner join Stock s on u.id=s.ubicaciones_id");
 			sb.append(" inner join Articulo ar on ar.id=s.articuo_id");
@@ -226,11 +230,11 @@ public class MovimientoDAO {
 			//sb.append(" inner join [Stock Productos Serializados] sps on sps.stock_id=s.id");
 			sb.append(" inner join [Unidad Medida] um on ar.um_id=um.id");
 			sb.append(" inner join Descripcion d2 on d2.id=um.descripcion_id"); 
-			
+			sb.append(" where s.cantidad>0");
 			sb.append(ubic);
 			//sb.append(" order by ar.id");
 			PreparedStatement stm;
-			System.out.println(sb);
+			System.out.println("getArtXub: "+sb);
 			stm = con.prepareStatement(sb.toString());
 			//stm.setString(1, alm);
 			rs = stm.executeQuery();
@@ -246,12 +250,20 @@ public class MovimientoDAO {
 				a.setDesc(rs.getObject("descripcion").toString());
 				um= new UnidadMedida(rs.getInt("um"),rs.getObject("descrip").toString());
 				a.setUM(um);
+				if(!cant.equals(""))
+				{a.setCant(rs.getObject("cant").toString());
+					System.out.println("cantidad=== "+ a.getCant());
+				}
 				arts.add(a);
 				while (rs.next()) {
 						a= new Articulos(rs.getInt("id"));
 						a.setDesc(rs.getObject("descripcion").toString());
 						um= new UnidadMedida(rs.getInt("um"),rs.getObject("descrip").toString());
 						a.setUM(um);
+						if(!cant.equals(""))
+							{a.setCant(rs.getObject("cant").toString());
+								System.out.println("cantidad=== "+ a.getCant());
+							}
 						arts.add(a);
 					}
 			}
@@ -279,7 +291,10 @@ public class MovimientoDAO {
 					for (Articulos am: arts)	
 					{
 					 if(am.getValor()== id)
-						 am.setLote(rs.getInt("lote"));
+						 {
+							 Integer l= rs.getInt("lote");
+							 am.setLote(l);							 
+						 }
 					}
 				}
 
@@ -370,25 +385,26 @@ public class MovimientoDAO {
 	
 	public ArrayList<ArrayList<String>>  getCantidadXlote()
 	{
-		String almacen, lot,artic,cant;
+		String ubicacion, lot,artic,cant;
 		ArrayList<ArrayList<String>> mat = new ArrayList<>();
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("select a.id alm , lote, s.articuo_id art, COUNT(sps.id) cant");
+			sb.append("select u.id ub , lote, s.articuo_id art, COUNT(sps.id) cant");
 			sb.append(" from Stock s");
 			sb.append(" inner join Ubicaciones u on s.ubicaciones_id=u.id");
 			sb.append(" inner join Almacenes a on a.id=u.almacenes_id");
 			sb.append(" inner join [Stock Productos Serializados] sps on sps.stock_id=s.id");
-			sb.append(" group by a.id, lote, s.articuo_id");
+			sb.append(" group by u.id, lote, s.articuo_id");
 			PreparedStatement stm;
+			System.out.println(sb.toString());
 			stm = con.prepareStatement(sb.toString());
 			//stm.setString(1, alm);
 			rs = stm.executeQuery();
 
 			while (rs.next()) {
 				ArrayList<String> aux= new ArrayList<>();
-				almacen = rs.getObject("alm").toString();
-				aux.add(almacen);
+				ubicacion = rs.getObject("ub").toString();
+				aux.add(ubicacion);
 				lot = rs.getObject("lote").toString();
 				aux.add(lot);
 				artic = rs.getObject("art").toString();
@@ -522,11 +538,13 @@ public class MovimientoDAO {
 			{cantDestino="cantidad-"+cantidad;
 			 System.out.println("cantd: "+cantDestino);
 			}
-		if(causa.equals("1") ||causa.equals("3") || causa=="1" ||causa=="3")//ajuste positivo o compra
+		if(causa.equals("1") ||causa.equals("3") ||causa.equals("5") || causa=="1" ||causa=="3" ||causa=="5")//ajuste positivo o compra o movimiento
 			{cantDestino="cantidad+"+cantidad;
 			System.out.println("cantD: "+cantDestino);
 			}
+
 		
+	
 		if(controlDestino(art, ubDestino))
 		{
 		try{
@@ -535,7 +553,8 @@ public class MovimientoDAO {
 
 			System.out.println(sb1);
 			PreparedStatement ps=con.prepareStatement(sb1.toString());
-			ps.executeUpdate();			
+			ps.executeUpdate();	
+			
 			
 		}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad1");
 		JOptionPane.showMessageDialog(null, "ERROR: updateCantidad");}
@@ -582,39 +601,48 @@ public class MovimientoDAO {
 		}
 
 		
+//		if(causa.equals("5")|| causa=="5" )//movimiento  restar en el origen y cambiar en sps
+//		{
+//			cantDestino="cantidad+"+cantidad;
+//			System.out.println("cantD: "+cantDestino);
+//			//restar en el origen
+//			try{
+//				StringBuilder sb1=new StringBuilder();
+//				sb1.append("update Stock set cantidad=cantidad-"+cantidad+", user_upd=2, descrpcion_upd='movimiento stock', lugar_upd='facu' where articuo_id="+art+" and ubicaciones_id="+ubOrigen);
+//
+//				System.out.println(sb1);
+//				PreparedStatement ps=con.prepareStatement(sb1.toString());
+//				ps.executeUpdate();			
+//				
+//			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad1");
+//			JOptionPane.showMessageDialog(null, "ERROR: updateCantidad en movimiento");}
+//			
+//			//update el SPS
+////			try{
+////				StringBuilder sb1=new StringBuilder();
+////				sb1.append("update [Stock Productos Serializados] set");
+////				sb1.append(" stock_id=(select distinct id from Stock where articuo_id=");
+////				sb1.append(art);
+////				sb1.append(" and ubicaciones_id=");
+////				sb1.append(ubDestino);
+////				sb1.append(") where stock_id=(select distinct id from Stock where articuo_id=");
+////				sb1.append(art);
+////				sb1.append(" and ubicaciones_id=");
+////				sb1.append(ubOrigen);
+////				sb1.append(")");
+////				System.out.println("actualzia sps "+ sb1);
+////				PreparedStatement ps=con.prepareStatement(sb1.toString());
+////				ps.executeUpdate();			
+////				
+////			}catch (Exception e){e.printStackTrace(); System.out.println("error updateCantidad1");
+////			JOptionPane.showMessageDialog(null, "ERROR: updateSPS");}
+//		}
+//		
+		
 		
 		
 	}
 	
-	
-	
-//	public void getUM ()
-//	{
-//		ArrayList<String> um = new ArrayList<>();
-//
-//		 try {
-//				StringBuilder sb = new StringBuilder();
-//				sb.append(" select a.id,d.descripcion_str as descr");
-//				sb.append(" from Articulo a");
-//				sb.append(" inner join Descripcion d on d.id=a.descripcion_id");
-//				sb.append(" where a.tipo_id=2");
-//				PreparedStatement stm;
-//				stm = con.prepareStatement(sb.toString());
-//				//stm.setString(1, alm);
-//				rs = stm.executeQuery();
-//
-//				while (rs.next()) {
-//					Articulos a= new Articulos(rs.getInt("id")); 
-//					a.setDesc(rs.getObject("descr").toString());
-//					artic.add(a);
-//				}
-//				
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				System.out.println("error en getCantidadxLote");
-//			}
-//			return artic;
-//	}
-	
+
 }
 

@@ -42,7 +42,7 @@ public class MovimientoStockUI extends JFrame {
 	private JComboBox articuloCombo;
 	private JComboBox loteCombo;
 	private JLabel cantMax ;
-	private String lote;
+	public String lote;
 	private Integer cantidadMaxima;
 	public String causaElegida;
 	public Integer cantIngresada;
@@ -183,16 +183,19 @@ public class MovimientoStockUI extends JFrame {
 					{
 					if(causaElegida.equals("2")||causaElegida.equals("4")) //destruccion o ajuste negativo
 					    {	System.out.println("almacen para CM:"+almacenDestino);
-						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), almacenDestino, articulo);
+						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), ubicacionDestino, articulo);
 						System.out.println("cantdadMaxima: "+cantidadMaxima);
 					    }
 					else
 						{
 						System.out.println("alm para CM:"+almacenOrigen);
-						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), almacenOrigen, articulo);
+						cantidadMaxima= m.getCantidadXlote(Integer.parseInt(lote), ubicacionOrigen, articulo);
 						}
 					System.out.println("cant max:"+cantidadMaxima);
-					cantMax.setText("Max("+cantidadMaxima+")");
+					if(cantidadMaxima==null)
+						cantMax.setText("Max()");
+					else
+						cantMax.setText("Max("+cantidadMaxima+")");
 					}
 				else
 					cantidadMaxima=null;
@@ -363,7 +366,7 @@ public class MovimientoStockUI extends JFrame {
 	{
 		//m = new Movimiento();
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
-		
+		cantidadMaxima=null;
 		if(!causaElegida.equals("1"))
 		{
 			System.out.println("causa: "+ causaElegida);
@@ -399,12 +402,28 @@ public class MovimientoStockUI extends JFrame {
 		DefaultComboBoxModel<String> modeloLote=new DefaultComboBoxModel<>();
 		modeloLote.addElement("");
 		modeloLote.addElement("Indistinto");
+		String ubicacion="";
+		if (causaElegida.equals("5"))
+			 ubicacion=ubicacionOrigen;
+		else
+			ubicacion=ubicacionDestino;
 		if(!causaElegida.equals("1") && a!=null && a.getLote()!=null)
 		{
-			for(Integer lote:a.getLote()){
-			modeloLote.addElement(lote.toString());
-			System.out.println("lote no es nulo");
-		   }
+			if(a.getLote().size()>2)
+			{
+				loteCombo.setEnabled(true);
+				for(Integer lote:a.getLote()){
+					if(m.controlLoteUbicacion(lote,ubicacion,a))
+						modeloLote.addElement(lote.toString());
+					System.out.println("lote no es nulo");
+				}
+			}
+			else
+				{
+				 loteCombo.setEnabled(false);
+				 cantMax.setText("Max("+a.getCant()+")");
+				 return;
+			  }
 		}	
 		if(causaElegida.equals("3"))//ajuste positivo: cualquier lote
 			{
@@ -427,11 +446,11 @@ public class MovimientoStockUI extends JFrame {
 	private Boolean checkContenido()
 	{
 		if (causaElegida.equals("1"))
-			{origenAlmacen.setSelectedIndex(0);
-			origenUbicacion.setSelectedIndex(0);
+			{origenAlmacen.setModel(new DefaultComboBoxModel<>());
+			origenUbicacion.setModel(new DefaultComboBoxModel<>());
 			}
 		
-		 if(!causaElegida.equals("1") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("") || (lote==null || lote.equals(""))))
+		 if(!causaElegida.equals("1")&& !causaElegida.equals("2") && !causaElegida.equals("4") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("") || (lote==null || lote.equals(""))))
 			return false;
 
 		 if (causaElegida.equals("1") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("")))

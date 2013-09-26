@@ -48,7 +48,9 @@ public class Movimiento {
 	public ArrayList<Articulos> getArticulosXubicacion(String ub)
 	{
 		String u= getFormatoUbicacion(ub);
-		return mDao.getArticuloXubicacion(u);
+		System.out.println("ubicacion Movimiento:"+ u);
+		arts= mDao.getArticuloXubicacion(u);
+		return arts;
 	}
 	
 	public ArrayList<Articulos> getArticulosCompra()
@@ -63,14 +65,14 @@ public class Movimiento {
 		//System.out.println("arts1"+arts.get(0).getDesc());
 		return arts;
 	}
-	public Integer getCantidadXlote(Integer lote, String alm, String art)
+	public Integer getCantidadXlote(Integer lote, String ubicacion, String art)
 	{
-		String a= getAlmByDesc(alm);
+		String a= getFormatoUbicacion(ubicacion);
 		Articulos articulo= getArtByDesc(art);
-		System.out.println("almacen:"+alm+" id="+a);
+		System.out.println("ubicacion:"+ubicacion+" id="+a);
 		ArrayList<ArrayList<String>> matLoteXCantidad = mDao.getCantidadXlote();
 		//almcaen, lote ,articulo, cantidad
-		System.out.println("lote: "+lote+" alm:"+a+" art:"+articulo.getValor());
+		System.out.println("lote: "+lote+" ub:"+a+" art:"+articulo.getValor());
 		
 		for (ArrayList<String> ar: matLoteXCantidad)
 		{
@@ -82,6 +84,14 @@ public class Movimiento {
 				}
 		}	
 		return null;
+	}
+	
+	public boolean controlLoteUbicacion(Integer lote, String ub, Articulos art)
+	{
+		if(getCantidadXlote(lote,ub,art.getDesc())!=null)
+			return true;
+		else 
+			return false;
 	}
 
 	public void insertarMovimiento(MovimientoStockUI msUI)
@@ -100,6 +110,7 @@ public class Movimiento {
 		String art= msUI.articulo;
 		String fecha= msUI.fecha;
 		String nota= msUI.nota;
+		String lote = msUI.lote;
 		Articulos a= getArtByDesc(art);
 		
 		if(nota.equals(""))
@@ -112,15 +123,25 @@ public class Movimiento {
 			almacenOrigen="null";
 		if(fecha==null ||fecha.equals(""))
 			fecha="";
+		if(lote==null ||lote.equals(""))
+			{lote=""; System.out.println("lote nulo");}
 		
 		mDao.insertarMovimiento(causa,sucursalOrigen,almacenOrigen,ubicacionOrigen,sucursalDestino,almacenDestino,ubicacionDestino,a,fecha,nota,cantidad);
 		
 		
-		if(causa.equals("1"))
+		if(causa.equals("1")) //COMPRA
 		{Integer cp=obtenerCodigoPlano(a.getValor().toString());
 		StockSerializado s = new StockSerializado(Integer.parseInt(cantidad),cp);
-		s.upStockId(cantidad, ubicacionDestino, a.getValor().toString());
+		s.upStockId(cantidad, ubicacionDestino, a.getValor().toString(),null,null);
 		}
+		
+		if(causa.equals("5"))
+		{
+			StockSerializado s = new StockSerializado();
+			System.out.println("lote ------------------"+ lote);
+			s.upStockId(cantidad, ubicacionDestino, a.getValor().toString(),ubicacionOrigen,lote);
+		}
+		
 		
 	}
 	public Articulos getArtByDesc (String desc)
