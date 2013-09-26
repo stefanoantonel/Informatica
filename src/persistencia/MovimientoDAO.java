@@ -293,7 +293,8 @@ public class MovimientoDAO {
 					 if(am.getValor()== id)
 						 {
 							 Integer l= rs.getInt("lote");
-							 am.setLote(l);							 
+							 am.setLote(l);	
+							 System.out.println(id+" DAO tiene lote: "+l);
 						 }
 					}
 				}

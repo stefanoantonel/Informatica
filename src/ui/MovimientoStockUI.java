@@ -87,8 +87,8 @@ public class MovimientoStockUI extends JFrame {
 				cantMax.setText("Max()");
 				articulo=arg0.getItem().toString();
 				System.out.println("articulo: "+articulo);
-				inicializaLote(arg0.getItem().toString());
-				inicializaUM(arg0.getItem().toString());
+				inicializaLote(articulo);
+				inicializaUM(articulo);
 			}
 		});
 		articuloCombo.setBounds(104, 198, 174, 32);
@@ -193,7 +193,8 @@ public class MovimientoStockUI extends JFrame {
 						}
 					System.out.println("cant max:"+cantidadMaxima);
 					if(cantidadMaxima==null)
-						cantMax.setText("Max()");
+						{Articulos art = m.getArtByDesc(articulo);
+						cantMax.setText("Max("+art.getCant()+")");}
 					else
 						cantMax.setText("Max("+cantidadMaxima+")");
 					}
@@ -409,7 +410,7 @@ public class MovimientoStockUI extends JFrame {
 			ubicacion=ubicacionDestino;
 		if(!causaElegida.equals("1") && a!=null && a.getLote()!=null)
 		{
-			if(a.getLote().size()>2)
+			if(a.getLote().size()>0)
 			{
 				loteCombo.setEnabled(true);
 				for(Integer lote:a.getLote()){
@@ -420,6 +421,7 @@ public class MovimientoStockUI extends JFrame {
 			}
 			else
 				{
+				 System.out.println("lote nulo");
 				 loteCombo.setEnabled(false);
 				 cantMax.setText("Max("+a.getCant()+")");
 				 return;
@@ -445,19 +447,20 @@ public class MovimientoStockUI extends JFrame {
 
 	private Boolean checkContenido()
 	{
-		if (causaElegida.equals("1"))
+		//causas: 1compra, 2destruccion, 3ajusteP, 4ajusteN, 5movimiento
+		if (!causaElegida.equals("5"))
 			{origenAlmacen.setModel(new DefaultComboBoxModel<>());
 			origenUbicacion.setModel(new DefaultComboBoxModel<>());
 			}
 		
-		 if(!causaElegida.equals("1")&& !causaElegida.equals("2") && !causaElegida.equals("4") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("") || (lote==null || lote.equals(""))))
+		 if(causaElegida.equals("3") || causaElegida.equals("5") && (lote==null || lote.equals("")))
 			return false;
 
-		 if (causaElegida.equals("1") && (txtCantidad.getText().equals("") || ubicacionDestino.equals("")))
+		 if ( txtCantidad.getText().equals("") || ubicacionDestino.equals(""))
 			return false;
 		
 		 if (causaElegida.equals("5") && ubicacionOrigen.equals(""))
-				return false;
+			return false;
 			
 		 return true;
 		 

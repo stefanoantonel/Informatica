@@ -142,6 +142,11 @@ public class Movimiento {
 			s.upStockId(cantidad, ubicacionDestino, a.getValor().toString(),ubicacionOrigen,lote);
 		}
 		
+		if(causa.equals("2")|| causa.equals("4"))
+		{
+		   StockSerializado s = new StockSerializado();
+		   s.delStock(cantidad,ubicacionDestino,a,lote);
+		}
 		
 	}
 	public Articulos getArtByDesc (String desc)

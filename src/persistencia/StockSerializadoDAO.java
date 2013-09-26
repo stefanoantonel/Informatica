@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import modelo.Articulos;
+
 public class StockSerializadoDAO {
 	ArrayList<Integer> codigosPlanos;
 	ArrayList<Integer> cantidades;
@@ -323,7 +325,7 @@ public class StockSerializadoDAO {
 		String condicion=" where stock_id is null";
 		System.out.println("LOTE: "+lote + "        ubOrigen: "+ubOrigen);
 		if((lote != null ) && (ubOrigen != null) )
-			{ if(!lote.equals("") && !ubOrigen.equals(""))
+			{ if(!lote.equals("") && !ubOrigen.equals("") && !lote.equals("Indistinto"))
 			condicion= " where stock_id = (select distinct id from Stock where ubicaciones_id="+ubOrigen+" and articuo_id="+idArt+") and lote="+lote;}
 //		else
 //			condicion=" where stock_id is null";
@@ -342,6 +344,37 @@ public class StockSerializadoDAO {
 		System.out.println("paso por upStockId");
 		
 	}
+	
+	
+	public void delStock(String cantidad, String ubDestino, Articulos a, String lote)
+	{
+		Conexion cn1 = new Conexion();
+		Connection con = cn1.getConexion();
+		String condicion=" ";
+		System.out.println("LOTE: "+lote );
+		if((lote != null ) )
+			{ if(!lote.equals("") && !lote.equals("Indistinto"))
+			condicion= " and lote="+lote;}
+//		else
+//			condicion=" where stock_id is null";
+		
+		try{
+			StringBuilder sb1=new StringBuilder();
+			sb1.append("Delete top("+cantidad+")[Stock Productos Serializados] where stock_id=(select distinct id from Stock where ubicaciones_id="+ubDestino+" and articuo_id="+a.getValor()+")");
+			sb1.append(condicion);
+
+			System.out.println(sb1);
+			PreparedStatement ps=con.prepareStatement(sb1.toString());
+			ps.executeUpdate();			
+		
+		}catch (Exception e){e.printStackTrace(); System.out.println("error del sps");}
+		
+		System.out.println("paso por delStock");
+		
+	}
+	
+	
+	
 	public void upStockId(int cantidad, int ubDestino, int idArt)
 	{
 		Conexion cn1 = new Conexion();
