@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import txt.Lectura;
@@ -8,7 +9,14 @@ public class MRP {
 	
 	public static void main(String[] args) {
 		MRP m=new MRP();
-		m.getSemanas2(40, 0);
+		
+		ArrayList<Integer> provCant=m.getSemanas2(40, 0);
+		int cont=0;
+		for(Integer cant :provCant){
+			cont++;
+			System.out.print("Prov "+cont+" ");
+			System.out.print("Cant: "+cant+" ");
+		}
 		
 	}
 	
@@ -43,9 +51,10 @@ public class MRP {
 //		
 //	}
 	
-	public void getSemanas2(int cantidadTotal, int articuloID){
+	public ArrayList<Integer> getSemanas2(int cantidadTotal, int articuloID){
 		double cantidadP1=0,cantidadP2=0,cantidadFalta,capacidadP1,capacidadP2,setenta,treinta;
 		double cantidadP12=0,cantidadP22=0, totalP1,totalP2;
+		ArrayList<Integer> provCant=new ArrayList<>();
 		setenta=0.7;
 		treinta=0.3;
 		capacidadP1=30;
@@ -65,26 +74,38 @@ public class MRP {
 					totalP2=cantidadP2+cantidadP22;
 					if(cantidadP22<cantidadFalta){ 
 						System.out.println("ERROR: No poveedores insuficientes");
+						return null;
 					}
-					else{
+					else{ //me alcanzo con los proveedores
 						System.out.println("Proveedor 1: "+cantidadP1+" "+cantidadP12+" = "+totalP1);
 						System.out.println("Proveedor 2: "+cantidadP2+" "+cantidadP22+" = "+totalP2);
-						
+						provCant.add((int) totalP1);
+						provCant.add((int) totalP2);
+						return provCant;
 					}
 				}
 				else{
-					System.out.println("Proveedor 1: "+cantidadP1+cantidadP12);
+					System.out.println("Proveedor 1: "+cantidadP1+" "+cantidadP12);
 					System.out.println("Proveedor 2: "+cantidadP2);
+					provCant.add((int) (cantidadP1+cantidadP12));
+					provCant.add((int) cantidadP12);
+					return provCant;
 				}
 			}
 			else{
 				System.out.println("Proveedor 1: "+cantidadP1);
 				System.out.println("Proveedor 2: "+cantidadP2);
+				provCant.add((int) cantidadP1);
+				provCant.add((int) cantidadP2);
+				return provCant;
 			}
 		}
 		else{
 			System.out.println("Proveedor 1: "+cantidadP1);
+			provCant.add((int) cantidadP1);
+			return provCant;
 		}
+		
 	}
 
 }
