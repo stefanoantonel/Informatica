@@ -1,15 +1,26 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import txt.Lectura;
 
 public class MRP {
 	
+	private static Arbol arbol;
+	
 	public static void main(String[] args) {
 		MRP m=new MRP();
 		m.getSemanas2(40, 0);
 		
+		
+		
+	}
+	
+	public ArrayList<Nodo> obtenerPadresPrincipales ()
+	{
+		arbol = new Arbol();
+		return arbol.obtenerPadres();
 	}
 	
 //	public List<Integer> getSemanas(int cantidadTotal, int articuloID){
