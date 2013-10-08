@@ -7,6 +7,8 @@ import txt.Lectura;
 
 public class MRP {
 	
+	private static Arbol arbol;
+	
 	public static void main(String[] args) {
 		MRP m=new MRP();
 		
@@ -18,6 +20,14 @@ public class MRP {
 			System.out.print("Cant: "+cant+" ");
 		}
 		
+		
+		
+	}
+	
+	public ArrayList<Nodo> obtenerPadresPrincipales ()
+	{
+		arbol = new Arbol();
+		return arbol.obtenerPadres();
 	}
 	
 //	public List<Integer> getSemanas(int cantidadTotal, int articuloID){
