@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +11,14 @@ import txt.Lectura;
 public class MRP {
 	
 	private static Arbol arbol;
+	private static ArrayList<ArrayList<Integer>> tablaMrp=new ArrayList<>();
+	
+	
 	
 	public static void main(String[] args) {
 		MRP m=new MRP();
 		
-		ArrayList<Integer> provCant=m.getSemanas2(41, 0);
+		ArrayList<Integer> provCant=m.getSemanas2(40, 0);
 		if(provCant!=null){
 			int cont=0;
 			for(Integer cant :provCant){
@@ -27,8 +31,12 @@ public class MRP {
 			JOptionPane.showMessageDialog(null, "Proveedores Insuficientes");
 		}
 		
-		
-		
+		m.getNuevaLinea();
+		System.out.println(m.getTablaMrp());
+//		for(ArrayList<Integer> fila:m.getTablaMrp()){
+//			for(int columna:fila){
+//			}
+//		}
 		
 	}
 	
@@ -95,5 +103,31 @@ public class MRP {
 		
 	}
 	
+	public ArrayList<Integer> getNuevaLinea(){
+		ArrayList<Integer> ag=new ArrayList<>();
+		ag.add(2);
+		tablaMrp.add(ag);
+		ag.add(2);
+		tablaMrp.add(ag);
+		ag.add(2);
+		tablaMrp.add(ag);
+		
+		int largo=tablaMrp.get(0).size();
+		ArrayList<Integer> linea=new ArrayList<>();
+		int cont=4;
+		while(cont>0){
+			linea.add(0);
+			cont--;
+		}
+		return linea;
+	}
+
+	public ArrayList<ArrayList<Integer>> getTablaMrp() {
+		return tablaMrp;
+	}
+
+	public void setTablaMrp(ArrayList<ArrayList<Integer>> tablaMrp) {
+		this.tablaMrp = tablaMrp;
+	}
 	
 }
