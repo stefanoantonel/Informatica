@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import modelo.Proveedor;
+
 import persistencia.Conexion;
 import ui.MenuUI;
 
@@ -19,7 +21,13 @@ public class TP4 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TP4 tp = new TP4();
+					//TP4 tp = new TP4();
+					Proveedor a = new Proveedor();
+					for(ArrayList<Integer> x: a.capacidadLote(2) )
+					{
+						System.out.println("proveedor: "+x.get(0));
+						System.out.println("cap: "+x.get(1));
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -27,7 +35,7 @@ public class TP4 {
 		});
 	}
 	
-	
+	/*
 	public TP4 (){
 		ArrayList<Integer> conec;
 		
@@ -36,7 +44,7 @@ public class TP4 {
 		/*
 		 * el factor es porque si necesito que haya 4 patas, entonces tengo quehacer el cliclo 4 veces.. 
 		 * 
-		 */
+		 
 		StringBuilder sb=new StringBuilder();
 		sb.append("select cpre.id as pre, cpos.id as pos,ceiling(ai.cantidad/ae.cantidad) as factor from [Conexion Ciclos] cc");
 		sb.append(" inner join Ciclo cpre on cc.id_ciclo_pre=cpre.id");
@@ -71,7 +79,7 @@ public class TP4 {
 		/*
 		 * levate el ciclo y la sumatoria de tiempo de ese cliclo que luego lo suma en tiempo toral multilicaod por el factor (por 2 patas)
 		 * dsp se fija en la matriz si tenia predecesor llama de nuevo a la funcion con el factor para el ciclo que hace al sguiente
-		 */
+		 
 		StringBuilder sb=new StringBuilder();
 		sb.append("select distinct d.descripcion_str, (c.tiempo_setup+c.tiempo_montaje+c.tiempo_end) as tiempo,c.id");
 		sb.append(" from Ciclo c");
@@ -105,6 +113,6 @@ public class TP4 {
 		}
 		System.out.println("tiempo total= " + ttotal);
 	}
-	
+*/	
 	
 }
