@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 import modelo.Articulos;
 import modelo.MRP;
 import modelo.Nodo;
+import java.awt.Font;
+import javax.swing.JSlider;
 
 public class MrpUI extends JFrame {
 
@@ -52,20 +54,21 @@ public class MrpUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblPlanMaestroDe = new JLabel("Plan Maestro de Producci\u00F3n");
-		lblPlanMaestroDe.setBounds(5, 5, 623, 14);
+		lblPlanMaestroDe.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		lblPlanMaestroDe.setBounds(194, 11, 260, 14);
 		contentPane.add(lblPlanMaestroDe);
 		
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(122, 122, 96, 35);
+		txtCantidad.setBounds(261, 71, 75, 20);
 		contentPane.add(txtCantidad);
 		txtCantidad.setColumns(10);
 		
 		JLabel lblCantidad = new JLabel("Cantidad:");
-		lblCantidad.setBounds(21, 132, 91, 14);
+		lblCantidad.setBounds(164, 74, 75, 14);
 		contentPane.add(lblCantidad);
 		
 		JLabel lblProducto = new JLabel("Producto");
-		lblProducto.setBounds(286, 132, 46, 14);
+		lblProducto.setBounds(164, 136, 61, 14);
 		contentPane.add(lblProducto);
 		
 		cmbArticulos = new JComboBox();
@@ -73,8 +76,17 @@ public class MrpUI extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 			}
 		});
-		cmbArticulos.setBounds(371, 122, 124, 27);
+		cmbArticulos.setBounds(261, 129, 175, 28);
 		contentPane.add(cmbArticulos);
+		
+		JLabel lblSemena = new JLabel("Semena");
+		lblSemena.setBounds(164, 187, 61, 14);
+		contentPane.add(lblSemena);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "1", "2", "3", "4", "5"}));
+		comboBox.setBounds(261, 184, 75, 20);
+		contentPane.add(comboBox);
 		
 		InicializaArticulo();
 	}
@@ -92,6 +104,5 @@ public class MrpUI extends JFrame {
 		
 		cmbArticulos.setModel(modelo);
 	}	
-	
-	
 }
+
