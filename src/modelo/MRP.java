@@ -194,7 +194,10 @@ public class MRP {
 			for(int j=semanasCongeladas;j>0;j--){
 				lineaPadre.add(0);
 			}
-			double semanasD=cantidad/capacidad;
+//			float c=cantidad;
+//			float ca=capacidad;
+			double semanasD=(double)cantidad/(double)capacidad;
+//			float semanaD=c/ca;
 			int semanasI=getRedondeo(semanasD);
 			
 			for(int j=semanasI;j>0;j--){
