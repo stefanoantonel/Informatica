@@ -19,7 +19,7 @@ public class TP4 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TP4 tp = new TP4();
+				//	TP4 tp = new TP4();
 					
 					
 				} catch (Exception e) {
