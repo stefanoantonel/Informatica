@@ -176,7 +176,6 @@ public class MovimientoDAO {
 		return id;
 	}
 	
-	
 	//sp_rename Moviminetos, Movimientos
 	public ArrayList<String> getCausas()
 	{
