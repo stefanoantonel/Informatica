@@ -223,6 +223,7 @@ public class Nodo {
 		}
 		
 		public void getHijosBuyCantidad(Nodo n,float cantidad){
+			//la primera vez viene con 1 que es el de los padres principales
 			if(n.GetHijos()!=null){
 				for(Nodo hijo:n.GetHijos()){
 					cantidad=hijo.getCantidad()*cantidad;
@@ -234,6 +235,7 @@ public class Nodo {
 				Nodo hoja=new Nodo();
 				hoja=n;
 				hoja.setCantidad(cantidad);
+				//Creo un nodo igual que el de antes pero cambiado la cantidad
 				this.listaHijos.add(hoja);
 			}
 		}
