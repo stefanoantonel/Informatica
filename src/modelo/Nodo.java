@@ -17,6 +17,9 @@ public class Nodo {
 	private Float cantidad;
 	private  ArrayList<Nodo> alternativo;
 	private String fecha_inicio;
+	
+	private ArrayList<Nodo> listaHijos=new ArrayList<>(); //tiene los buy de un producto que le paso, es para el MRP
+	
 	public String getFecha_inicio() {
 		return fecha_inicio;
 	}
@@ -215,5 +218,16 @@ public class Nodo {
 		{
 			nDao.eliminarRealcion(padre, hijo);
 			return;
+		}
+		
+		public void getHijosBuy(Nodo n){
+			if(n.GetHijos()!=null){
+				for(Nodo hijo:n.GetHijos()){
+					hijo.getHijosBuy(hijo);
+				}
+			}
+			else{ //cuando se hoja
+				this.listaHijos.add(n);
+			}
 		}
 }

@@ -19,20 +19,20 @@ public class MRP {
 	public static void main(String[] args) {
 		MRP m=new MRP();
 		
-		ArrayList<Integer> provCant=m.getSetentaTreinta(40, 0);
-		if(provCant!=null){
-			int cont=0;
-			for(Integer cant :provCant){
-				cont++;
-				System.out.print("Prov "+cont+" ");
-				System.out.print("Cant: "+cant+" ");
-			}
-		}
-		else{
-			JOptionPane.showMessageDialog(null, "Proveedores Insuficientes");
-		}
-		
-		m.setPadres(30, 6);
+//		ArrayList<Integer> provCant=m.getSetentaTreinta(160, 1);
+//		if(provCant!=null){
+//			int cont=0;
+//			for(Integer cant :provCant){
+//				cont++;
+//				System.out.print("Prov "+cont+" ");
+//				System.out.print("Cant: "+cant+" ");
+//			}
+//		}
+//		else{
+//			JOptionPane.showMessageDialog(null, "Proveedores Insuficientes");
+//		}
+//		
+//		m.setPadres(30, 6);
 		
 		
 		//Para organizar Que se hace:
@@ -45,6 +45,19 @@ public class MRP {
 		 * control sotck y aumenta stock
 		 */
 		
+		/*
+		 * demanda real=con la cantidad y el articulo llamo a stock y le resto lo que me devolvio
+		 * genera la primera linea 
+		 * llama a saturar de esa primera
+		 *  por cada hijo
+		 *  	
+		 */
+		ArrayList<Nodo> padres;
+		padres=m.obtenerPadresPrincipales();
+		System.out.println(padres.get(2).getDescripcion());
+		System.out.println(padres.get(2).GetHijos());
+		padres.get(2).AgregarHijo(padres.get(1));
+		padres.get(2).getHijosBuy(padres.get(2));
 	}
 	
 	public ArrayList<Nodo> obtenerPadresPrincipales ()
@@ -53,16 +66,22 @@ public class MRP {
 		return arbol.obtenerPadres();
 	}
 	
-	public ArrayList<Integer> getSetentaTreinta(int cantidadTotal, int articuloID){
+	public ArrayList<ArrayList<Integer>> getSetentaTreinta(int cantidadTotal, int articuloID){
 		double cantidadP1=0,cantidadP2=0,cantidadFalta,capacidadP1,capacidadP2,setenta,treinta;
 		double cantidadP12=0,cantidadP22=0, totalP1,totalP2;
-		ArrayList<Integer> provCant=new ArrayList<>();
+		ArrayList<ArrayList<Integer>> provCant=new ArrayList<>();
 		setenta=0.7;
 		treinta=0.3;
-		capacidadP1=30;
-		capacidadP2=10;
 		
-//		el dao me devuelve los proveedores y saco la capacidad del p1 y el p2 respectivos y el ote de cada uno. 
+		capacidadP1=160;
+		capacidadP2=50;
+		
+		int proveedor1Id;
+		int proveedor2Id;
+		int proveedor1Lote;
+		int proveedor2Lote;
+		
+//		el dao me devuelve los proveedores y saco la capacidad del p1 y el p2 respectivos y el lote de cada uno. 
 //		Math.ceil(double)
 		
 		cantidadP1=capacidadP1*setenta; //saco el 70 % del p1
@@ -83,32 +102,68 @@ public class MRP {
 					}
 					else{ //me alcanzo con los proveedores
 						totalP1=cantidadP1+cantidadP12;
-						totalP2=cantidadP2+cantidadP22;
-						provCant.add(getRedondeo(totalP1));
-						provCant.add(getRedondeo(totalP2));
+//						totalP2=cantidadP2+cantidadP22;
+						totalP2=cantidadP2+cantidadFalta;
+						ArrayList<Integer> aux1=new ArrayList<>();
+						ArrayList<Integer> aux2=new ArrayList<>();
+						aux1.add(proveedor1Id);
+						aux1.add(getRedondeo(totalP1));
+						aux1.add(proveedor1Lote);
+						
+						aux2.add(proveedor2Id);
+						aux2.add(getRedondeo(totalP2));
+						aux2.add(proveedor2Lote);
+						
+						provCant.add(aux1);
+						provCant.add(aux2);
 						return provCant;
 					}
 				}
 				else{
-					totalP1=cantidadP1+cantidadP12;
+//					totalP1=cantidadP1+cantidadP12;
+					totalP1=cantidadP1+cantidadFalta;
 					totalP2=cantidadP2;
+					ArrayList<Integer> aux1=new ArrayList<>();
+					ArrayList<Integer> aux2=new ArrayList<>();
+					aux1.add(proveedor1Id);
+					aux1.add(getRedondeo(totalP1));
+					aux1.add(proveedor1Lote);
 					
-					provCant.add(getRedondeo(totalP1));
-					provCant.add(getRedondeo(totalP2));
+					aux2.add(proveedor2Id);
+					aux2.add(getRedondeo(totalP2));
+					aux2.add(proveedor2Lote);
+					
 					return provCant;
 				}
 			}
 			else{
 				totalP1=cantidadP1;
-				totalP2=cantidadP2;
-				provCant.add(getRedondeo(totalP1));
-				provCant.add(getRedondeo(totalP2));
+//				totalP2=cantidadP2;
+				totalP2=cantidadFalta;
+				ArrayList<Integer> aux1=new ArrayList<>();
+				ArrayList<Integer> aux2=new ArrayList<>();
+				aux1.add(proveedor1Id);
+				aux1.add(getRedondeo(totalP1));
+				aux1.add(proveedor1Lote);
+				
+				aux2.add(proveedor2Id);
+				aux2.add(getRedondeo(totalP2));
+				aux2.add(proveedor2Lote);
 				return provCant;
 			}
 		}
 		else{
-			totalP1=cantidadP1;
-			provCant.add(getRedondeo(cantidadP1));
+//			totalP1=cantidadP1;
+			totalP1=cantidadFalta;
+			ArrayList<Integer> aux1=new ArrayList<>();
+			ArrayList<Integer> aux2=new ArrayList<>();
+			aux1.add(proveedor1Id);
+			aux1.add(getRedondeo(totalP1));
+			aux1.add(proveedor1Lote);
+			
+			aux2.add(proveedor2Id);
+			aux2.add(getRedondeo(totalP2));
+			aux2.add(proveedor2Lote);
 			return provCant;
 		}
 		
@@ -121,17 +176,9 @@ public class MRP {
 		return b;
 	}
 	private ArrayList<Integer> getNuevaLinea(){
-//		ArrayList<Integer> ag=new ArrayList<>();
-//		ag.add(2);
-//		tablaMrp.add(ag);
-//		ag.add(2);
-//		tablaMrp.add(ag);
-//		ag.add(2);
-//		tablaMrp.add(ag);
-		
+
 		int largo=tablaMrp.get(0).size();
 		ArrayList<Integer> linea=new ArrayList<>();
-//		int cont=4;
 		while(largo>0){
 			linea.add(0);
 			largo--;
@@ -147,9 +194,8 @@ public class MRP {
 		this.tablaMrp = tablaMrp;
 	}
 	
-	private ArrayList<Integer> getDemandaReal(int cantidadDelProveedor, ArrayList<Integer> padre,int leadTime){
+	private ArrayList<Integer> getDemandaReal(int cantidad, ArrayList<Integer> padre,int tipo,leadTimr){
 		ArrayList<Integer> dreal=new ArrayList<>();
-//		el leadtime se lo pido a flor getLead(proveedor, articulo)
 		int indiceP;
 		for(int j=0;j<padre.size();j++){
 			dreal.add(0);
@@ -157,7 +203,20 @@ public class MRP {
 		for(int j=0;j<padre.size();j++){
 			if(padre.get(j)!=0){
 				indiceP=j;
-				dreal.set(indiceP-leadTime, cantidadDelProveedor);
+				if(tipo==1){
+					//make
+					
+					//revisar porque no existe make.. solo los buy 
+//					int leadTime=1;
+					dreal.set(indiceP-leadTime, cantidad*padre.get(j));
+				}
+				if(tipo==2){
+					//buy
+					int leadTime=getLead(proveedor, articulo) lo pido antes de esta funcion 
+					
+					dreal.set(indiceP-leadTime, cantidad);
+				}
+				
 			}
 		}
 		
@@ -165,7 +224,10 @@ public class MRP {
 	}
 	
 	private ArrayList<Integer> saturar(int lote, ArrayList<Integer> demanda){
+		 es con el factor
 		float stock=0;
+		
+		//hay que llamr a stock flor
 		ArrayList<Integer> saturado=new ArrayList<>();
 		for(Integer d:demanda){
 			if(d!=0){
@@ -188,7 +250,7 @@ public class MRP {
 		return saturado;
 	}
 	
-	private void setPadres(int cantidad,int articuloID){
+	private ArrayList<Integer> setPadres(int cantidad,int articuloID){
 		MrpDao dao=new MrpDao();
 		int semanasCongeladas=4;
 		ArrayList<Integer> lineaPadre=new ArrayList<>();
@@ -197,7 +259,7 @@ public class MRP {
 			for(int j=semanasCongeladas;j>0;j--){
 				lineaPadre.add(0);
 			}
-			double semanasD=cantidad/capacidad;
+			double semanasD=(double)cantidad/(double)capacidad;
 			int semanasI=getRedondeo(semanasD);
 			
 			for(int j=semanasI;j>0;j--){
@@ -206,7 +268,40 @@ public class MRP {
 			tablaMrp.add(lineaPadre);
 			System.out.println(lineaPadre);
 		}
+		return lineaPadre;
 		
 	}
+	
+	public void funcionMain(){
+		int demandaReal=30; //desde la interfaz
+		
+		Nodo padre=arbol.getNodoByDescripcion("Silla"); //Cargo con interfaz
+		ArrayList<Integer> listaPadre=setPadres(demandaReal, padre.getArt().getValor());
+		for(Nodo n:padre.GetHijos()){
+			recursiva(listaPadre, n, demandaReal*n.getCantidad());
+		}
+		
+	}
+	
+	private void recursiva(ArrayList<Integer> listaP,Nodo h,int demandaReal){
+		if(h.getArt().getTipo==make){
+			MrpDao dao=new MrpDao();
+			ArrayList<Integer> lista1=getDemandaReal(h.getCantidad(), listaP, 1);
+			ArrayList<Integer> lista2=saturar(m.getcapacidad(h.getArt().getValor()), lista1 );
+			for(Nodo n:h.GetHijos()){
+				recursiva(lista2, n, demandaReal*n.getCantidad());
+			}
+		}
+		else{
+			ArrayList<Integer> proveedores=getSetentaTreinta(demandaReal, h.getArt().getValor());
+			
+			for(ArrayList<Integer> p:proveedores){
+				ArrayList<Integer> lista1=getDemandaReal(p.get(0),h.getArt().getValor());
+				ArrayList<Integer> lista2=saturar(p.get(1),lista1);
+				recursiva(lista2, n, demandaReal*n.getCantidad());
+			}
+		}
+	}
+	
 	
 }

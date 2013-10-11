@@ -12,7 +12,7 @@ public class MrpDao {
 	//en articuloCapacidad tiene 2 columnas, la primera indica el articulo id y la segunda la capacidad
 
 	private void loadCapacidadMia(int articuloID){
-		ArrayList<Integer> capacidad=new ArrayList<>();
+		
 		Connection con;
 		ResultSet rs = null;
 		try {
@@ -25,6 +25,7 @@ public class MrpDao {
 			stm = con.prepareStatement(sb.toString());
 			rs = stm.executeQuery();
 			while (rs.next()) {
+				ArrayList<Integer> capacidad=new ArrayList<>();
 				capacidad.add(rs.getInt("art_id"));
 				capacidad.add(rs.getInt("capacidad"));
 				articuloCapacidad.add(capacidad);
