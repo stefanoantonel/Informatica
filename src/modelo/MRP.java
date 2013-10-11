@@ -62,15 +62,21 @@ public class MRP {
 		arbol = new Arbol();
 		return arbol.obtenerPadres();
 	}
-	/*
-	public ArrayList<Integer> getSetentaTreinta(int cantidadTotal, int articuloID){
+	
+	public ArrayList<ArrayList<Integer>> getSetentaTreinta(int cantidadTotal, int articuloID){
 		double cantidadP1=0,cantidadP2=0,cantidadFalta,capacidadP1,capacidadP2,setenta,treinta;
 		double cantidadP12=0,cantidadP22=0, totalP1,totalP2;
 		ArrayList<ArrayList<Integer>> provCant=new ArrayList<>();
 		setenta=0.7;
 		treinta=0.3;
+		
 		capacidadP1=160;
 		capacidadP2=50;
+		
+		int proveedor1Id;
+		int proveedor2Id;
+		int proveedor1Lote;
+		int proveedor2Lote;
 		
 //		el dao me devuelve los proveedores y saco la capacidad del p1 y el p2 respectivos y el lote de cada uno. 
 //		Math.ceil(double)
@@ -97,9 +103,14 @@ public class MRP {
 						totalP2=cantidadP2+cantidadFalta;
 						ArrayList<Integer> aux1=new ArrayList<>();
 						ArrayList<Integer> aux2=new ArrayList<>();
+						aux1.add(proveedor1Id);
 						aux1.add(getRedondeo(totalP1));
-						agregar lote 
+						aux1.add(proveedor1Lote);
+						
+						aux2.add(proveedor2Id);
 						aux2.add(getRedondeo(totalP2));
+						aux2.add(proveedor2Lote);
+						
 						provCant.add(aux1);
 						provCant.add(aux2);
 						return provCant;
@@ -111,10 +122,13 @@ public class MRP {
 					totalP2=cantidadP2;
 					ArrayList<Integer> aux1=new ArrayList<>();
 					ArrayList<Integer> aux2=new ArrayList<>();
+					aux1.add(proveedor1Id);
 					aux1.add(getRedondeo(totalP1));
-					aux1 agregar lote
+					aux1.add(proveedor1Lote);
+					
+					aux2.add(proveedor2Id);
 					aux2.add(getRedondeo(totalP2));
-					aux2 agregar lote
+					aux2.add(proveedor2Lote);
 					
 					return provCant;
 				}
@@ -125,8 +139,13 @@ public class MRP {
 				totalP2=cantidadFalta;
 				ArrayList<Integer> aux1=new ArrayList<>();
 				ArrayList<Integer> aux2=new ArrayList<>();
-				provCant.add(getRedondeo(totalP1));
-				provCant.add(getRedondeo(totalP2));
+				aux1.add(proveedor1Id);
+				aux1.add(getRedondeo(totalP1));
+				aux1.add(proveedor1Lote);
+				
+				aux2.add(proveedor2Id);
+				aux2.add(getRedondeo(totalP2));
+				aux2.add(proveedor2Lote);
 				return provCant;
 			}
 		}
@@ -135,7 +154,13 @@ public class MRP {
 			totalP1=cantidadFalta;
 			ArrayList<Integer> aux1=new ArrayList<>();
 			ArrayList<Integer> aux2=new ArrayList<>();
-			provCant.add(getRedondeo(cantidadP1));
+			aux1.add(proveedor1Id);
+			aux1.add(getRedondeo(totalP1));
+			aux1.add(proveedor1Lote);
+			
+			aux2.add(proveedor2Id);
+			aux2.add(getRedondeo(totalP2));
+			aux2.add(proveedor2Lote);
 			return provCant;
 		}
 		
@@ -148,17 +173,9 @@ public class MRP {
 		return b;
 	}
 	private ArrayList<Integer> getNuevaLinea(){
-//		ArrayList<Integer> ag=new ArrayList<>();
-//		ag.add(2);
-//		tablaMrp.add(ag);
-//		ag.add(2);
-//		tablaMrp.add(ag);
-//		ag.add(2);
-//		tablaMrp.add(ag);
-		
+
 		int largo=tablaMrp.get(0).size();
 		ArrayList<Integer> linea=new ArrayList<>();
-//		int cont=4;
 		while(largo>0){
 			linea.add(0);
 			largo--;
@@ -185,6 +202,8 @@ public class MRP {
 				indiceP=j;
 				if(tipo==1){
 					//make
+					
+					//revisar porque no existe make.. solo los buy 
 //					int leadTime=1;
 					dreal.set(indiceP-leadTime, cantidad*padre.get(j));
 				}
@@ -237,10 +256,7 @@ public class MRP {
 			for(int j=semanasCongeladas;j>0;j--){
 				lineaPadre.add(0);
 			}
-//			float c=cantidad;
-//			float ca=capacidad;
 			double semanasD=(double)cantidad/(double)capacidad;
-//			float semanaD=c/ca;
 			int semanasI=getRedondeo(semanasD);
 			
 			for(int j=semanasI;j>0;j--){
@@ -283,6 +299,6 @@ public class MRP {
 			}
 		}
 	}
-	*/
+	
 	
 }
