@@ -40,6 +40,9 @@ public class MRP {
 		 * padre=llamar a setPadres(cantidad,articuloID)
 		 * si son productos make llamo a getDemandaReal(cantidadDelProveedor=10 (capNuestra 5x cantidad dell hijo=2 ), padre,int leadTime=1)
 		 * 
+		 * 
+		 * falta:
+		 * control sotck y aumenta stock
 		 */
 		
 	}

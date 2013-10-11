@@ -53,7 +53,7 @@ public class Proveedor {
 			pro_id =p.get(1);
 			if(art_id==art && pro_id==prov)
 			{
-				lead= p.get(5);
+				lead= p.get(4);
 			}
 		}
 		

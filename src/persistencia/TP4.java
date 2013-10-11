@@ -28,6 +28,7 @@ public class TP4 {
 						System.out.println("proveedor: "+x.get(0));
 						System.out.println("cap: "+x.get(1));
 					}
+					System.out.println("lead: "+a.leadTime(2, 8));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

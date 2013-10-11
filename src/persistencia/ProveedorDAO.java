@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import utilidades.Casteo;
+
 public class ProveedorDAO {
 	
 	Connection con;
@@ -33,20 +35,20 @@ public class ProveedorDAO {
 			while (rs.next()){
 			//
 		    ArrayList<Integer> p=new ArrayList<>();
-			Integer art = (Integer)(rs.getObject("id_art"));
+			Integer art =rs.getInt("id_art");
 			System.out.println("art Dao: "+art);
 		    p.add(art);
-		    Integer prov = (Integer)(rs.getObject("id_prov"));
+		    Integer prov = rs.getInt("id_prov");
 		    p.add(prov);
-		    Integer capacidad =Math.ceil(rs.getFloat("capacidad"));
+		    Integer capacidad =Casteo.getRedondeo(rs.getFloat("capacidad"));
 		    p.add(capacidad);
-		    Integer lote = (Integer)(rs.getObject("tam_lote"));
+		    Integer lote = Casteo.getRedondeo(rs.getFloat("tam_lote"));
 		    p.add(lote);
 		   // String precioCompra = String.valueOf(rs.getObject("precio_compra"));
 		    //p.add(precioCompra);
-		    Integer lead = (Integer)(rs.getObject("lead_time"));
+		    Integer lead = rs.getInt("lead_time");
 		    p.add(lead);
-		    Integer principal =(Integer)(rs.getObject("principal"));
+		    Integer principal =(Integer)(rs.getInt("principal"));
 		    p.add(principal);
 		    
 		    proveedores.add(p);
