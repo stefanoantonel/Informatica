@@ -54,18 +54,24 @@ public class MRP {
 		 */
 		ArrayList<Nodo> padres;
 		padres=m.obtenerPadresPrincipales();
-		System.out.println(padres.get(2).getDescripcion());
-		System.out.println(padres.get(2).GetHijos());
-		padres.get(2).AgregarHijo(padres.get(1));
-		padres.get(2).getHijosBuy(padres.get(2));
+//		for(Nodo n:padres){
+//			System.out.println(n.getDescripcion());
+//		}
+		
+		ArrayList<Nodo> buy=new ArrayList<>();
+		padres.get(6).getHijosBuyCantidad(padres.get(6),1,new ArrayList<Nodo>());
+		buy=padres.get(6).getListaHijos();
+		for(Nodo n:buy){
+			System.out.println(n.getDescripcion()+"Cant: "+n.getCantidad());
+		}
 	}
 	
 	public ArrayList<Nodo> obtenerPadresPrincipales ()
 	{
 		arbol = new Arbol();
-		return arbol.obtenerPadres();
+		return arbol.getPadresPrincipales();
 	}
-	
+	/*
 	public ArrayList<ArrayList<Integer>> getSetentaTreinta(int cantidadTotal, int articuloID){
 		double cantidadP1=0,cantidadP2=0,cantidadFalta,capacidadP1,capacidadP2,setenta,treinta;
 		double cantidadP12=0,cantidadP22=0, totalP1,totalP2;
@@ -193,8 +199,8 @@ public class MRP {
 	public void setTablaMrp(ArrayList<ArrayList<Integer>> tablaMrp) {
 		this.tablaMrp = tablaMrp;
 	}
-	
-	private ArrayList<Integer> getDemandaReal(int cantidad, ArrayList<Integer> padre,int tipo,leadTimr){
+	/*
+	private ArrayList<Integer> getDemandaReal(int cantidad, ArrayList<Integer> padre,int tipo,leadTime){
 		ArrayList<Integer> dreal=new ArrayList<>();
 		int indiceP;
 		for(int j=0;j<padre.size();j++){
@@ -302,6 +308,6 @@ public class MRP {
 			}
 		}
 	}
-	
+	*/
 	
 }

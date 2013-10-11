@@ -222,21 +222,40 @@ public class Nodo {
 			return;
 		}
 		
-		public void getHijosBuyCantidad(Nodo n,float cantidad){
+		public void getHijosBuyCantidad(Nodo n,float cantidad,ArrayList<Nodo> lista2){
 			//la primera vez viene con 1 que es el de los padres principales
+			
 			if(n.GetHijos()!=null){
 				for(Nodo hijo:n.GetHijos()){
 					cantidad=hijo.getCantidad()*cantidad;
-					hijo.getHijosBuyCantidad(hijo,cantidad);
+					hijo.getHijosBuyCantidad(hijo,cantidad,lista2);
+					listaHijos=lista2;
 				}
 			}
 			else{ //cuando es hoja
-				ArrayList<Nodo> aux=new ArrayList<>();
 				Nodo hoja=new Nodo();
 				hoja=n;
 				hoja.setCantidad(cantidad);
+				boolean yaEstaba=false;
 				//Creo un nodo igual que el de antes pero cambiado la cantidad
-				this.listaHijos.add(hoja);
+				for(Nodo nodo:lista2){
+					if(nodo.getArt().getValor()==hoja.getArt().getValor()){
+						float cant=nodo.getCantidad();
+						nodo.setCantidad(cant+cantidad);
+						lista2.remove(hoja);
+						yaEstaba=true;
+					}
+					
+				}
+				if(yaEstaba==false){
+					lista2.add(hoja);
+					System.out.println("-"+hoja.getDescripcion());
+				}
+				
+				
 			}
+		}
+		public ArrayList<Nodo> getListaHijos() {
+			return listaHijos;
 		}
 }
