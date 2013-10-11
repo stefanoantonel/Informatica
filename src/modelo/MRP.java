@@ -19,20 +19,20 @@ public class MRP {
 	public static void main(String[] args) {
 		MRP m=new MRP();
 		
-		ArrayList<Integer> provCant=m.getSetentaTreinta(160, 1);
-		if(provCant!=null){
-			int cont=0;
-			for(Integer cant :provCant){
-				cont++;
-				System.out.print("Prov "+cont+" ");
-				System.out.print("Cant: "+cant+" ");
-			}
-		}
-		else{
-			JOptionPane.showMessageDialog(null, "Proveedores Insuficientes");
-		}
-		
-		m.setPadres(30, 6);
+//		ArrayList<Integer> provCant=m.getSetentaTreinta(160, 1);
+//		if(provCant!=null){
+//			int cont=0;
+//			for(Integer cant :provCant){
+//				cont++;
+//				System.out.print("Prov "+cont+" ");
+//				System.out.print("Cant: "+cant+" ");
+//			}
+//		}
+//		else{
+//			JOptionPane.showMessageDialog(null, "Proveedores Insuficientes");
+//		}
+//		
+//		m.setPadres(30, 6);
 		
 		
 		//Para organizar Que se hace:
@@ -49,6 +49,12 @@ public class MRP {
 		 *  por cada hijo
 		 *  	
 		 */
+		ArrayList<Nodo> padres;
+		padres=m.obtenerPadresPrincipales();
+		System.out.println(padres.get(2).getDescripcion());
+		System.out.println(padres.get(2).GetHijos());
+		padres.get(2).AgregarHijo(padres.get(1));
+		padres.get(2).getHijosBuy(padres.get(2));
 	}
 	
 	public ArrayList<Nodo> obtenerPadresPrincipales ()
@@ -56,7 +62,7 @@ public class MRP {
 		arbol = new Arbol();
 		return arbol.obtenerPadres();
 	}
-	
+	/*
 	public ArrayList<Integer> getSetentaTreinta(int cantidadTotal, int articuloID){
 		double cantidadP1=0,cantidadP2=0,cantidadFalta,capacidadP1,capacidadP2,setenta,treinta;
 		double cantidadP12=0,cantidadP22=0, totalP1,totalP2;
@@ -168,7 +174,7 @@ public class MRP {
 		this.tablaMrp = tablaMrp;
 	}
 	
-	private ArrayList<Integer> getDemandaReal(int cantidad, ArrayList<Integer> padre,int tipo){
+	private ArrayList<Integer> getDemandaReal(int cantidad, ArrayList<Integer> padre,int tipo,leadTimr){
 		ArrayList<Integer> dreal=new ArrayList<>();
 		int indiceP;
 		for(int j=0;j<padre.size();j++){
@@ -179,12 +185,13 @@ public class MRP {
 				indiceP=j;
 				if(tipo==1){
 					//make
-					int leadTime=1;
+//					int leadTime=1;
 					dreal.set(indiceP-leadTime, cantidad*padre.get(j));
 				}
 				if(tipo==2){
 					//buy
-					int leadTime=getLead(proveedor, articulo)
+					int leadTime=getLead(proveedor, articulo) lo pido antes de esta funcion 
+					
 					dreal.set(indiceP-leadTime, cantidad);
 				}
 				
@@ -195,6 +202,7 @@ public class MRP {
 	}
 	
 	private ArrayList<Integer> saturar(int lote, ArrayList<Integer> demanda){
+		 es con el factor
 		float stock=0;
 		
 		//hay que llamr a stock flor
@@ -268,12 +276,13 @@ public class MRP {
 		else{
 			ArrayList<Integer> proveedores=getSetentaTreinta(demandaReal, h.getArt().getValor());
 			
-			for(Integer p:proveedores){
-				ArrayList<Integer> lista1=getDemandaReal(p.);
-				ArrayList<Integer> lista2=saturar(m.getcapacidad(h.getArt().getValor()), lista1 );
+			for(ArrayList<Integer> p:proveedores){
+				ArrayList<Integer> lista1=getDemandaReal(p.get(0),h.getArt().getValor());
+				ArrayList<Integer> lista2=saturar(p.get(1),lista1);
 				recursiva(lista2, n, demandaReal*n.getCantidad());
 			}
 		}
 	}
+	*/
 	
 }
