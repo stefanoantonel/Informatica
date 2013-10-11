@@ -18,7 +18,9 @@ public class Nodo {
 	private  ArrayList<Nodo> alternativo;
 	private String fecha_inicio;
 	
-	private ArrayList<Nodo> listaHijos=new ArrayList<>(); //tiene los buy de un producto que le paso, es para el MRP
+	private ArrayList<Nodo> listaHijos=new ArrayList<>(); 
+	//tiene los buy de un producto que le paso y las cantidades totales de las hojas, es para el MRP
+	//cargo nuevos nodos del articulo pero con la cantidad que es necesario comprar
 	
 	public String getFecha_inicio() {
 		return fecha_inicio;
@@ -220,14 +222,19 @@ public class Nodo {
 			return;
 		}
 		
-		public void getHijosBuy(Nodo n){
+		public void getHijosBuyCantidad(Nodo n,float cantidad){
 			if(n.GetHijos()!=null){
 				for(Nodo hijo:n.GetHijos()){
-					hijo.getHijosBuy(hijo);
+					cantidad=hijo.getCantidad()*cantidad;
+					hijo.getHijosBuyCantidad(hijo,cantidad);
 				}
 			}
-			else{ //cuando se hoja
-				this.listaHijos.add(n);
+			else{ //cuando es hoja
+				ArrayList<Nodo> aux=new ArrayList<>();
+				Nodo hoja=new Nodo();
+				hoja=n;
+				hoja.setCantidad(cantidad);
+				this.listaHijos.add(hoja);
 			}
 		}
 }
