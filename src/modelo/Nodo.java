@@ -14,7 +14,7 @@ public class Nodo {
 	private Nodo padre;
 	private  ArrayList<Nodo> hijo;	
 	private Articulos art;
-	private Float cantidad;
+	private int cantidad;
 	private  ArrayList<Nodo> alternativo;
 	private String fecha_inicio;
 	
@@ -154,10 +154,10 @@ public class Nodo {
 			this.descripcion = descripcion;
 		}
 		
-		public Float getCantidad() {
+		public int getCantidad() {
 			return cantidad;
 		}
-		public void setCantidad(Float cant) {
+		public void setCantidad(int cant) {
 			this.cantidad = cant;
 		}
 		
@@ -222,13 +222,14 @@ public class Nodo {
 			return;
 		}
 		
-		public void getHijosBuyCantidad(Nodo n,float cantidad,ArrayList<Nodo> lista2){
-			//la primera vez viene con 1 que es el de los padres principales
-			
+		private void loadHijosBuyCantidad(Nodo n,int cantidad,ArrayList<Nodo> lista2){
+			//La primera vez viene con 1 que es el de los padres principales. 
+			//Para que me de cuanto necesito de buy y dsp lo multiploco por lo que tengo en la lista del padre 
+			System.out.println(n);
 			if(n.GetHijos()!=null){
 				for(Nodo hijo:n.GetHijos()){
 					cantidad=hijo.getCantidad()*cantidad;
-					hijo.getHijosBuyCantidad(hijo,cantidad,lista2);
+					loadHijosBuyCantidad(hijo,cantidad,lista2);
 					listaHijos=lista2;
 				}
 			}
@@ -240,22 +241,21 @@ public class Nodo {
 				//Creo un nodo igual que el de antes pero cambiado la cantidad
 				for(Nodo nodo:lista2){
 					if(nodo.getArt().getValor()==hoja.getArt().getValor()){
-						float cant=nodo.getCantidad();
+						int cant=nodo.getCantidad();
 						nodo.setCantidad(cant+cantidad);
 						lista2.remove(hoja);
 						yaEstaba=true;
-					}
-					
+					}	
 				}
 				if(yaEstaba==false){
 					lista2.add(hoja);
 					System.out.println("-"+hoja.getDescripcion());
 				}
-				
-				
 			}
 		}
-		public ArrayList<Nodo> getListaHijos() {
+		
+		public ArrayList<Nodo> getListaHijos(Nodo n,int cantidad,ArrayList<Nodo> lista2) {
+			loadHijosBuyCantidad( n,cantidad,lista2);
 			return listaHijos;
 		}
 }

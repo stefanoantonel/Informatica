@@ -15,7 +15,7 @@ public class Proveedor {
 		proveedores= pDao.obtenerProveedor();
 	}
 	
-	public ArrayList<ArrayList<Integer>> capacidadLote(Integer idArt)
+	public ArrayList<ArrayList<Integer>> loadcapacidadLote(Integer idArt)
 	{
 		
 		ArrayList<ArrayList<Integer>> provs = new ArrayList<>();
@@ -42,7 +42,42 @@ public class Proveedor {
 		
 	}
 	
-	public Integer leadTime (Integer art, Integer prov)
+	public Integer getCapacidad (Integer art, Integer prov)
+	{
+		Integer art_id;
+		Integer pro_id;
+		Integer lead=null;
+		for (ArrayList<Integer> p : proveedores)
+		{
+			art_id =p.get(0);
+			pro_id =p.get(1);
+			if(art_id==art && pro_id==prov)
+			{
+				lead= p.get(2);
+			}
+		}
+		
+		return lead;
+	}
+	public Integer getLote (Integer art, Integer prov)
+	{
+		Integer art_id;
+		Integer pro_id;
+		Integer lead=null;
+		for (ArrayList<Integer> p : proveedores)
+		{
+			art_id =p.get(0);
+			pro_id =p.get(1);
+			if(art_id==art && pro_id==prov)
+			{
+				lead= p.get(3);
+			}
+		}
+		
+		return lead;
+	}
+	
+	public Integer getLeadTime (Integer art, Integer prov)
 	{
 		Integer art_id;
 		Integer pro_id;

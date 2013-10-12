@@ -91,7 +91,7 @@ public class Arbol {
 							 
 						//	System.out.println(bom[k][3]);
 							 h.setDescripcion(bom[k][2]);
-							 h.setCantidad(Float.parseFloat(bom[k][3]));
+							 h.setCantidad(Integer.parseInt(bom[k][3]));
 							 h.setUm(bom[k][4]);
 							 h.setTipo(Integer.parseInt(bom[k][5]));
 							 h.setFecha_inicio(bom[k][6]);
