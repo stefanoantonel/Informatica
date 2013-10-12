@@ -13,7 +13,7 @@ public class Conexion {
 			try
 	        {
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-	            cn=DriverManager.getConnection("jdbc:odbc:Informatica");
+	            cn=DriverManager.getConnection("jdbc:odbc:Conecta_db");
 
 	        }
 			catch (Exception e){

@@ -16,6 +16,7 @@ public class MRP {
 	
 	private static Arbol arbol;
 	private static ArrayList<ArrayList<Integer>> tablaMrp=new ArrayList<>();
+	private static Stock s;
 	
 
 	public static void main(String[] args) {
@@ -38,6 +39,7 @@ public class MRP {
 //		m.setPadres(400, 2);
 //		ArrayList<Integer>listaFactor=m.getListaAdelantoFactor(m.getTablaMrp().get(0), 2, 100);
 //		System.out.println(listaFactor);
+		s = new Stock();
 		m.obtenerPadresPrincipales();
 		m.armarMRP();
 	}
@@ -272,9 +274,9 @@ public class MRP {
 		
 	
 	
-	private ArrayList<Integer> saturar(int lote, ArrayList<Integer> demanda,int capacidad){
+	private ArrayList<Integer> saturar(int lote, ArrayList<Integer> demanda,int capacidad, Integer st){
 //		 es con algo parecedio al factor porque si le paso capacidad puede que no me venda lote =capacidad.
-		float stock=0;
+		Integer stock=st;
 		
 //		hay que llamr a stock flor
 // 		si el stock es <0 me voy a retrasar seguro. 
@@ -392,7 +394,8 @@ public class MRP {
 				ArrayList<Integer> auxAbajo=distribucionAbajo(prov.get(1)); // cantidad del proveedor
 				int semAdelanto=getSemanasAdelanto(nodo.getArt().getValor(), prov.get(0));
 				ArrayList<Integer> auxDesplaz=getDesplazado(auxAbajo, semAdelanto);
-				ArrayList<Integer> auxSaturado=saturar(prov.get(2), auxDesplaz,prov.get(3));
+				Integer stock = s.getCantidadStock(nod.getArt().getValor());
+				ArrayList<Integer> auxSaturado=saturar(prov.get(2), auxDesplaz,prov.get(3),stock);
 				System.out.println(auxSaturado);
 			}
 			
