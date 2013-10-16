@@ -37,7 +37,7 @@ public class ArbolDAO {
 	        	 j++;
 		        bom[i][j] = (result.getObject("descH").toString());
 		         j++;
-	        	bom[i][j] = (result.getObject("cantidad").toString());
+	        	bom[i][j] = (String.valueOf(result.getInt("cantidad")));
 	        	 j++;
 		        bom[i][j] = (result.getObject("descC")).toString();
 		        j++;

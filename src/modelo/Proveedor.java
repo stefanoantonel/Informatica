@@ -95,9 +95,10 @@ public class Proveedor {
 		return lead;
 	}
 	
-
 	public String getDescripcion(int provId){
 		String nombre=this.pDao.getDescripcion(provId);
 		return nombre;
 	}
+
+
 }

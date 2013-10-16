@@ -16,4 +16,14 @@ public class Stock {
 	{
 		return sDao.getCantidadStock(id_art);
 	}
+	
+	public void guardarStock (Integer id_art, Integer cantidad)
+	{
+		sDao.guardarStock(id_art, cantidad);
+	}
+	
+	public void restarStock (Integer id_art, Integer cantidad)
+	{
+		sDao.restarStock(id_art, cantidad);
+	}
 }

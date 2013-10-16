@@ -262,15 +262,16 @@ public class MRP {
 		//Mueve
 		ArrayList<Integer> dreal=new ArrayList<>();
 		int indiceP=0;
+		Integer cant;
 		//Pongo una lista con el tamaño del padre
 		for(int j=0;j<padre.size();j++){
 			dreal.add(0);
 		}
 		for(int j=0;j<padre.size();j++){
-			if(padre.get(j)!=0){
+			cant=padre.get(j);
+			if(cant!=0){
 				indiceP=j;
-				
-				dreal.set(indiceP-semanasAdenato, padre.get(j));
+				dreal.set(indiceP-semanasAdenato,cant);
 			}	
 		}
 		return dreal;
@@ -278,10 +279,9 @@ public class MRP {
 		
 	
 	
-	private ArrayList<Integer> saturar(int lote, ArrayList<Integer> demanda,int capacidad, Integer st){
+	private ArrayList<Integer> saturar(int lote, ArrayList<Integer> demanda,int capacidad,Integer idArt){
 //		 es con algo parecedio al factor porque si le paso capacidad puede que no me venda lote =capacidad.
-		Integer stock=st;
-		
+		Integer stock=0;
 //		hay que llamr a stock flor
 // 		si el stock es <0 me voy a retrasar seguro. 
  
@@ -291,7 +291,7 @@ public class MRP {
 				if(stock<d){
 //					nuevoLote=llamar a funcion getcantidadLotes a perdir--> devuelve cant * lote 	
 					int nuevaCantidad=getNuevoCantidadLotePedir(lote, capacidad, d);
-					System.out.println("Nueva cantida:"+ nuevaCantidad);
+					//System.out.println("Nueva cantida:"+ nuevaCantidad);
 					saturado.add(nuevaCantidad); 
 					stock+=nuevaCantidad-d;
 				}
@@ -307,49 +307,11 @@ public class MRP {
 		if(stock>0){
 //			llamar funcion sumarStock(stock)
 			System.out.println("stock restante: "+stock);
+			s.guardarStock(idArt,stock);
 		}
 		return saturado;
 	}
 	
-	
-	/*
-	public void funcionMain(){
-		int demandaReal=30; //desde la interfaz
-		
-		Nodo padre=arbol.getNodoByDescripcion("Silla"); //Cargo con interfaz
-		ArrayList<Integer> listaPadre=setPadres(demandaReal, padre.getArt().getValor());
-		for(Nodo n:padre.GetHijos()){
-			recursiva(listaPadre, n, demandaReal*n.getCantidad());
-		}
-		
-	}
-	
-	private void recursiva(ArrayList<Integer> listaP,Nodo h,int demandaReal){
-		if(h.getArt().getTipo==make){
-//			MrpDao dao=new MrpDao();
-//			ArrayList<Integer> lista1=getDemandaReal(h.getCantidad(), listaP, 1);
-//			ArrayList<Integer> lista2=saturar(m.getcapacidad(h.getArt().getValor()), lista1 );
-			for(Nodo n:h.GetHijos()){
-				recursiva(listaP, n, demandaReal*n.getCantidad());
-			}
-		}
-		else{
-			ArrayList<ArrayList<Integer>> proveedores=getSetentaTreinta(demandaReal, h.getArt().getValor());
-			//Devuelve id,cantidad a pedir y lote
-			
-			for(ArrayList<Integer> p:proveedores){
-				int semanasAdelanto=getSemanasAdelanto(h.getArt().getValor(), p.get(0));
-				double a=h.getCantidad();
-				int cantidadHijo=Casteo.getRedondeo(a);
-				ArrayList<Integer> lista1=getDemandaReal(cantidadHijo,listaP,semanasAdelanto);
-				//int cantidadHijo, ArrayList<Integer> padre, int semanasAdenato){
-				ArrayList<Integer> lista2=saturar(p.get(1),lista1);
-//				recursiva(lista2, n, demandaReal*n.getCantidad());
-			}
-		}
-	}
-	
-	*/
 	public int getSemanasAdelanto(int articuloId,int proveedorId){
 		Proveedor p=new Proveedor();
 		int lote, capacidad, leadTime;
@@ -386,42 +348,138 @@ public class MRP {
 	}
 	
 	
+	public ArrayList<Integer> distribucionYControlStock(int cantidad, int idArt){
+		//va a distribuir de mi padre principal cada uno de los buy por proveedor
+		//la cantidad me la devuelve el 70-30 por cada una.
+		Integer stock=s.getCantidadStock(idArt);
+		Integer stockOriginal= stock;
+		Integer cant;
+		System.out.println("ya habia en stock: "+stock);
+
+		ArrayList<Integer> listaPadre=tablaMrp.get(0);
+		int count=0;
+		for(Integer i:listaPadre){
+			if(i!=0){
+				count++;
+			}
+		}
+		//es el count +4 a partir de la semana congelada.
+		int cantidadPorSemana=cantidad/count;
+		
+		ArrayList<Integer> lista1=new ArrayList<>();
+		for(Integer i:listaPadre){
+			if(i!=0){
+				if(stock!=0)
+				{
+					if(stock>cantidadPorSemana)
+					{
+						lista1.add(0);
+						stock-=cantidadPorSemana;
+					}
+					else
+					{
+						lista1.add(cantidadPorSemana-stock);
+						stock=0;
+					}
+				}
+				else
+					lista1.add(cantidadPorSemana);
+			}
+			else{
+				lista1.add(0);
+			}
+		}
+		
+		if(stockOriginal>stock)
+			{
+			int stockUse=stockOriginal-stock;
+			s.restarStock(idArt,stockUse);
+			//System.out.println("stock use: "+stockUse);
+			}
+		
+		return lista1;
+	}
+	
+	private ArrayList<ArrayList<Integer>> listaSetentaTreinta(ArrayList<Integer> demandaReal,Integer art_id)
+	{
+		ArrayList<ArrayList<Integer>> distProv= new ArrayList<>();
+		//ArrayList<Integer> treinta= new ArrayList<>();
+		ArrayList<ArrayList<Integer>> valoresProveedor=null;
+		ArrayList<Integer> p1= new ArrayList<>();
+		ArrayList<Integer> p2= new ArrayList<>();
+		Boolean tieneP2=false;
+		for (Integer dem: demandaReal)
+		{
+			if(dem!=0)
+			{
+				valoresProveedor=getSetentaTreinta(dem, art_id);
+				p1.add(valoresProveedor.get(0).get(1)); //agrego la cantidad del primer proveedor
+				if(valoresProveedor.get(1)!=null)
+				{	p2.add(valoresProveedor.get(1).get(1)); //si tiene 2 prov agrego la cantidad del 2 proveedor
+					tieneP2=true;
+				}
+			}
+			else
+				{p1.add(0);
+				p2.add(0);
+				}
+			
+		}
+		
+		p1.add(valoresProveedor.get(0).get(0)); //agrego el id del proveedor
+		distProv.add(p1);
+		
+		if(tieneP2=true)
+		{	p2.add(valoresProveedor.get(1).get(0)); //agrego el id del proveedor
+			distProv.add(p2);
+		}
+		return distProv;
+	}
+	
+	
 	public void armarMRP(){
 		//los recible de la UI. nodo_id y cantidad
 //		hay que cambiar por getNodoById();;!!!!
 		Nodo nod=arbol.getNodoByDescripcion("Mesa redonda 3 patas"); 
-		int demanda=400;
-		int articuloId=2;
+
+		setPadres(300, 2);
+		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, 300, new ArrayList<Nodo>());
+		Proveedor proveedor = new Proveedor();
 		
-		setPadres(demanda, articuloId);
-		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, demanda, new ArrayList<Nodo>());
 		for(Nodo nodo:listaBuy){
-			ArrayList<ArrayList<Integer>> setentaTreinta=getSetentaTreinta(nodo.getCantidad(), nodo.getArt().getValor());
-			for(ArrayList<Integer> prov:setentaTreinta){
-				//prov tiene id, cantidadPedir, lote, capacidad
-				ArrayList<Integer> auxAbajo=distribucionAbajo(prov.get(1)); // cantidad del proveedor
-				int semAdelanto=getSemanasAdelanto(nodo.getArt().getValor(), prov.get(0)); //proveedor_id
-				ArrayList<Integer> auxDesplaz=getDesplazado(auxAbajo, semAdelanto);
-				Integer stock = s.getCantidadStock(nod.getArt().getValor());
-				ArrayList<Integer> auxSaturado=saturar(prov.get(2), auxDesplaz,prov.get(3),stock);
-				//prov get(2) es lote, prov get(3) es la capacidad
-				auxSaturado.add(nodo.getArt().getValor()); //El id del articulo
-				auxSaturado.add(prov.get(0)); //El id del proveedor
-				getTablaMrp().add(auxSaturado);
-				System.out.println(auxSaturado);
-				
-			}
+			int artID = nodo.getArt().getValor();
+		//	System.out.println("Articulo: "+artID);
+			ArrayList<Integer> demandaReal=distribucionYControlStock(nodo.getCantidad(),nodo.getArt().getValor()); // cantidad del proveedor
+			System.out.println("demandaReal: "+demandaReal);
+			ArrayList<ArrayList<Integer>> setentaTreinta=listaSetentaTreinta(demandaReal,nodo.getArt().getValor());
+			//ArrayList<ArrayList<Integer>> setentaTreinta=getSetentaTreinta(nodo.getCantidad(), nodo.getArt().getValor()); //0:prov, 1:cant, 2:lote, 3:capacidad
 			
-		}
-		for(ArrayList<Integer> filas: getTablaMrp()){
-			for(Integer columna:filas){
-				System.out.print(columna);
-				System.out.print("\t");
+			//System.out.println("70-30: "+ setentaTreinta);
+			for(ArrayList<Integer> prov:setentaTreinta){
+
+				System.out.println("70-30: "+ prov);
+				//ArrayList<Integer> auxAbajo=distribucionAbajo(prov.get(1)); // cantidad del proveedor
+				int provID = prov.remove((prov.size())-1);
+				//System.out.println(provID);
+				int semAdelanto=getSemanasAdelanto(nodo.getArt().getValor(), provID);
+				//int semAdelanto=2;
+				ArrayList<Integer> auxDesplaz=getDesplazado(prov, semAdelanto);
+				System.out.println("auxDesplaz: "+auxDesplaz);
+				int lote= proveedor.getLote(artID, provID);
+				int capacidad= proveedor.getCapacidad(artID, provID);
+				ArrayList<Integer> auxSaturado=saturar(lote, auxDesplaz,capacidad,artID);
+				auxSaturado.add(artID);
+				auxSaturado.add(provID);
+				//System.out.println(auxSaturado);
+				tablaMrp.add(auxSaturado);
 			}
 			System.out.println();
 			
 		}
-		MrpPruebaTabla prueba=new MrpPruebaTabla(tablaMrp,arbol,articuloId);
+
+
+		MrpPruebaTabla mrpTabla = new MrpPruebaTabla(tablaMrp, arbol, nod.getArt().getValor());
+
 		
 	}
 	
