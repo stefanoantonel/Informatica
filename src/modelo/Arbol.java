@@ -199,6 +199,24 @@ public class Arbol {
 		return listaArt;
 	}
 	
+	/*
+	public Nodo getPrimerNodoByArticuloId (int articuloId)
+	{
+		Nodo a= null;
+		aDesc=null;
+		for(Nodo padre: padresPrincipales)
+		{
+			a=IterarDesc(padre,desc);
+			if(aDesc!=null)
+			  {System.out.println(aDesc.getDescripcion()+"Nodo:"+ aDesc.getId());
+			  	return aDesc;
+			  }
+		}
+			
+		return a;
+	}
+	*/
+	
 	private Nodo IterarArt(Nodo nodo, Integer idArt)
 	{
 		if (nodo.GetHijos()!= null)

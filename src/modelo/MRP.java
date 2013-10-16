@@ -6,10 +6,12 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import persistencia.MrpDao;
 import txt.Lectura;
+import ui.MrpPruebaTabla;
 import utilidades.Casteo;
 
 public class MRP {
@@ -204,6 +206,8 @@ public class MRP {
 			for(int j=semanasI;j>0;j--){
 				lineaPadre.add(capacidad);
 			}
+//			lineaPadre.add(0);
+//			lineaPadre.add(0);
 			tablaMrp.add(lineaPadre);
 			System.out.println(lineaPadre);
 		}
@@ -386,20 +390,39 @@ public class MRP {
 		//los recible de la UI. nodo_id y cantidad
 //		hay que cambiar por getNodoById();;!!!!
 		Nodo nod=arbol.getNodoByDescripcion("Mesa redonda 3 patas"); 
-		setPadres(300, 2);
-		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, 300, new ArrayList<Nodo>());
+		int demanda=400;
+		int articuloId=2;
+		
+		setPadres(demanda, articuloId);
+		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, demanda, new ArrayList<Nodo>());
 		for(Nodo nodo:listaBuy){
 			ArrayList<ArrayList<Integer>> setentaTreinta=getSetentaTreinta(nodo.getCantidad(), nodo.getArt().getValor());
 			for(ArrayList<Integer> prov:setentaTreinta){
+				//prov tiene id, cantidadPedir, lote, capacidad
 				ArrayList<Integer> auxAbajo=distribucionAbajo(prov.get(1)); // cantidad del proveedor
-				int semAdelanto=getSemanasAdelanto(nodo.getArt().getValor(), prov.get(0));
+				int semAdelanto=getSemanasAdelanto(nodo.getArt().getValor(), prov.get(0)); //proveedor_id
 				ArrayList<Integer> auxDesplaz=getDesplazado(auxAbajo, semAdelanto);
 				Integer stock = s.getCantidadStock(nod.getArt().getValor());
 				ArrayList<Integer> auxSaturado=saturar(prov.get(2), auxDesplaz,prov.get(3),stock);
+				//prov get(2) es lote, prov get(3) es la capacidad
+				auxSaturado.add(nodo.getArt().getValor()); //El id del articulo
+				auxSaturado.add(prov.get(0)); //El id del proveedor
+				getTablaMrp().add(auxSaturado);
 				System.out.println(auxSaturado);
+				
 			}
 			
 		}
+		for(ArrayList<Integer> filas: getTablaMrp()){
+			for(Integer columna:filas){
+				System.out.print(columna);
+				System.out.print("\t");
+			}
+			System.out.println();
+			
+		}
+		MrpPruebaTabla prueba=new MrpPruebaTabla(tablaMrp,arbol,articuloId);
+		
 	}
 	
 	public int getNuevoCantidadLotePedir (int lote, int capacidad, int demanda){
