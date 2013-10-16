@@ -12,6 +12,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import persistencia.MrpDao;
 import modelo.Arbol;
 import modelo.Nodo;
 import modelo.Proveedor;
@@ -25,7 +26,7 @@ public class MrpPruebaTabla extends JFrame {
 		this.pack();
 		this.setTitle("MRP - "+art.get(0).getDescripcion());
 		this.setLocationRelativeTo(null);
-		
+		insertarEnTablaMRP(mrp2);
 		this.setVisible(true);
 	}
 
@@ -92,4 +93,31 @@ public class MrpPruebaTabla extends JFrame {
 //		modelo.addColumn("Postre", newColumn);
 		
 	}
+	
+	public void insertarEnTablaMRP(ArrayList<ArrayList<Integer>> mrp2){
+		MrpDao dao=new MrpDao();
+		int proveedorId;
+		int articuloId;
+		int cantidad=0;
+		int fecha=0;
+		int indiceP=mrp2.get(1).size()-1;
+		int indiceA=mrp2.get(1).size()-2;
+		for(int fila=1;fila<mrp2.size();fila++){
+			proveedorId=mrp2.get(fila).get(indiceP);
+			articuloId=mrp2.get(fila).get(indiceA);
+			for(int colum=0;colum<mrp2.get(1).size()-2;colum++){
+				if(mrp2.get(fila).get(colum)!=0){
+					fecha=colum*7;
+					cantidad=mrp2.get(fila).get(colum);
+					dao.insertarEnTablaMRP(proveedorId, articuloId, cantidad, fecha);
+				}
+				
+			}
+		}
+		
+	}
+	
+	
+	
+	
 }

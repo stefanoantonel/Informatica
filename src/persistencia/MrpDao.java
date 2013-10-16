@@ -67,4 +67,24 @@ public class MrpDao {
 		}
 		return -1;
 	}
+	
+	public void insertarEnTablaMRP(int proveedorID, int articuloID, int cantidad , int fecha){
+		Connection con;
+		ResultSet rs = null;
+		try {
+			Conexion cn1 = new Conexion();
+			con = cn1.getConexion();
+			StringBuilder sb = new StringBuilder();
+			sb.append("INSERT INTO MRP (id_articulo,id_proveedor,cantidad,fecha) ");
+			sb.append(" VALUES  ("+articuloID+", "+proveedorID+" , "+cantidad +" , GETDATE()+"+fecha+" )");
+			System.out.println(sb.toString());
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			stm.execute();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("errorinserttar en MRP");
+		}
+	}
 }
