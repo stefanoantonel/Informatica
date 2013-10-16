@@ -24,7 +24,7 @@ public class Proveedor {
 		for (ArrayList<Integer> p : proveedores)
 		{
 			art_id =p.get(0);
-			System.out.println("art en prov: "+art_id);
+//			System.out.println("art en prov: "+art_id);
 			if(art_id==idArt)
 			{
 				aux= new ArrayList<>();
@@ -95,5 +95,10 @@ public class Proveedor {
 		return lead;
 	}
 	
+	public String getDescripcion(int provId){
+		String nombre=this.pDao.getDescripcion(provId);
+		return nombre;
+	}
+
 
 }

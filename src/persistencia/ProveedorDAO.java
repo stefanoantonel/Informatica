@@ -36,7 +36,7 @@ public class ProveedorDAO {
 			//
 		    ArrayList<Integer> p=new ArrayList<>();
 			Integer art =rs.getInt("id_art");
-			System.out.println("art Dao: "+art);
+//			System.out.println("art Dao: "+art);
 		    p.add(art);
 		    Integer prov = rs.getInt("id_prov");
 		    p.add(prov);
@@ -60,5 +60,30 @@ public class ProveedorDAO {
 		System.out.println("error en obtenerProveedor");
 	}
 	return proveedores;
+	}
+	
+	
+	public String getDescripcion(int proveedorId){
+		String nombre="";
+		try {
+			StringBuilder sb = new StringBuilder();
+			// si alguno tiene 1 en principale se es el principal, sino se elige por precio mas barato
+			sb.append("SELECT nombre");
+			sb.append(" FROM Externos");
+			sb.append(" WHERE id="+proveedorId+"");
+			PreparedStatement stm;
+			stm = con.prepareStatement(sb.toString());
+			rs = stm.executeQuery();
+			
+			if(rs.next()){
+				nombre=rs.getString("nombre");	
+			}
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error en buscarDescripcion proveedor");
+		}
+		return nombre;
 	}
 }
