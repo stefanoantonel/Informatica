@@ -9,6 +9,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -18,6 +19,9 @@ import modelo.MRP;
 import modelo.Nodo;
 import java.awt.Font;
 import javax.swing.JSlider;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MrpUI extends JFrame {
 
@@ -25,6 +29,7 @@ public class MrpUI extends JFrame {
 	private JTextField txtCantidad;
 	private static MRP mrp;
 	private JComboBox cmbArticulos;
+	private String artSeleccionado;
 	/**
 	 * Launch the application.
 	 */
@@ -47,7 +52,7 @@ public class MrpUI extends JFrame {
 	 */
 	public MrpUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 649, 380);
+		setBounds(100, 100, 615, 266);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,7 +64,7 @@ public class MrpUI extends JFrame {
 		contentPane.add(lblPlanMaestroDe);
 		
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(261, 71, 75, 20);
+		txtCantidad.setBounds(261, 71, 175, 20);
 		contentPane.add(txtCantidad);
 		txtCantidad.setColumns(10);
 		
@@ -74,19 +79,24 @@ public class MrpUI extends JFrame {
 		cmbArticulos = new JComboBox();
 		cmbArticulos.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
+				artSeleccionado= arg0.getItem().toString();
+				System.out.println(artSeleccionado);
 			}
 		});
 		cmbArticulos.setBounds(261, 129, 175, 28);
 		contentPane.add(cmbArticulos);
 		
-		JLabel lblSemena = new JLabel("Semena");
-		lblSemena.setBounds(164, 187, 61, 14);
-		contentPane.add(lblSemena);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "1", "2", "3", "4", "5"}));
-		comboBox.setBounds(261, 184, 75, 20);
-		contentPane.add(comboBox);
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(artSeleccionado!=null && txtCantidad.getText()!=null)
+					mrp.armarMRP(artSeleccionado,Integer.parseInt(txtCantidad.getText()));
+				else
+					JOptionPane.showConfirmDialog(null, "Debe completar los datos");
+			}
+		});
+		btnAceptar.setBounds(461, 181, 89, 23);
+		contentPane.add(btnAceptar);
 		
 		InicializaArticulo();
 	}
@@ -94,12 +104,12 @@ public class MrpUI extends JFrame {
 	public void InicializaArticulo ()
 	{
 		DefaultComboBoxModel<String> modelo=new DefaultComboBoxModel<>();
-		ArrayList<Nodo> padresPrincipales;
+		ArrayList<String> padresPrincipales;
 		padresPrincipales = mrp.obtenerPadresPrincipales();
 
 		modelo.addElement("");		
-		for(Nodo art:padresPrincipales){
-			modelo.addElement(art.getDescripcion());
+		for(String art:padresPrincipales){
+			modelo.addElement(art);
 		}
 		
 		cmbArticulos.setModel(modelo);

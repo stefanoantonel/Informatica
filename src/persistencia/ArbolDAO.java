@@ -115,6 +115,30 @@ public class ArbolDAO {
 		return padresPrincipales;
 	}
 	
+	
+	public  ArrayList<String> obtenerPadresDescripcion()
+	{
+		ArrayList<String> padres= new ArrayList<>();
+		try {
+			StringBuilder sb=new StringBuilder();
+			sb.append("select distinct d.descripcion_str des");
+			sb.append(" from BOM b");
+			sb.append(" inner join Articulo a on a.id=b.padre");
+			sb.append(" inner join Descripcion d on d.id=a.descripcion_id");
+			sb.append(" where b.padre not in (select hijo from BOM b)");
+			
+			ResultSet padresP = cn.prepareStatement(sb.toString()).executeQuery();
+			while (padresP.next()) {  //controlar el idNodos
+		        padres.add(padresP.getString("des"));					
+		        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Problema en query padresP");
+		}
+		return padres;
+	}
+	
+	
 	public String[][] getBomMatriz()
 	{
 		return bom;

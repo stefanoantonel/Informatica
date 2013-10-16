@@ -71,13 +71,13 @@ public class MrpPruebaTabla extends JFrame {
 		
 		int columnas=tablaMRP.get(0).size();
 		int filas=tablaMRP.size();
-		System.out.println("["+filas+"]["+columnas+"]");
+		//System.out.println("["+filas+"]["+columnas+"]");
 		Object[][] data = new Object[filas][columnas];
 		//Lo paso a [][]
 		for (int i = 0; i < data.length; i++) { 
 	           for (int j = 0; j < data[i].length; j++) {
 	        	   data[i][j]=tablaMRP.get(i).get(j);
-	        	   System.out.println(data[i][j]);
+	        	   //System.out.println(data[i][j]);
 	           }
 	           
 		}

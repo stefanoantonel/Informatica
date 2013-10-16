@@ -19,36 +19,21 @@ public class MRP {
 	private static ArrayList<ArrayList<Integer>> tablaMrp=new ArrayList<>();
 	private static Stock s;
 	
+	public MRP()
+	{
+		s = new Stock();
+		obtenerPadresPrincipales();
+	}
 
 	public static void main(String[] args) {
 		MRP m=new MRP();
-		/*
-		ArrayList<Nodo> padres;
-		padres=m.obtenerPadresPrincipales();
-		ArrayList<Nodo> buy=new ArrayList<>();
-		padres.get(6).getHijosBuyCantidad(padres.get(6),1,new ArrayList<Nodo>());
-		buy=padres.get(6).getListaHijos();
-		for(Nodo n:buy){
-			System.out.println(n.getDescripcion()+"Cant: "+n.getCantidad());
-		}
-		
-		ArrayList<ArrayList<Integer>> provCapLote=m.getSetentaTreinta(800, 2);
-		for(ArrayList<Integer> lista:provCapLote){
-			System.out.println(lista);
-		}
-		*/
-//		m.setPadres(400, 2);
-//		ArrayList<Integer>listaFactor=m.getListaAdelantoFactor(m.getTablaMrp().get(0), 2, 100);
-//		System.out.println(listaFactor);
-		s = new Stock();
-		m.obtenerPadresPrincipales();
-		m.armarMRP();
+
 	}
 	
-	public ArrayList<Nodo> obtenerPadresPrincipales ()
+	public ArrayList<String> obtenerPadresPrincipales ()
 	{
 		arbol = new Arbol();
-		return arbol.getPadresPrincipales();
+		return arbol.getpadresDescripcion();
 	}
 	
 	public ArrayList<ArrayList<Integer>> getSetentaTreinta(int cantidadTotal, int articuloID){
@@ -60,9 +45,14 @@ public class MRP {
 		Proveedor prove=new Proveedor();
 		ArrayList<ArrayList<Integer>> capLoteProv=prove.loadcapacidadLote(articuloID);
 		//Obtengo de lo que me llego de la lista que tiene ID-prov,Capacidad,Lote
+		if(capLoteProv.isEmpty())
+		{
+			JOptionPane.showMessageDialog(null, "Este articulo no tiene proveedores cargados");
+			return null;
+		}
 		capacidadP1=capLoteProv.get(0).get(1); 
 		capacidadP2=capLoteProv.get(1).get(1);
-	
+		
 		
 		int proveedor1Id=capLoteProv.get(0).get(0);
 		int proveedor2Id=capLoteProv.get(1).get(0);
@@ -349,6 +339,7 @@ public class MRP {
 		//va a distribuir de mi padre principal cada uno de los buy por proveedor
 		//la cantidad me la devuelve el 70-30 por cada una.
 		Integer stock=s.getCantidadStock(idArt);
+		
 		Integer stockOriginal= stock;
 		Integer cant;
 		System.out.println("ya habia en stock: "+stock);
@@ -434,11 +425,12 @@ public class MRP {
 	}
 	
 	
-	public void armarMRP(){
+	public void armarMRP(String desc, Integer cant){
+		//s = new Stock();
 		//los recible de la UI. nodo_id y cantidad
 //		hay que cambiar por getNodoById();;!!!!
-		Nodo nod=arbol.getNodoByDescripcion("Mesa redonda 3 patas"); 
-		setPadres(300, 2);
+		Nodo nod=arbol.getNodoByDescripcion(desc); 
+		setPadres(cant, nod.getArt().getValor());
 		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, 300, new ArrayList<Nodo>());
 		Proveedor proveedor = new Proveedor();
 		
@@ -452,9 +444,10 @@ public class MRP {
 			
 			//System.out.println("70-30: "+ setentaTreinta);
 			for(ArrayList<Integer> prov:setentaTreinta){
-				System.out.println("70-30: "+ prov);
+				
 				//ArrayList<Integer> auxAbajo=distribucionAbajo(prov.get(1)); // cantidad del proveedor
 				int provID = prov.remove((prov.size())-1);
+				System.out.println("70-30: "+ prov);
 				//System.out.println(provID);
 				int semAdelanto=getSemanasAdelanto(nodo.getArt().getValor(), provID);
 				//int semAdelanto=2;

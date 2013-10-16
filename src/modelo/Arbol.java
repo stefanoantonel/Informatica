@@ -19,6 +19,7 @@ public class Arbol {
 	
 	String [][] bom;
 	ArrayList<Nodo> padresPrincipales = new ArrayList<>();
+	ArrayList<String> padresDescripcion = new ArrayList<>();
 	ArrayList<Nodo> listaArt = new ArrayList<>();
 	Nodo NodobyID = new Nodo();
 	Nodo buscaNodo = new Nodo();
@@ -37,7 +38,7 @@ public class Arbol {
 		arbolDAO = new ArbolDAO();
 		bom=arbolDAO.getBomMatriz();
 		padresPrincipales = arbolDAO.obtenerPadresPrincipales();
-		
+		padresDescripcion = arbolDAO.obtenerPadresDescripcion();
 //		BOM
 //	    0padre
 //	    1hijo
@@ -52,6 +53,10 @@ public class Arbol {
 		//ArrayList<Nodo> m=getNodoByArticulo(5);
 	}
 	
+	public ArrayList<String> getpadresDescripcion()
+	{
+		return padresDescripcion;
+	}
 	
 	
 	private void InicializarArbol(){		
