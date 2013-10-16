@@ -62,7 +62,7 @@ public class ProveedorDAO {
 	return proveedores;
 	}
 	
-	
+
 	public String getDescripcion(int proveedorId){
 		String nombre="";
 		try {

@@ -1,15 +1,10 @@
 package modelo;
 
-import java.io.ObjectInputStream.GetField;
-import java.lang.ProcessBuilder.Redirect;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import persistencia.MrpDao;
-import txt.Lectura;
 import ui.MrpPruebaTabla;
 import utilidades.Casteo;
 
@@ -195,6 +190,8 @@ public class MRP {
 			for(int j=semanasI;j>0;j--){
 				lineaPadre.add(capacidad);
 			}
+//			lineaPadre.add(0);
+//			lineaPadre.add(0);
 			tablaMrp.add(lineaPadre);
 			System.out.println(lineaPadre);
 		}
@@ -429,8 +426,10 @@ public class MRP {
 		//s = new Stock();
 		//los recible de la UI. nodo_id y cantidad
 //		hay que cambiar por getNodoById();;!!!!
+
 		Nodo nod=arbol.getNodoByDescripcion(desc); 
 		setPadres(cant, nod.getArt().getValor());
+
 		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, 300, new ArrayList<Nodo>());
 		Proveedor proveedor = new Proveedor();
 		
@@ -444,7 +443,7 @@ public class MRP {
 			
 			//System.out.println("70-30: "+ setentaTreinta);
 			for(ArrayList<Integer> prov:setentaTreinta){
-				
+
 				//ArrayList<Integer> auxAbajo=distribucionAbajo(prov.get(1)); // cantidad del proveedor
 				int provID = prov.remove((prov.size())-1);
 				System.out.println("70-30: "+ prov);
@@ -461,9 +460,13 @@ public class MRP {
 				//System.out.println(auxSaturado);
 				tablaMrp.add(auxSaturado);
 			}
+			System.out.println();
 			
 		}
+
+
 		MrpPruebaTabla mrpTabla = new MrpPruebaTabla(tablaMrp, arbol, nod.getArt().getValor());
+
 		
 	}
 	
