@@ -68,7 +68,8 @@ public class MRP {
 					cantidadP22=capacidadP2*setenta; //el 70 del p2
 					
 					if(cantidadP22<cantidadFalta){ 
-						System.out.println("ERROR: No poveedores insuficientes");
+						System.out.println("ERROR: No poveedores insuficientes falta: "+ cantidadFalta);
+						JOptionPane.showMessageDialog(null, "ERROR: No poveedores insuficientes");
 						return null;
 					}
 					else{ //me alcanzo con los proveedores
@@ -275,7 +276,7 @@ public class MRP {
 			if(d!=0){
 				if(stock<d){
 //					nuevoLote=llamar a funcion getcantidadLotes a perdir--> devuelve cant * lote 	
-					int nuevaCantidad=getNuevoCantidadLotePedir(lote, capacidad, d);
+					int nuevaCantidad=getNuevoCantidadLotePedir(lote, capacidad, d-stock);
 					//System.out.println("Nueva cantida:"+ nuevaCantidad);
 					saturado.add(nuevaCantidad); 
 					stock+=nuevaCantidad-d;
@@ -399,8 +400,11 @@ public class MRP {
 			if(dem!=0)
 			{
 				valoresProveedor=getSetentaTreinta(dem, art_id);
+				if(valoresProveedor==null)
+					return null;
 				p1.add(valoresProveedor.get(0).get(1)); //agrego la cantidad del primer proveedor
-				if(valoresProveedor.get(1)!=null)
+				
+				if(valoresProveedor.size()>1)
 				{	p2.add(valoresProveedor.get(1).get(1)); //si tiene 2 prov agrego la cantidad del 2 proveedor
 					tieneP2=true;
 				}
@@ -415,7 +419,7 @@ public class MRP {
 		p1.add(valoresProveedor.get(0).get(0)); //agrego el id del proveedor
 		distProv.add(p1);
 		
-		if(tieneP2=true)
+		if(tieneP2==true)
 		{	p2.add(valoresProveedor.get(1).get(0)); //agrego el id del proveedor
 			distProv.add(p2);
 		}
@@ -431,17 +435,19 @@ public class MRP {
 		Nodo nod=arbol.getNodoByDescripcion(desc); 
 		setPadres(cant, nod.getArt().getValor());
 
-		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, 300, new ArrayList<Nodo>());
+		ArrayList<Nodo> listaBuy=nod.getListaHijos(nod, cant, new ArrayList<Nodo>()); //aca hay sysout
 		Proveedor proveedor = new Proveedor();
 		
 		for(Nodo nodo:listaBuy){
 			int artID = nodo.getArt().getValor();
 		//	System.out.println("Articulo: "+artID);
+			System.out.println("cantidad: "+nodo.getCantidad());
 			ArrayList<Integer> demandaReal=distribucionYControlStock(nodo.getCantidad(),nodo.getArt().getValor()); // cantidad del proveedor
 			System.out.println("demandaReal: "+demandaReal);
 			ArrayList<ArrayList<Integer>> setentaTreinta=listaSetentaTreinta(demandaReal,nodo.getArt().getValor());
 			//ArrayList<ArrayList<Integer>> setentaTreinta=getSetentaTreinta(nodo.getCantidad(), nodo.getArt().getValor()); //0:prov, 1:cant, 2:lote, 3:capacidad
-			
+			if(setentaTreinta==null)
+				return;
 			//System.out.println("70-30: "+ setentaTreinta);
 			for(ArrayList<Integer> prov:setentaTreinta){
 

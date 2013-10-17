@@ -222,21 +222,63 @@ public class Nodo {
 			return;
 		}
 		
-		private void loadHijosBuyCantidad(Nodo n,int cantidad,ArrayList<Nodo> lista2){
-			//La primera vez viene con 1 que es el de los padres principales. 
-			//Para que me de cuanto necesito de buy y dsp lo multiploco por lo que tengo en la lista del padre 
-			System.out.println(n);
+//		private void loadHijosBuyCantidad(Nodo n,int cantidadP,ArrayList<Nodo> lista2){
+//			//La primera vez viene con 1 que es el de los padres principales. 
+//			//Para que me de cuanto necesito de buy y dsp lo multiploco por lo que tengo en la lista del padre 
+//			System.out.println(n.getCantidad());
+//			int cantidadNodo=n.getCantidad();
+//			if(cantidadNodo<1){ cantidadNodo=1;}
+//			cantidad=cantidadNodo*cantidadP;
+//			if(n.GetHijos()!=null){
+//				for(Nodo hijo:n.GetHijos()){
+//					//int cantidadHijo=hijo.getCantidad();
+//					//cantidad=cantidadHijo*cantidad;
+//					System.out.println("id: "+hijo.getArt().getValor()+"cantidad: "+cantidad+" cantidadHijo: "+cantidadNodo);
+//					//if(hijo.GetHijos()!=null){
+//					loadHijosBuyCantidad(hijo,cantidad,lista2);
+//						//cantidad=cantidadHijo*cantidad;
+//						System.out.println("Cantidad dsp rec: "+cantidad);
+//						listaHijos=lista2;
+//						cantidad=cantidadP;
+//					
+//				}
+//			}
+//			else{ //cuando es hoja
+//				Nodo hoja=new Nodo();
+//				hoja=n;
+//				hoja.setCantidad(cantidad);
+//				boolean yaEstaba=false;
+//				//Creo un nodo igual que el de antes pero cambiado la cantidad
+//				for(Nodo nodo:lista2){
+//					if(nodo.getArt().getValor()==hoja.getArt().getValor()){
+//						int cant=nodo.getCantidad();
+//						nodo.setCantidad(cant+cantidad);
+//						lista2.remove(hoja);
+//						yaEstaba=true;
+//					}	
+//				}
+//				if(yaEstaba==false){
+//					lista2.add(hoja);
+//					System.out.println("-"+hoja.getDescripcion());
+//				}
+//			}
+//		}
+		
+		private void loadHijosBuyCantidad(Nodo n,int cantidadP,ArrayList<Nodo> lista2){
+			
 			if(n.GetHijos()!=null){
 				for(Nodo hijo:n.GetHijos()){
-					cantidad=hijo.getCantidad()*cantidad;
-					loadHijosBuyCantidad(hijo,cantidad,lista2);
+					if(hijo.getCantidad()<1){ hijo.setCantidad(1);}
+					System.out.println("cant recursiva:"+cantidadP*hijo.getCantidad());
+					loadHijosBuyCantidad(hijo, cantidadP*hijo.getCantidad(), lista2);
+					
 					listaHijos=lista2;
 				}
 			}
 			else{ //cuando es hoja
 				Nodo hoja=new Nodo();
 				hoja=n;
-				hoja.setCantidad(cantidad);
+				hoja.setCantidad(cantidadP);
 				boolean yaEstaba=false;
 				//Creo un nodo igual que el de antes pero cambiado la cantidad
 				for(Nodo nodo:lista2){
